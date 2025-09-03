@@ -1,0 +1,149 @@
+@import url('../../components/variables.css');
+
+:root {
+  --light-green: #b5d6a7;
+  --dark-green: #5a8a4a;
+  --accent-blue: #4a90e2;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light-gray);
+  overflow-x: hidden;
+}
+
+.main-content {
+  margin-left: 280px;
+  margin-top: 30px;
+  padding: 2rem;
+  transition: margin-left 0.3s ease-in-out;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.content-card {
+  border-radius: 15px;
+  padding: 2rem;
+}
+
+.page-title {
+  color: var(--dark-green);
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--dark-green);
+  margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  padding: 12px 15px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 0.2rem rgba(127, 176, 105, 0.25);
+}
+
+.btn-group-custom {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.btn-save {
+  background: var(--primary-green);
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+  background: var(--dark-green);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(127, 176, 105, 0.4);
+}
+
+.btn-reset {
+  background: #ffc107;
+  border: none;
+  color: #212529;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-reset:hover {
+  background: #ffb300;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+}
+
+.btn-cancel {
+  background: transparent;
+  border: 2px solid #6c757d;
+  color: #6c757d;
+  padding: 10px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background: #6c757d;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.form-row {
+  margin-bottom: 1.5rem;
+}
+
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 0 10px;
+    margin: 0;
+  }
+
+  .content-card {
+    padding: 1.5rem;
+  }
+
+  .btn-group-custom {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-group-custom button {
+    width: 100%;
+  }
+}
+
+.search-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-green);
+  font-size: 1.5rem;
+}
+
+.header-right {
+  position: relative;
+}

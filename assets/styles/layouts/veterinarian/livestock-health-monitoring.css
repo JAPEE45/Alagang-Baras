@@ -1,0 +1,204 @@
+@import url("../../components/variables.css");
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light-gray);
+  overflow-x: hidden;
+}
+
+.main-content {
+  margin-left: 280px;
+  padding: 2rem;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.content-area {
+  padding: 40px;
+}
+
+.header-section {
+  margin-bottom: 30px;
+}
+
+.header-title {
+  color: #2d5016;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.header-title:after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #2d5016, #4a7c59);
+  border-radius: 2px;
+}
+
+.form-section {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.form-control {
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  padding: 12px 15px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.form-control:focus {
+  border-color: #4a7c59;
+  box-shadow: 0 0 0 0.2rem rgba(74, 124, 89, 0.25);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #2d5016;
+  margin-bottom: 8px;
+}
+
+.table-container {
+  background: white;
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+}
+
+.table-responsive {
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.table {
+  margin: 0;
+}
+
+.table thead th {
+  background: var(--primary-green);
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 20px 15px;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 0.5px;
+}
+
+.table tbody td {
+  padding: 18px 15px;
+  border-color: #f8f9fa;
+  font-weight: 500;
+  vertical-align: middle;
+}
+
+
+.btn-add-record {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+}
+
+.btn-add-record:hover {
+  color: white;
+}
+
+.modal-content {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  background: linear-gradient(90deg, #2d5016, #4a7c59);
+  color: white;
+  border-radius: 20px 20px 0 0;
+  border: none;
+  padding: 25px 30px;
+}
+
+.modal-title {
+  font-weight: 700;
+}
+
+.btn-close {
+  filter: invert(1);
+}
+
+.modal-body {
+  padding: 30px;
+}
+
+.modal-footer {
+  padding: 20px 30px;
+  border: none;
+}
+
+
+.logo-placeholder {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  font-size: 24px;
+  color: #2d5016;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+
+  .content-area {
+    border-radius: 0 0 20px 20px;
+    padding: 20px;
+  }
+
+  .main-container {
+    margin: 10px;
+  }
+
+  .table-responsive {
+    font-size: 0.9em;
+  }
+}
+
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+.status-deworming {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-checkup {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.status-vaccination {
+  background: #d4edda;
+  color: #155724;
+}

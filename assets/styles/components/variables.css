@@ -1,0 +1,35 @@
+:root {
+  --primary-green: #115d33;
+  --dark-green: #094a25;
+  --light-gray: #f8f9fa;
+  --border-gray: #dee2e6;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-primary: #28a745;
+  --color-primary-alt: #20c997;
+  --color-primary-hover: #218838;
+  --color-primary-hover-alt: #1abc9c;
+  --color-secondary: #fd7e14;
+  --color-secondary-alt: #ffc107;
+  --color-tertiary: #6f42c1;
+  --color-dark: #2c3e50;
+  --color-muted: #6c757d;
+  --color-gray-light: #e9ecef;
+  --color-gray-dark: #495057;
+
+  --bg-overlay1: rgba(0, 0, 0, 0.5);
+  --bg-overlay2: rgba(0, 0, 0, 0.6);
+  --bg-light-blur: rgba(255, 255, 255, 0.95);
+  --bg-light-semi: rgba(255, 255, 255, 0.9);
+
+  --shadow-primary: 0 4px 15px rgba(40, 167, 69, 0.3);
+  --shadow-primary-hover: 0 8px 25px rgba(40, 167, 69, 0.5);
+  --shadow-secondary: 0 4px 15px rgba(253, 126, 20, 0.3);
+  --shadow-secondary-hover: 0 8px 25px rgba(253, 126, 20, 0.5);
+  --shadow-tertiary: 0 4px 15px var(--color-black);
+  --shadow-tertiary-hover: 0 8px 25px rgba(111, 66, 193, 0.5);
+  --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --shadow-text: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+}
