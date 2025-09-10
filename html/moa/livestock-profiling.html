@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alagang Baras - Livestock Management System</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../assets/styles/components/sidebar.css" />
+    <link
+      rel="stylesheet"
+      href="../../assets/styles/layouts/moa/livestock-profiling.css"
+    />
+  </head>
+  <body>
+    <div class="overlay" id="overlay"></div>
+
+    <button class="hamburger-btn" id="hamburgerBtn">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="sidebar" id="sidebar">
+      <div class="logo">
+        <h4>Alagang Baras</h4>
+        <p>Livestock Management System</p>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-item">
+          <a href="./dashboard.html" class="nav-link">
+            <i class="fas fa-tachometer-alt"></i>
+            Dashboard
+          </a>
+        </div>
+
+        <div class="nav-item has-submenu">
+          <a href="#" class="nav-link submenu-toggle">
+            <i class="fas fa-heartbeat"></i>
+            Health Monitoring
+            <i class="fas fa-chevron-down submenu-icon"></i>
+          </a>
+          <div class="submenu">
+            <a href="./new-health-record.html" class="submenu-link"
+              >New Health Record</a
+            >
+            <a href="./livestock-health-monitoring.html" class="submenu-link"
+              >Livestock Health Monitoring</a
+            >
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a href="./owner-registration.html" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Owner Registration
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="#" class="nav-link active">
+            <i class="fas fa-sign-out-alt"></i>
+            Livestock Profiling
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="./" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Reports
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="./" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            QR Code
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Log out
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Content Area -->
+      <main class="content">
+        <h2 class="page-title fade-in">
+          <i class="fas fa-clipboard-list me-3"></i>Update Livestock Profiling
+        </h2>
+
+        <form id="livestockForm" class="livestock-form fade-in">
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="animalId" class="form-label">Animal ID:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="animalId"
+                name="animalId"
+                placeholder="Enter Animal ID"
+              />
+            </div>
+
+            <div class="col-md-6 form-row">
+              <label for="species" class="form-label">Species:</label>
+              <select class="form-select" id="species" name="species">
+                <option value="">Select Species</option>
+                <option value="cattle">Cattle</option>
+                <option value="pig">Pig</option>
+                <option value="goat">Goat</option>
+                <option value="chicken">Chicken</option>
+                <option value="sheep">Sheep</option>
+                <option value="duck">Duck</option>
+                <option value="turkey">Turkey</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="breed" class="form-label">Breed:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="breed"
+                name="breed"
+                placeholder="Enter Breed"
+              />
+            </div>
+
+            <div class="col-md-6 form-row">
+              <label for="age" class="form-label">Age:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="age"
+                name="age"
+                placeholder="Enter Age"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="sex" class="form-label">Sex:</label>
+              <select class="form-select" id="sex" name="sex">
+                <option value="">Select Sex</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 form-row">
+              <label for="ownerId" class="form-label">Owner ID:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="ownerId"
+                name="ownerId"
+                placeholder="Enter Owner ID"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="location" class="form-label">Location:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="location"
+              name="location"
+              placeholder="Enter Location"
+            />
+          </div>
+
+          <div id="message-container" class="message-container"></div>
+          <div class="btn-container">
+            <button type="submit" class="btn btn-custom btn-save">
+              Save
+            </button>
+            <button type="reset" class="btn btn-custom btn-reset" id="resetBtn">
+              Reset
+            </button>
+            <button
+              type="button"
+              class="btn btn-custom btn-cancel"
+              onclick="cancelForm()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/scripts/moa-livestock-profiling.js"></script>
+    <script src="../../assets/scripts/sidebar.js"></script>
+  </body>
+</html>
