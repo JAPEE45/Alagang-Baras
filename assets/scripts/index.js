@@ -12,6 +12,8 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
 
   if (username === "vet" && password === "vet") {
     window.location.href = "./veterinarian/dashboard.html";
+  } else if (username === "moa" && password === "moa") {
+    window.location.href = "./moa/dashboard.html";
   } else {
     alert("Invalid username or password.");
   }

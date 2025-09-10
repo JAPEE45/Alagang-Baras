@@ -1,0 +1,207 @@
+@import url("../../components/variables.css");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--light-gray);
+}
+
+.page-title {
+  color: var(--primary-green);
+  margin-bottom: 30px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: var(--shadow-text);
+}
+
+.main-content {
+  margin-left: 280px;
+  padding: 2rem;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--color-white);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.filters {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--border-gray);
+} 
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filter-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-dark);
+}
+
+select {
+  padding: 8px 12px;
+  border: 2px solid var(--border-gray);
+  border-radius: 4px;
+  font-size: 14px;
+  background: var(--color-white);
+  color: var(--color-dark);
+  min-width: 180px;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-white);
+}
+
+th {
+  background-color: var(--color-gray-light);
+  padding: 12px 15px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-dark);
+  border: 1px solid var(--border-gray);
+  font-size: 14px;
+}
+
+td {
+  padding: 12px 15px;
+  text-align: center;
+  border: 1px solid var(--border-gray);
+  color: var(--color-dark);
+  font-size: 14px;
+}
+
+td img {
+  width: 50px;
+}
+
+td .qr-code {
+  display: flex;
+  justify-content: center;
+}
+
+tbody tr:hover {
+  background-color: var(--light-gray);
+}
+
+.action-btn.download {
+  border: none;
+  background: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-btn.print {
+  border: none;
+  background: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background: var(--color-white);
+  border-top: 1px solid var(--border-gray);
+}
+
+.export-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.export-btn.pdf {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+}
+
+.export-btn.pdf:hover {
+  background-color: #e96500;
+  box-shadow: var(--shadow-secondary-hover);
+  transform: translateY(-2px);
+}
+
+.export-btn.excel {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.export-btn.excel:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-primary-hover);
+  transform: translateY(-2px);
+}
+
+.export-btn.print {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.export-btn.print:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-primary-hover);
+  transform: translateY(-2px);
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+@media print {
+  .filters,
+  .export-buttons {
+    display: none;
+  }
+
+  .container {
+    box-shadow: none;
+    border: none;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+  
+}

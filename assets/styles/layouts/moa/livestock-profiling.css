@@ -12,7 +12,7 @@ body {
 .main-container {
   display: flex;
   min-height: calc(100vh - 90px);
-    margin-left: 280px;
+  margin-left: 280px;
   gap: 0;
 }
 
@@ -43,8 +43,6 @@ body {
   background: var(--color-white);
   border-radius: 15px;
   padding: 40px;
-  box-shadow: var(--shadow-card);
-  border: 1px solid var(--border-gray);
 }
 
 .form-row {
@@ -121,12 +119,7 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
   .main-container {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    min-width: 100%;
-    padding: 20px 0;
+    margin-left: 0;
   }
 
   .menu-link {
@@ -157,14 +150,11 @@ body {
     text-align: center;
     gap: 10px;
   }
-
-  .search-container {
-    margin-top: 15px;
-    max-width: 100%;
-  }
 }
 
 @media (max-width: 576px) {
+
+
   .header {
     padding: 10px 0;
   }
