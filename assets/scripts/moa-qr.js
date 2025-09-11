@@ -56,8 +56,8 @@ function renderTable(data) {
     const qrData = JSON.stringify(animal);
     new QRCode(document.getElementById(`qr-${animal.id}`), {
       text: qrData,
-      width: 128, // ✅ smaller size so it fits
-      height: 128,
+      width: 500, // ✅ smaller size so it fits
+      height: 500,
     });
   });
 }
