@@ -26,7 +26,7 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    <div class="sidebar" id="sidebar">
+  <div class="sidebar" id="sidebar">
       <div class="logo">
         <h4>Alagang Baras</h4>
         <p>Livestock Management System</p>
@@ -34,7 +34,7 @@
 
       <nav class="nav-menu">
         <div class="nav-item">
-          <a href="./dashboard.html" class="nav-link">
+          <a href="./dashboard.php" class="nav-link ">
             <i class="fas fa-tachometer-alt"></i>
             Dashboard
           </a>
@@ -47,41 +47,41 @@
             <i class="fas fa-chevron-down submenu-icon"></i>
           </a>
           <div class="submenu">
-            <a href="#" class="submenu-link active"
+            <a href="./new-health-record.php" class="submenu-link active"
               >New Health Record</a
             >
-            <a href="./livestock-health-monitoring.html" class="submenu-link"
+            <a href="./livestock-health-monitoring.php" class="submenu-link"
               >Livestock Health Monitoring</a
             >
           </div>
         </div>
 
         <div class="nav-item">
-          <a href="./owner-registration.html" class="nav-link">
+          <a href="./owner-list.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Owner Registration
           </a>
         </div>
         <div class="nav-item">
-          <a href="./livestock-profiling.html" class="nav-link">
+          <a href="./livestock-profiling-list.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Livestock Profiling
           </a>
         </div>
         <div class="nav-item">
-          <a href="./reports.html" class="nav-link">
+          <a href="./reports.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Reports
           </a>
         </div>
         <div class="nav-item">
-          <a href="./qr.html" class="nav-link">
+          <a href="./qr.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             QR Code
           </a>
         </div>
         <div class="nav-item">
-          <a href="../index.html" class="nav-link">
+          <a href="../index.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Log out
           </a>
@@ -97,6 +97,21 @@
           <h1 class="page-title">New Health Record</h1>
 
           <form id="healthRecordForm">
+            <div class="form-row search-cont">
+              <label for="checkupDate" class="form-label"
+                >Search</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="searchOwner"
+                name="searchOwner"
+                required
+                placeholder="Search ..."
+              />
+
+
+            </div>
             <!-- Date Field -->
             <div class="form-row">
               <label for="checkupDate" class="form-label"

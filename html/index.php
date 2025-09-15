@@ -1,3 +1,35 @@
+<?php
+session_start();
+require_once '../config/db.php';
+
+$error = "";
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $username = trim($_POST['username'] ?? '');
+  $password = $_POST['password'] ?? '';
+
+  if (empty($username) || empty($password)) {
+    $error = "Please fill in both fields.";
+  } else {
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->execute([$username]);
+    $user = $stmt->fetch();
+
+    if ($user && $password == $user['password_']) {
+      $_SESSION['user_id'] = $user['id'];
+      $_SESSION['username'] = $user['username'];
+
+      // Redirect to dashboard
+      header("Location: ./moa/dashboard.php");
+      exit;
+    } else {
+      $error = "Invalid username or password.";
+    }
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,7 +48,6 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="../assets/styles/layouts/index.css" />
   </head>
   <body>
@@ -41,13 +72,21 @@
             <h1 class="system-title">ALAGANG BARAS</h1>
             <p class="system-subtitle">Livestock Management System</p>
 
+            <!-- Error Message -->
+            <?php if (!empty($error)): ?>
+              <div class="alert alert-danger" role="alert">
+                <?= htmlspecialchars($error) ?>
+              </div>
+            <?php endif; ?>
+
             <!-- Login Form -->
-            <form id="loginForm">
+            <form method="POST" action="">
               <div class="form-floating mb-3">
                 <input
                   type="text"
                   class="form-control"
                   id="username"
+                  name="username"
                   placeholder="Username"
                   required
                 />
@@ -61,6 +100,7 @@
                   type="password"
                   class="form-control"
                   id="password"
+                  name="password"
                   placeholder="Password"
                   required
                 />
@@ -88,19 +128,13 @@
             <div class="forgot-password">
               <p>
                 Don't have an account?
-                <a href="#"
-                  >Sign up!</a
-                >
+                <a href="#">Sign up!</a>
               </p>
             </div>
-
-            
           </div>
         </div>
       </div>
     </div>
-
-    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/scripts/index.js"></script>

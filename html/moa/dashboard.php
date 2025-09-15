@@ -34,7 +34,7 @@
 
       <nav class="nav-menu">
         <div class="nav-item">
-          <a href="#" class="nav-link active">
+          <a href="./dashboard.php" class="nav-link active">
             <i class="fas fa-tachometer-alt"></i>
             Dashboard
           </a>
@@ -47,41 +47,41 @@
             <i class="fas fa-chevron-down submenu-icon"></i>
           </a>
           <div class="submenu">
-            <a href="./new-health-record.html" class="submenu-link"
+            <a href="./new-health-record.php" class="submenu-link"
               >New Health Record</a
             >
-            <a href="./livestock-health-monitoring.html" class="submenu-link"
+            <a href="./livestock-health-monitoring.php" class="submenu-link"
               >Livestock Health Monitoring</a
             >
           </div>
         </div>
 
         <div class="nav-item">
-          <a href="./owner-registration.html" class="nav-link">
+          <a href="./owner-list.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Owner Registration
           </a>
         </div>
         <div class="nav-item">
-          <a href="./livestock-profiling.html" class="nav-link">
+          <a href="./livestock-profiling-list.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Livestock Profiling
           </a>
         </div>
         <div class="nav-item">
-          <a href="./reports.html" class="nav-link">
+          <a href="./reports.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Reports
           </a>
         </div>
         <div class="nav-item">
-          <a href="./qr.html" class="nav-link">
+          <a href="./qr.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             QR Code
           </a>
         </div>
         <div class="nav-item">
-          <a href="../index.html" class="nav-link">
+          <a href="../index.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Log out
           </a>

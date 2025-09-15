@@ -31,6 +31,24 @@ document
     // Simulate saving data
     showMessage("Livestock profile updated successfully!", "success");
     console.log("Form submitted with data:", data);
+    fetch("add_owner.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    const msgDiv = document.getElementById("responseMessage");
+    console.log('this is data '+data)
+    if (data.success) {
+      msgDiv.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+      this.reset(); // clear form
+    } else {
+      msgDiv.innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+    }
+  })
+  .catch(err => {
+    console.error("Error:", err);
+  });
   });
 
 // Reset button functionality

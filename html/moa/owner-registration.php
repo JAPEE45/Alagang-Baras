@@ -26,7 +26,7 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    <div class="sidebar" id="sidebar">
+   <div class="sidebar" id="sidebar">
       <div class="logo">
         <h4>Alagang Baras</h4>
         <p>Livestock Management System</p>
@@ -34,7 +34,7 @@
 
       <nav class="nav-menu">
         <div class="nav-item">
-          <a href="./dashboard.html" class="nav-link">
+          <a href="./dashboard.php" class="nav-link ">
             <i class="fas fa-tachometer-alt"></i>
             Dashboard
           </a>
@@ -47,41 +47,41 @@
             <i class="fas fa-chevron-down submenu-icon"></i>
           </a>
           <div class="submenu">
-            <a href="./new-health-record.html" class="submenu-link"
+            <a href="./new-health-record.php" class="submenu-link"
               >New Health Record</a
             >
-            <a href="./livestock-health-monitoring.html" class="submenu-link"
+            <a href="./livestock-health-monitoring.php" class="submenu-link"
               >Livestock Health Monitoring</a
             >
           </div>
         </div>
 
         <div class="nav-item">
-          <a href="./owner-registration.html" class="nav-link">
+          <a href="./owner-list.php" class="nav-link active">
             <i class="fas fa-sign-out-alt"></i>
             Owner Registration
           </a>
         </div>
         <div class="nav-item">
-          <a href="#" class="nav-link active">
+          <a href="./livestock-profiling-list.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Livestock Profiling
           </a>
         </div>
         <div class="nav-item">
-          <a href="./reports.html" class="nav-link">
+          <a href="./reports.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Reports
           </a>
         </div>
         <div class="nav-item">
-          <a href="./" class="nav-link">
+          <a href="./qr.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             QR Code
           </a>
         </div>
         <div class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="../index.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Log out
           </a>
@@ -94,99 +94,116 @@
       <!-- Content Area -->
       <main class="content">
         <h2 class="page-title fade-in">
-          <i class="fas fa-clipboard-list me-3"></i>Update Livestock Profiling
+          <i class="fas fa-clipboard-list me-3"></i>Livestock Owner Registration
         </h2>
+
 
         <form id="livestockForm" class="livestock-form fade-in">
           <div class="row">
             <div class="col-md-6 form-row">
-              <label for="animalId" class="form-label">Animal ID:</label>
+              <label for="animalId" class="form-label">Owner ID:</label>
               <input
                 type="text"
                 class="form-control"
-                id="animalId"
-                name="animalId"
-                placeholder="Enter Animal ID"
-              />
-            </div>
-
-            <div class="col-md-6 form-row">
-              <label for="species" class="form-label">Species:</label>
-              <select class="form-select" id="species" name="species">
-                <option value="">Select Species</option>
-                <option value="cattle">Cattle</option>
-                <option value="pig">Pig</option>
-                <option value="goat">Goat</option>
-                <option value="chicken">Chicken</option>
-                <option value="sheep">Sheep</option>
-                <option value="duck">Duck</option>
-                <option value="turkey">Turkey</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 form-row">
-              <label for="breed" class="form-label">Breed:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="breed"
-                name="breed"
-                placeholder="Enter Breed"
-              />
-            </div>
-
-            <div class="col-md-6 form-row">
-              <label for="age" class="form-label">Age:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="age"
-                name="age"
-                placeholder="Enter Age"
-              />
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 form-row">
-              <label for="sex" class="form-label">Sex:</label>
-              <select class="form-select" id="sex" name="sex">
-                <option value="">Select Sex</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </div>
-
-            <div class="col-md-6 form-row">
-              <label for="ownerId" class="form-label">Owner ID:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="ownerId"
-                name="ownerId"
+                id="ownerID"
+                name="ownerID"
                 placeholder="Enter Owner ID"
               />
             </div>
+
+            <div class="col-md-6 form-row">
+              <label for="fullName" class="form-label">Full Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="fullName"
+                name="fullname"
+                placeholder="Enter Full Name"
+              />
+            </div>
           </div>
 
-          <div class="form-row">
-            <label for="location" class="form-label">Location:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="location"
-              name="location"
-              placeholder="Enter Location"
-            />
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="address" class="form-label">Address:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                name="address"
+                placeholder="Enter Address"
+              />
+            </div>
+
+            <div class="col-md-6 form-row">
+              <label for="contactNum" class="form-label">Contact No:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="contactNum"
+                name="contact"
+                placeholder="Enter Contact No."
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="email" class="form-label">Email:</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Enter Email"
+              />
+            </div>
+
+            <div class="col-md-6 form-row">
+              <label for="livestockOwned" class="form-label"
+                >Number of livestock owned:</label
+              >
+              <input
+                type="number"
+                class="form-control"
+                id="livestockOwned"
+                name="number_of_livestock"
+                placeholder="Enter No. of Livestock Owned"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="livestockType" class="form-label"
+                >Type of Livestock:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="livestockType"
+                name="type_of_livestock"
+                placeholder="Enter Type of Livestock"
+              />
+            </div>
+
+            <div class="col-md-6 form-row">
+              <label for="notesRemarks" class="form-label"
+                >Notes/Remarks:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="notesRemarks"
+                name="notes"
+                placeholder="Enter Notes or Remarks"
+              />
+            </div>
           </div>
 
           <div id="message-container" class="message-container"></div>
           <div class="btn-container">
-            <button type="submit" class="btn btn-custom btn-save">
-              Save
-            </button>
+            <button type="submit" class="btn btn-custom btn-save">Save</button>
             <button type="reset" class="btn btn-custom btn-reset" id="resetBtn">
               Reset
             </button>
@@ -203,7 +220,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="../../assets/scripts/moa-livestock-profiling.js"></script>
+    <script src="../../assets/scripts/moa-owner-reg.js"></script>
     <script src="../../assets/scripts/sidebar.js"></script>
   </body>
 </html>

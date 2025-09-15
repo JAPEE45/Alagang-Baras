@@ -11,14 +11,15 @@ document
     // Validate required fields
     const requiredFields = [
       "ownerID",
-      "fullName",
+      "fullname",
       "address",
-      "contactNum",
+      "contact",
       "email",
-      "livestockOwned",
-      "livestockType",
-      "notesRemarks"
+      "number_of_livestock",
+      "type_of_livestock",
+      "notes"
     ];
+    
     const emptyFields = requiredFields.filter((field) => !data[field]);
 
     if (emptyFields.length > 0) {
@@ -30,8 +31,26 @@ document
     }
 
     // Simulate saving data
-    showMessage("Livestock profile updated successfully!", "success");
+   
     console.log("Form submitted with data:", data);
+    fetch("add_owner.php", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    const msgDiv = document.getElementById("responseMessage");
+    console.log('this is data '+data.message)
+    if (data.success) {
+       showMessage("Livestock profile updated successfully!", "success");
+      this.reset(); // clear form
+    } else {
+      msgDiv.innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+    }
+  })
+  .catch(err => {
+    console.error("Error:", err);
+  });
   });
 
 // Reset button functionality
