@@ -1,4 +1,31 @@
 // Form handling
+
+const ownerID = document.getElementById("ownerID")
+const fullName = document.getElementById("fullName")
+const address = document.getElementById("address")
+const contactNum = document.getElementById("contactNum")
+const email = document.getElementById("email")
+const liveStockOwned = document.getElementById("livestockOwned")
+const liveStockType = document.getElementById("livestockType")
+const notesRemarks = document.getElementById("notesRemarks")
+const getOwnerData = async(id)=>{
+  const res = await fetch(`../../helper/getOwner.php?ownerId=${id}`)
+  const j =  await res.json();
+  console.log(j)
+  ownerID.value = j.id
+  fullName.value = j.fullname
+  address.value = j.address
+  contactNum.value = j.contact
+  email.value = j.email
+  liveStockOwned.value = j.number_of_livestock
+  liveStockType.value = j.type_of_livestock
+  notesRemarks.value = j.notes
+}
+const params = new URLSearchParams(location.search);
+const id = params.get("uid");
+if(id){
+  getOwnerData(id)
+}
 document
   .getElementById("livestockForm")
   .addEventListener("submit", function (e) {

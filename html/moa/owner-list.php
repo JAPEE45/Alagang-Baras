@@ -1,6 +1,6 @@
 <?php 
 
-include_once '../../config/db.php';
+include_once '../../helper/db.php';
 
 $smtp = $pdo->prepare("SELECT * FROM owners ORDER BY id DESC");
 if($smtp->execute()){
@@ -138,7 +138,7 @@ if($smtp->execute()){
         echo "<td>".$r["type_of_livestock"]."</td>";
         echo "<td>".$r["notes"]."</td>";
         echo "<td>
-                <a class='btn btn-sm btn-outline-primary me-1' href='./owner-registration.php'>
+                <a class='btn btn-sm btn-outline-primary me-1' href='./owner-registration.php?uid=".$r['id']."'>
                     <i class='fas fa-edit'></i>
                 </a>
                 <button class='btn btn-sm btn-outline-danger' onclick='deleteRecord(this)'>
@@ -159,8 +159,9 @@ if($smtp->execute()){
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-      
-function deleteRecord(button) {
+  
+
+async function deleteRecord(button) {
   if (confirm("Are you sure you want to delete this health record?")) {
     const row = button.closest("tr");
     row.style.animation = "fadeOut 0.3s ease-out";
@@ -168,6 +169,10 @@ function deleteRecord(button) {
       row.remove();
       showNotification("Health record deleted successfully!", "danger");
     }, 300);
+    // alert(row.children[0].innerHTML)
+    const res = await fetch(`../../helper/deleteOwner.php?ownerId=${row.children[0].innerHTML}`)
+    const r = await res.json();
+    console.log(r)
   }
 }
 

@@ -1,6 +1,6 @@
 <?php 
 
-include_once '../../config/db.php';
+include_once '../../helper/db.php';
 
 $smtp = $pdo->prepare("SELECT * FROM animals ORDER BY id DESC");
 if($smtp->execute()){
