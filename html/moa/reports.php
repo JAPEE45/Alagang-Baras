@@ -60,7 +60,7 @@
           </a>
         </div>
         <div class="nav-item">
-          <a href="./livestock-profiling-list.php" class="nav-link">
+          <a href="./livestock-profiling.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Livestock Profiling
           </a>

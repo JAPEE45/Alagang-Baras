@@ -59,7 +59,7 @@
         <div class="nav-item">
           <a href="./owner-list.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
-            Owner Registration
+            User Management
           </a>
         </div>
         <div class="nav-item">
