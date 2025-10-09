@@ -1,101 +1,38 @@
-<!-- <?php 
-
-include_once '../../helper/db.php';
-
-$smtp = $pdo->prepare("SELECT * FROM animals ORDER BY id DESC");
-if($smtp->execute()){
-   $result = $smtp->fetchAll(PDO::FETCH_ASSOC);
-
-}
-
-
-?> -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alagang Baras - Livestock Management System</title>
+    <title>Alagang Baras - Livestock Management</title>
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
       rel="stylesheet"
     />
-
-    <link rel="stylesheet" href="../../assets/styles/components/sidebar.css" />
-    <link
-      rel="stylesheet"
-      href="../../assets/styles/layouts/veterinarian/livestock-health-monitoring.css"
-    />
+    
   </head>
   <body>
-    <div class="overlay" id="overlay"></div>
-
-    <button class="hamburger-btn" id="hamburgerBtn">
-      <i class="fas fa-bars"></i>
-    </button>
-
-    <div class="sidebar" id="sidebar">
-      <div class="logo">
-        <h4>Alagang Baras</h4>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2>Alagang Baras</h2>
         <p>Livestock Management System</p>
       </div>
-
-      <nav class="nav-menu">
-        <div class="nav-item">
-          <a href="./dashboard.html" class="nav-link">
-            <i class="fas fa-tachometer-alt"></i>
-            Dashboard
-          </a>
-        </div>
-
-        <div class="nav-item">
-          <a href="./owner-list.html" class="nav-link">
-            <i class="fas fa-sign-out-alt"></i>
-            Owner Management
-          </a>
-        </div>
-
-        <div class="nav-item">
-          <a href="./livestock-health-monitoring.html" class="nav-link">
-            <i class="fas fa-tachometer-alt"></i>
-            Health Monitoring
-          </a>
-        </div>
-
-        <div class="nav-item">
-          <a href="./livestock-profiling-list.html" class="nav-link active">
-            <i class="fas fa-sign-out-alt"></i>
-            Livestock Profiling
-          </a>
-        </div>
-
-        <div class="nav-item">
-          <a href="./reports.html" class="nav-link">
-            <i class="fas fa-sign-out-alt"></i>
-            Reports
-          </a>
-        </div>
-
-        <!-- <div class="nav-item">
-          <a href="./qr.php" class="nav-link">
-            <i class="fas fa-sign-out-alt"></i>
-            QR Code
-          </a>
-        </div> -->
-        <div class="nav-item">
-          <a href="../index.php" class="nav-link">
-            <i class="fas fa-sign-out-alt"></i>
-            Log out
-          </a>
-        </div>
-      </nav>
+      <ul class="sidebar-menu">
+        <li><i class="fas fa-dashboard"></i> Dashboard</li>
+        <li><i class="fas fa-user"></i> Owner Management</li>
+        <li><i class="fas fa-heart-pulse"></i> Health Monitoring</li>
+        <li class="active">
+          <i class="fas fa-clipboard-list"></i> Livestock Profiling
+        </li>
+        <li><i class="fas fa-chart-bar"></i> Reports</li>
+        <li><i class="fas fa-sign-out-alt"></i> Log out</li>
+      </ul>
     </div>
 
-    <!-- Main Container -->
     <!-- Main Content -->
     <div class="main-content">
       <!-- Success/Error Messages -->
@@ -174,7 +111,6 @@ if($smtp->execute()){
                   placeholder="Search owner..."
                   required
                 />
-                <div id="ownerDropdown"></div>
               </div>
 
               <div class="row">
@@ -246,76 +182,8 @@ if($smtp->execute()){
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script>
-        
-      const owners = [
-        { id: 1, ownerName: "John Doe" },
-        { id: 2, ownerName: "Jane Smith" },
-        { id: 3, ownerName: "Carlos Reyes" },
-        { id: 4, ownerName: "Anna Dela Cruz" },
-        { id: 5, ownerName: "Mark Santos" },
-        { id: 6, ownerName: "Maria Lopez" }
-      ];
-
-      const ownerInput = document.getElementById("ownerName");
-      const dropdown = document.getElementById("ownerDropdown");
-
-      // Apply dropdown base style from JS
-      dropdown.style.position = "absolute";
-      dropdown.style.background = "white";
-      dropdown.style.border = "1px solid #ccc";
-      dropdown.style.width = "100%";
-      dropdown.style.maxHeight = "180px";
-      dropdown.style.overflowY = "auto";
-      dropdown.style.zIndex = "1000";
-      dropdown.style.display = "none";
-
-      ownerInput.addEventListener("input", function () {
-        const query = this.value.toLowerCase().trim();
-        dropdown.innerHTML = "";
-
-        if (!query) {
-          dropdown.style.display = "none";
-          return;
-        }
-
-        const filtered = owners.filter(o =>
-          o.ownerName.toLowerCase().includes(query)
-        );
-
-        if (filtered.length === 0) {
-          dropdown.style.display = "none";
-          return;
-        }
-
-        filtered.forEach(o => {
-          const item = document.createElement("div");
-          item.textContent = o.ownerName;
-          item.classList.add("p-2"); // Bootstrap padding
-          item.style.cursor = "pointer";
-          item.addEventListener("mouseenter", () => item.style.background = "#f1f1f1");
-          item.addEventListener("mouseleave", () => item.style.background = "white");
-          item.addEventListener("click", () => {
-            ownerInput.value = o.ownerName;
-            dropdown.style.display = "none";
-            console.log("Selected ID:", o.id);
-          });
-          dropdown.appendChild(item);
-        });
-
-        dropdown.style.display = "block";
-      });
-
-      // Hide dropdown when clicking outside
-      document.addEventListener("click", (e) => {
-        if (!e.target.closest("#ownerName")) {
-          dropdown.style.display = "none";
-        }
-      });
-    </script>
     <script>
       let livestockData = [];
       let currentQRData = "";
@@ -407,10 +275,7 @@ if($smtp->execute()){
                         }
                     </td>
                     <td>
-                        <button class="action-btn btn-edit" 
-                        data-bs-toggle="modal"
-          data-bs-target="#addLivestockModal"
-          onclick="editLivestock(${index})">
+                        <button class="action-btn btn-edit" onclick="editLivestock(${index})">
                             <i class="fas fa-edit"></i>
                         </button>
                         <button class="action-btn btn-delete" onclick="deleteLivestock(${index})">
@@ -459,6 +324,9 @@ if($smtp->execute()){
           livestockData.push(newLivestock);
           generateQRCode(newLivestock);
 
+          bootstrap.Modal.getInstance(
+            document.getElementById("addLivestockModal")
+          ).hide();
           this.reset();
           showAlert("Livestock added successfully!");
         });
@@ -488,11 +356,12 @@ if($smtp->execute()){
         });
 
       // Edit livestock (placeholder)
-      function editLivestock(index) {}
+      function editLivestock(index) {
+        showAlert("Edit functionality coming soon!", "info");
+      }
 
       // Initialize
       renderTable();
     </script>
-    <script src="../../assets/scripts/sidebar.js"></script>
   </body>
 </html>
