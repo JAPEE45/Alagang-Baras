@@ -40,7 +40,7 @@
           </a>
         </div>
 
-        <div class="nav-item has-submenu">
+        <!-- <div class="nav-item has-submenu">
           <a href="#" class="nav-link submenu-toggle">
             <i class="fas fa-heartbeat"></i>
             Health Monitoring
@@ -54,7 +54,7 @@
               >Livestock Health Monitoring</a
             >
           </div>
-        </div>
+        </div> -->
 
         <div class="nav-item">
           <a href="./owner-list.php" class="nav-link">
@@ -74,12 +74,12 @@
             Reports
           </a>
         </div>
-        <div class="nav-item">
+        <!-- <div class="nav-item">
           <a href="./qr.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             QR Code
           </a>
-        </div>
+        </div> -->
         <div class="nav-item">
           <a href="../index.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>

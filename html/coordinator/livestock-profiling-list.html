@@ -1,4 +1,4 @@
-<?php 
+<!-- <?php 
 
 include_once '../../helper/db.php';
 
@@ -9,7 +9,7 @@ if($smtp->execute()){
 }
 
 
-?>
+?> -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,46 +46,40 @@ if($smtp->execute()){
 
       <nav class="nav-menu">
         <div class="nav-item">
-          <a href="./dashboard.php" class="nav-link ">
+          <a href="./dashboard.html" class="nav-link ">
             <i class="fas fa-tachometer-alt"></i>
             Dashboard
           </a>
         </div>
 
-        <!-- <div class="nav-item has-submenu">
-          <a href="#" class="nav-link submenu-toggle">
-            <i class="fas fa-heartbeat"></i>
-            Health Monitoring
-            <i class="fas fa-chevron-down submenu-icon"></i>
-          </a>
-          <div class="submenu">
-            <a href="./new-health-record.php" class="submenu-link"
-              >New Health Record</a
-            >
-            <a href="./livestock-health-monitoring.php" class="submenu-link"
-              >Livestock Health Monitoring</a
-            >
-          </div>
-        </div> -->
-
         <div class="nav-item">
-          <a href="./owner-list.php" class="nav-link">
+          <a href="./owner-list.html" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
-            Owner Registration
+            Owner Management
           </a>
         </div>
+
         <div class="nav-item">
-          <a href="./livestock-profiling-list.php" class="nav-link active">
+          <a href="./livestock-health-monitoring.html" class="nav-link">
+            <i class="fas fa-tachometer-alt"></i>
+            Health Monitoring
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="./livestock-profiling-list.html" class="nav-link active">
             <i class="fas fa-sign-out-alt"></i>
             Livestock Profiling
           </a>
         </div>
+
         <div class="nav-item">
-          <a href="./reports.php" class="nav-link">
+          <a href="./reports.html" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Reports
           </a>
         </div>
+        
         <!-- <div class="nav-item">
           <a href="./qr.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
@@ -109,7 +103,7 @@ if($smtp->execute()){
           <h2 class="page-title fade-in">
             <i class="fas fa-clipboard-list me-3"></i>Livestock List
           </h2>
-          <a href="./livestock-profiling.php" class="btn btn-add-record">
+          <a href="./livestock-profiling.html" class="btn btn-add-record">
             <i class="fas fa-plus me-2"></i>Add Livestock
           </a>
         </div>
@@ -138,7 +132,7 @@ if($smtp->execute()){
                 <td>".$r['age']."</td>
                 <td>".$r['sex']."</td>
                 <td>
-                    <a class='btn btn-sm btn-outline-primary me-1' href='./livestock-profiling-list.php'>
+                    <a class='btn btn-sm btn-outline-primary me-1' href='./livestock-profiling-list.html'>
                     <i class='fas fa-edit'></i>
                 </a>
                 <button class='btn btn-sm btn-outline-danger' onclick='deleteRecord(this)'>

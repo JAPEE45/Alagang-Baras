@@ -10,9 +10,9 @@ function addNewRecord() {
   }
 
   const date = document.getElementById("recordDate").value;
-  const diagnosis = document.getElementById("diagnosis").value;
-  const treatment = document.getElementById("treatment").value;
-  const vetName = document.getElementById("vetName").value;
+  const ownerName = document.getElementById("ownerName").value;
+  const animalType = document.getElementById("animalType").value;
+  const vaccineGiven = document.getElementById("vaccineGiven").value;
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     month: "2-digit",
@@ -20,18 +20,14 @@ function addNewRecord() {
     year: "2-digit",
   });
 
-  let statusClass = "status-checkup";
-  if (diagnosis.toLowerCase() === "deworming") statusClass = "status-deworming";
-  else if (diagnosis.toLowerCase() === "vaccination")
-    statusClass = "status-vaccination";
 
   const tableBody = document.querySelector("#healthRecordsTable tbody");
   const newRow = `
                 <tr class="new-row">
                     <td>${formattedDate}</td>
-                    <td><span class="status-badge ${statusClass}">${diagnosis}</span></td>
-                    <td>${treatment}</td>
-                    <td>${vetName}</td>
+                    <td><span>${ownerName}</span></td>
+                    <td>${animalType}</td>
+                    <td>${vaccineGiven}</td>
                     <td>
                         <button class="btn btn-sm btn-outline-primary me-1" onclick="editRecord(this)">
                             <i class="fas fa-edit"></i>
@@ -71,17 +67,17 @@ function editRecord(button) {
   const cells = row.querySelectorAll("td");
 
   const date = cells[0].textContent;
-  const diagnosis = cells[1].querySelector(".status-badge").textContent;
-  const treatment = cells[2].textContent;
-  const vetName = cells[3].textContent;
+  const ownerName = cells[1].textContent;
+  const animalType = cells[2].textContent;
+  const vaccineGiven = cells[3].textContent;
 
   const dateObj = new Date(date);
   document.getElementById("recordDate").value = dateObj
     .toISOString()
     .split("T")[0];
-  document.getElementById("diagnosis").value = diagnosis;
-  document.getElementById("treatment").value = treatment;
-  document.getElementById("vetName").value = vetName;
+  document.getElementById("ownerName").value = ownerName;
+  document.getElementById("animalType").value = animalType;
+  document.getElementById("vaccineGiven").value = vaccineGiven;
 
   document.getElementById("addRecordModalLabel").innerHTML =
     '<i class="fas fa-edit me-2"></i>Edit Health Record';
@@ -104,9 +100,9 @@ function updateRecord(rowIndex) {
   }
 
   const date = document.getElementById("recordDate").value;
-  const diagnosis = document.getElementById("diagnosis").value;
-  const treatment = document.getElementById("treatment").value;
-  const vetName = document.getElementById("vetName").value;
+  const ownerName = document.getElementById("ownerName").value.trim();
+  const animalType = document.getElementById("animalType").value;
+  const vaccineGiven = document.getElementById("vaccineGiven").value;
 
   const formattedDate = new Date(date).toLocaleDateString("en-US", {
     month: "2-digit",
@@ -114,18 +110,13 @@ function updateRecord(rowIndex) {
     year: "2-digit",
   });
 
-  let statusClass = "status-checkup";
-  if (diagnosis.toLowerCase() === "deworming") statusClass = "status-deworming";
-  else if (diagnosis.toLowerCase() === "vaccination")
-    statusClass = "status-vaccination";
-
   const row = document.querySelector("#healthRecordsTable tbody").rows[
     rowIndex - 1
   ];
   row.cells[0].textContent = formattedDate;
-  row.cells[1].innerHTML = `<span class="status-badge ${statusClass}">${diagnosis}</span>`;
-  row.cells[2].textContent = treatment;
-  row.cells[3].textContent = vetName;
+  row.cells[1].innerHTML = `<span>${ownerName}</span>`;
+  row.cells[2].textContent = animalType;
+  row.cells[3].textContent = vaccineGiven;
 
   resetModal();
 

@@ -111,6 +111,13 @@ body {
   color: var(--color-white);
 }
 
+.condition-input {
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  width: 100%;
+}
+
 .btn-cancel:hover {
   background: var(--color-gray-dark);
   transform: translateY(-3px);

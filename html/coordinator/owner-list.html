@@ -1,15 +1,15 @@
-<?php 
+<!-- <?php 
 
 include_once '../../helper/db.php';
 
-$smtp = $pdo->prepare("SELECT * FROM animals ORDER BY id DESC");
+$smtp = $pdo->prepare("SELECT * FROM owners ORDER BY id DESC");
 if($smtp->execute()){
    $result = $smtp->fetchAll(PDO::FETCH_ASSOC);
 
 }
 
 
-?>
+?> -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,7 +38,7 @@ if($smtp->execute()){
       <i class="fas fa-bars"></i>
     </button>
 
-   <div class="sidebar" id="sidebar">
+<div class="sidebar" id="sidebar">
       <div class="logo">
         <h4>Alagang Baras</h4>
         <p>Livestock Management System</p>
@@ -46,46 +46,40 @@ if($smtp->execute()){
 
       <nav class="nav-menu">
         <div class="nav-item">
-          <a href="./dashboard.php" class="nav-link ">
+          <a href="./dashboard.html" class="nav-link ">
             <i class="fas fa-tachometer-alt"></i>
             Dashboard
           </a>
         </div>
 
-        <!-- <div class="nav-item has-submenu">
-          <a href="#" class="nav-link submenu-toggle">
-            <i class="fas fa-heartbeat"></i>
-            Health Monitoring
-            <i class="fas fa-chevron-down submenu-icon"></i>
-          </a>
-          <div class="submenu">
-            <a href="./new-health-record.php" class="submenu-link"
-              >New Health Record</a
-            >
-            <a href="./livestock-health-monitoring.php" class="submenu-link"
-              >Livestock Health Monitoring</a
-            >
-          </div>
-        </div> -->
-
         <div class="nav-item">
-          <a href="./owner-list.php" class="nav-link">
+          <a href="./owner-list.html" class="nav-link active">
             <i class="fas fa-sign-out-alt"></i>
-            Owner Registration
+            Owner Management
           </a>
         </div>
+
         <div class="nav-item">
-          <a href="./livestock-profiling-list.php" class="nav-link active">
+          <a href="./livestock-health-monitoring.html" class="nav-link">
+            <i class="fas fa-tachometer-alt"></i>
+            Health Monitoring
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="./livestock-profiling-list.html" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Livestock Profiling
           </a>
         </div>
+
         <div class="nav-item">
-          <a href="./reports.php" class="nav-link">
+          <a href="./reports.html" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             Reports
           </a>
         </div>
+        
         <!-- <div class="nav-item">
           <a href="./qr.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
@@ -107,10 +101,10 @@ if($smtp->execute()){
       <main class="main-content">
         <div class="header d-flex align-items-center justify-content-between">
           <h2 class="page-title fade-in">
-            <i class="fas fa-clipboard-list me-3"></i>Livestock List
+            <i class="fas fa-clipboard-list me-3"></i>Livestock Owner List
           </h2>
-          <a href="./livestock-profiling.php" class="btn btn-add-record">
-            <i class="fas fa-plus me-2"></i>Add Livestock
+          <a href="./owner-registration.html" class="btn btn-add-record">
+            <i class="fas fa-plus me-2"></i>Add Owner
           </a>
         </div>
 
@@ -119,36 +113,41 @@ if($smtp->execute()){
           <div class="table-responsive">
             <table class="table mb-0" id="healthRecordsTable">
               <thead>
-               <th>Owner Name</th>
-              <th>Species</th>
-              <th>Breed</th>
-              <th>Age</th>
-              <th>Sex</th>
-              <th>Actions</th>
+                <tr>
+                  <th>Owner ID</th>
+                  <th>Full Name</th>
+                  <th>Mobile Number</th>
+                  <th>Livelihood</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-              <?php foreach($result as $r){ ?>
-                <?php
-             echo "<tr>  
-                <tr>
-                <td>".$r['name']."</td>
-                <td>".$r['species']."</td>
-                <td>".$r['breed']."</td>
-                <td>".$r['age']."</td>
-                <td>".$r['sex']."</td>
+              <!-- <?php foreach($result as $r){ ?>
+    <?php 
+        echo "<tr>";
+        echo "<td>".$r["id"]."</td>";
+        echo "<td><span class=''>".$r['fullname']."</span></td>";
+        echo "<td>".$r['number_of_livestock']."</td>";
+        echo "<td>".$r["type_of_livestock"]."</td>";
+        echo "<td>".$r["notes"]."</td>";
+        echo "<td> -->
+              <tr>
+                <td>".$r["id"]."</td>
+                <td><span class=''>Jasper Fernandez</span></td>
+                <td>09123456789</td>
+                <td>Farmer</td>
                 <td>
-                    <a class='btn btn-sm btn-outline-primary me-1' href='./livestock-profiling-list.php'>
-                    <i class='fas fa-edit'></i>
-                </a>
-                <button class='btn btn-sm btn-outline-danger' onclick='deleteRecord(this)'>
-                    <i class='fas fa-trash'></i>
-                </button>
-                </td>
-</tr>"
-                ?>
+                  <a class='btn btn-sm btn-outline-primary me-1' href='./owner-registration.html?uid=".$r['id']."'>
+                      <i class='fas fa-edit'></i>
+                  </a>
+                  <button class='btn btn-sm btn-outline-danger' onclick='deleteRecord(this)'>
+                      <i class='fas fa-trash'></i>
+                  </button>
+                </td>";
+        echo "</tr>";
+    ?>
+<?php } ?>
 
-              <?php } ?>
               </tbody>
             </table>
           </div>
@@ -159,8 +158,9 @@ if($smtp->execute()){
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-      
-function deleteRecord(button) {
+  
+
+async function deleteRecord(button) {
   if (confirm("Are you sure you want to delete this health record?")) {
     const row = button.closest("tr");
     row.style.animation = "fadeOut 0.3s ease-out";
@@ -168,6 +168,10 @@ function deleteRecord(button) {
       row.remove();
       showNotification("Health record deleted successfully!", "danger");
     }, 300);
+    // alert(row.children[0].innerHTML)
+    const res = await fetch(`../../helper/deleteOwner.php?ownerId=${row.children[0].innerHTML}`)
+    const r = await res.json();
+    console.log(r)
   }
 }
 

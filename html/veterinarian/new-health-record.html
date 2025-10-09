@@ -52,7 +52,7 @@
 
       <nav class="nav-menu">
         <div class="nav-item">
-          <a href="./dashboard.html" class="nav-link ">
+          <a href="./dashboard.html" class="nav-link">
             <i class="fas fa-tachometer-alt"></i>
             Dashboard
           </a>
@@ -67,7 +67,9 @@
           </a>
           <div class="submenu">
             <a href="#" class="submenu-link active">New Health Record</a>
-            <a href="./livestock-health-monitoring.html" class="submenu-link">Livestock Health Monitoring</a>
+            <a href="./livestock-health-monitoring.html" class="submenu-link"
+              >Livestock Health Monitoring</a
+            >
           </div>
         </div>
 
@@ -100,6 +102,22 @@
                 name="checkupDate"
                 required
               />
+            </div>
+
+            <div class="form-row row">
+              <div class="col-md-6">
+                <label for="search-owner" class="form-label">Owner:</label>
+                <input type="search" class="form-control" id="search-owner" />
+                <ul class="list-group position-absolute w-100 mt-1" id="owner-suggestions" style="z-index: 1000; display: none;"></ul>
+              </div>
+              <div class="col-md-6">
+                <label for="search-livestock" class="form-label"
+                  >Livestock</label
+                >
+                <select class="form-select" id="search-livestock" name="vaccine">
+                  <option value="">Select Livestock...</option>
+                </select>
+              </div>
             </div>
 
             <!-- Diagnosis Field -->
@@ -138,25 +156,10 @@
                 <option value="leptospirosis">Leptospirosis Vaccine</option>
                 <option value="other">Other</option>
               </select>
-            </div>
-
-            <!-- Veterinarian Name Field -->
-            <div class="form-row">
-              <label for="vetName" class="form-label"
-                >Name of Veterinarian:</label
-              >
-              <select class="form-select" id="vetName" name="vetName">
-                <option value="">Select veterinarian...</option>
-                <option value="dr-santos">Dr. Maria Santos</option>
-                <option value="dr-cruz">Dr. Juan Cruz</option>
-                <option value="dr-reyes">Dr. Ana Reyes</option>
-                <option value="dr-garcia">Dr. Carlos Garcia</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
+            </div>  
 
             <!-- Remarks Field -->
-            <div class="form-row">
+            <!-- <div class="form-row">
               <label for="remarks" class="form-label">Remarks:</label>
               <textarea
                 class="form-control"
@@ -166,7 +169,7 @@
                 placeholder="Additional notes or observations..."
                 height="100px"
               ></textarea>
-            </div>
+            </div> -->
 
             <!-- Action Buttons -->
             <div class="btn-group-custom">
@@ -188,6 +191,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script src="../../assets/scripts/sidebar.js"></script>
+    <script src="../../assets/scripts/search-owner.js"></script>
     <script src="../../assets/scripts/vet-health-monitoring.js"></script>
   </body>
 </html>

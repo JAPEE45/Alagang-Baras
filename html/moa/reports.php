@@ -71,12 +71,12 @@
             Reports
           </a>
         </div>
-        <div class="nav-item">
+        <!-- <div class="nav-item">
           <a href="./qr.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
             QR Code
           </a>
-        </div>
+        </div> -->
         <div class="nav-item">
           <a href="../index.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
