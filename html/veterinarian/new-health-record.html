@@ -105,17 +105,28 @@
             </div>
 
             <div class="form-row row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <label for="search-owner" class="form-label">Owner:</label>
                 <input type="search" class="form-control" id="search-owner" />
                 <ul class="list-group position-absolute w-100 mt-1" id="owner-suggestions" style="z-index: 1000; display: none;"></ul>
+              </div>              
+            </div>
+
+            <div class="form-row row">
+              <div class="col-md-6">
+                <label for="search-species" class="form-label"
+                  >Species</label
+                >
+                <select class="form-select" id="search-species" >
+                  <option value="">Select Species...</option>
+                </select>
               </div>
               <div class="col-md-6">
-                <label for="search-livestock" class="form-label"
-                  >Livestock</label
+                <label for="search-breed" class="form-label"
+                  >Breed</label
                 >
-                <select class="form-select" id="search-livestock" name="vaccine">
-                  <option value="">Select Livestock...</option>
+                <select class="form-select" id="search-breed" >
+                  <option value="">Select Breed...</option>
                 </select>
               </div>
             </div>
