@@ -4,7 +4,6 @@ require_once '../../config/db.php';
 
 $ownerSuccess = '';
 $ownerError = '';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $name = $_POST['name'];
@@ -41,3 +40,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 }
 ?>
+
