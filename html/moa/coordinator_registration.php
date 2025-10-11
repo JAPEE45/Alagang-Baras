@@ -33,34 +33,24 @@
 
     <nav class="nav-menu">
       <div class="nav-item">
-        <a href="./dashboard.php" class="nav-link ">
+        <a href="./dashboard.php" class="nav-link">
           <i class="fas fa-tachometer-alt"></i>
           Dashboard
         </a>
       </div>
 
-      <!-- <div class="nav-item has-submenu">
-          <a href="#" class="nav-link submenu-toggle">
-            <i class="fas fa-heartbeat"></i>
-            Health Monitoring
-            <i class="fas fa-chevron-down submenu-icon"></i>
-          </a>
-          <div class="submenu">
-            <a href="./new-health-record.php" class="submenu-link"
-              >New Health Record</a
-            >
-            <a href="./livestock-health-monitoring.php" class="submenu-link"
-              >Livestock Health Monitoring</a
-            >
-          </div>
-        </div> -->
-
-      <div class="nav-item">
-        <a href="./owner-list.php" class="nav-link active">
-          <i class="fas fa-sign-out-alt"></i>
-          Owner Registration
+      <div class="nav-item has-submenu">
+        <a href="#" class="nav-link submenu-toggle active">
+          <i class="fas fa-heartbeat"></i>
+          User Management
+          <i class="fas fa-chevron-down submenu-icon"></i>
         </a>
+        <div class="submenu">
+          <a href="./coordinator_management.php" class="submenu-link active">Coordinator</a>
+          <a href="./vet_management.php" class="submenu-link">Veterinarian</a>
+        </div>
       </div>
+
       <div class="nav-item">
         <a href="./livestock-profiling-list.php" class="nav-link">
           <i class="fas fa-sign-out-alt"></i>
@@ -93,22 +83,12 @@
     <!-- Content Area -->
     <main class="content">
       <h2 class="page-title fade-in">
-        <i class="fas fa-clipboard-list me-3"></i>User Registration
+        <i class="fas fa-clipboard-list me-3"></i>Coordinator Registration
       </h2>
 
 
       <form id="livestockForm" class="livestock-form fade-in">
         <div class="row">
-          <div class="col-md-6 form-row">
-            <label for="userID" class="form-label">ID:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="userID"
-              name="userID"
-              disabled />
-          </div>
-
           <div class="col-md-6 form-row">
             <label for="fullName" class="form-label">Full Name:</label>
             <input
@@ -118,46 +98,54 @@
               name="fullname"
               placeholder="Enter Full Name" />
           </div>
-        </div>
 
-        <div class="row">
-          
           <div class="col-md-6 form-row">
-            <label for="contactNum" class="form-label">Contact No:</label>
+            <label for="userID" class="form-label">Contact No:</label>
             <input
               type="text"
               class="form-control"
               id="contactNum"
-              name="contact"
-              placeholder="Enter Contact No." />
-          </div>
-          <div class="col-md-6 form-row">
-            <label for="address" class="form-label">Sex:</label>
-            <select name="" id="sex" class="form-control">
-              <option hidden disabled selected>-- Select --</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
+              name="contactNum" />
           </div>
         </div>
 
         <div class="row">
-          <div class="col-md-6 form-row">
-            <label for="barangay" class="form-label">Barangay:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="barangay"
-              name="barangay"/>
-          </div>
-          <div class="col-md-6 form-row">
-            <label for="role" class="form-label">Role:</label>
-            <select name="" id="role" class="form-control">
-              <option hidden disabled selected>-- Select --</option>
-              <option value="Owner">Veterinarian</option>
-              <option value="Coordinator">Coordinator</option>
-              <option value="MAO">MAO</option>
+          <div class="col-md- form-row">
+            <label for="contactNum" class="form-label">Barangay:</label>
+            <select name="barangay" id="barangay" class="form-control">
+              <option disabled selected hidden>-- Select Barangay --</option>
+              <option value="Abihao">Abihao</option>
+              <option value="Agban">Agban</option>
+              <option value="Bagong Sirang">Bagong Sirang</option>
+              <option value="Benticayan">Benticayan</option>
+              <option value="Buenavista">Buenavista</option>
+              <option value="Caragumihan">Caragumihan</option>
+              <option value="Batolinao">Batolinao</option>
+              <option value="Danao">Danao</option>
+              <option value="Sagrada">Sagrada</option>
+              <option value="Ginitligan">Ginitligan</option>
+              <option value="Guinsaanan">Guinsaanan</option>
+              <option value="J.M. Alberto">J.M. Alberto</option>
+              <option value="Macutal">Macutal</option>
+              <option value="Moning">Moning</option>
+              <option value="Nagbarorong">Nagbarorong</option>
+              <option value="Osmeña">Osmeña</option>
+              <option value="P. Teston">P. Teston</option>
+              <option value="Paniquihan">Paniquihan</option>
+              <option value="Eastern Poblacion">Eastern Poblacion</option>
+              <option value="Puraran">Puraran</option>
+              <option value="Putsan">Putsan</option>
+              <option value="Quezon">Quezon</option>
+              <option value="Rizal">Rizal</option>
+              <option value="Salvacion">Salvacion</option>
+              <option value="San Lorenzo">San Lorenzo</option>
+              <option value="San Miguel">San Miguel</option>
+              <option value="Santa Maria">Santa Maria</option>
+              <option value="Tilod">Tilod</option>
+              <option value="Western Poblacion">Western Poblacion</option>
             </select>
+
+          </div>
         </div>
 
         <div id="message-container" class="message-container"></div>
@@ -166,12 +154,12 @@
           <button type="reset" class="btn btn-custom btn-reset" id="resetBtn">
             Reset
           </button>
-          <button
-            type="button"
+          <a
+            href="./coordinator_management.php"
             class="btn btn-custom btn-cancel"
             onclick="cancelForm()">
             Cancel
-          </button>
+          </a>
         </div>
       </form>
     </main>

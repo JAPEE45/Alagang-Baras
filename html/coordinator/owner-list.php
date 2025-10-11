@@ -114,7 +114,6 @@ if($smtp->execute()){
             <table class="table mb-0" id="healthRecordsTable">
               <thead>
                 <tr>
-                  <th>Owner ID</th>
                   <th>Full Name</th>
                   <th>Mobile Number</th>
                   <th>Livelihood</th>
@@ -127,7 +126,6 @@ if($smtp->execute()){
       
         echo "
               <tr>
-                <td>".$r["id"]."</td>
                 <td><span class=''>".$r["firstName"]." ".$r["middleName"]." ".$r["surname"]."</span></td>
                 <td>".$r["mobileNum"]."</td>
                 <td>Farmer</td>

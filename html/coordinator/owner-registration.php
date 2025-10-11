@@ -34,14 +34,14 @@
 
       <nav class="nav-menu">
         <div class="nav-item">
-          <a href="./dashboard.php" class="nav-link active">
+          <a href="./dashboard.php" class="nav-link ">
             <i class="fas fa-tachometer-alt"></i>
             Dashboard
           </a>
         </div>
 
         <div class="nav-item">
-          <a href="./owner-list.php" class="nav-link">
+          <a href="./owner-list.php" class="nav-link active">
             <i class="fas fa-sign-out-alt"></i>
             Owner Management
           </a>
@@ -545,12 +545,13 @@
             <button type="reset" class="btn btn-custom btn-reset" id="resetBtn">
               Reset
             </button>
-            <button
-              type="button"
+            <a
+              href="./owner-list.php"
               class="btn btn-custom btn-cancel"
-              onclick="cancelForm()"
+              
             >
-              Cancel
+            Cancel
+            </a>
             </button>
           </div>
         </form>

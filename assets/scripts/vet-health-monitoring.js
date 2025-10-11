@@ -23,16 +23,6 @@ document
     // window.location.href = 'dashboard.html';
   });
 
-function goBack() {
-  if (
-    confirm(
-      "Are you sure you want to cancel? Any unsaved changes will be lost."
-    )
-  ) {
-    window.history.back();
-  }
-}
-
 document.addEventListener("DOMContentLoaded", function () {
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("checkupDate").value = today;

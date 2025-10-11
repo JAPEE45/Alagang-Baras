@@ -40,28 +40,22 @@
           </a>
         </div>
 
-        <!-- <div class="nav-item has-submenu">
+        <div class="nav-item has-submenu">
           <a href="#" class="nav-link submenu-toggle">
             <i class="fas fa-heartbeat"></i>
-            Health Monitoring
+            User Management
             <i class="fas fa-chevron-down submenu-icon"></i>
           </a>
           <div class="submenu">
-            <a href="./new-health-record.php" class="submenu-link"
-              >New Health Record</a
+            <a href="./coordinator_management.php" class="submenu-link"
+              >Coordinator</a
             >
-            <a href="./livestock-health-monitoring.php" class="submenu-link"
-              >Livestock Health Monitoring</a
+            <a href="./vet_management.php" class="submenu-link"
+              >Veterinarian</a
             >
           </div>
-        </div> -->
-
-        <div class="nav-item">
-          <a href="./owner-list.php" class="nav-link">
-            <i class="fas fa-sign-out-alt"></i>
-            User Management
-          </a>
         </div>
+        
         <div class="nav-item">
           <a href="./livestock-profiling-list.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>

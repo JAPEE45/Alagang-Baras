@@ -46,7 +46,7 @@ if($smtp->execute()){
 
       <nav class="nav-menu">
         <div class="nav-item">
-          <a href="./dashboard.php" class="nav-link active">
+          <a href="./dashboard.php" class="nav-link ">
             <i class="fas fa-tachometer-alt"></i>
             Dashboard
           </a>
@@ -67,7 +67,7 @@ if($smtp->execute()){
         </div>
 
         <div class="nav-item">
-          <a href="./livestock-profiling-list.php" class="nav-link">
+          <a href="./livestock-profiling-list.php" class="nav-link active">
             <i class="fas fa-sign-out-alt"></i>
             Livestock Profiling
           </a>
