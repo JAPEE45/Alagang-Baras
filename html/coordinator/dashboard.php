@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alagang Baras - Livestock Management System</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../assets/styles/components/sidebar.css" />
+    <link
+      rel="stylesheet"
+      href="../../assets/styles/layouts/moa/dashboard.css"
+    />
+  </head>
+  <body>
+    <div class="overlay" id="overlay"></div>
+
+    <button class="hamburger-btn" id="hamburgerBtn">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="sidebar" id="sidebar">
+      <div class="logo">
+        <h4>Alagang Baras</h4>
+        <p>Livestock Management System</p>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-item">
+          <a href="./dashboard.php" class="nav-link active">
+            <i class="fas fa-tachometer-alt"></i>
+            Dashboard
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="./owner-list.php" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Owner Management
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="./livestock-health-monitoring.php" class="nav-link">
+            <i class="fas fa-tachometer-alt"></i>
+            Health Monitoring
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="./livestock-profiling-list.php" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Livestock Profiling
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="./reports.php" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Reports
+          </a>
+        </div>
+
+        <!-- <div class="nav-item">
+          <a href="./qr.php" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            QR Code
+          </a>
+        </div> -->
+        <div class="nav-item">
+          <a href="../index.php" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Log out
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="main-content" id="mainContent">
+      <h1 class="mb-4">Dashboard</h1>
+
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="stats-card purple">
+            <div class="stats-number">310</div>
+            <div class="stats-label">Total Livestock</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="stats-card orange">
+            <div class="stats-number">198</div>
+            <div class="stats-label">Total Registered Owners</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="stats-card green">
+            <div class="stats-number">34</div>
+            <div class="stats-label">Animals Needing Vaccination</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="row mt-4">
+        <!-- Bar Chart -->
+        <div class="col-lg-12 mb-4">
+          <div class="chart-container">
+            <h5 class="chart-title">Livestocks</h5>
+            <div class="chart-cont">
+              <canvas id="animalChart" width="400" height="300"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+    <script src="../../assets/scripts/sidebar.js"></script>
+    <script>
+      const ctx = document.getElementById("animalChart").getContext("2d");
+
+      const animalChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: ["Cattle", "Goat", "Pig", "Chicken", "Carabao"],
+          datasets: [
+            {
+              label: "Number of Animals",
+              data: [50, 80, 65, 120, 40],
+              backgroundColor: "#4A90E2",
+              borderRadius: 6,
+              maxBarThickness: 50,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true, // keep the aspect ratio based on width & height
+          plugins: {
+            legend: {
+              display: true,
+              position: "top",
+              labels: { color: "#000" },
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: "rgba(0,0,0,0.1)" },
+              ticks: { color: "#333" },
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: "#333" },
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,22 +1,25 @@
 <?php
-include_once "db.php";
+include_once "db.php"; // adjust path to your db.php
 
-$ownerId = $_GET['ownerId'] ?? null;
+header('Content-Type: application/json');
 
-if (!$ownerId) {
-    echo json_encode(['error' => 'Missing ownerId']);
+if (!isset($_GET['uid'])) {
+    echo json_encode(["error" => "Missing owner ID"]);
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT * FROM owners WHERE id = ? LIMIT 1");
-$stmt->execute([$ownerId]);
-$r = $stmt->fetch(PDO::FETCH_ASSOC);
+$uid = $_GET['uid'];
 
-if ($r) {
-    echo json_encode($r);
-} else {
-    echo json_encode(['error' => true]);
+try {
+    $stmt = $pdo->prepare("SELECT * FROM owner WHERE id = ?");
+    $stmt->execute([$uid]);
+    $owner = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($owner) {
+        echo json_encode($owner);
+    } else {
+        echo json_encode(["error" => "No owner found"]);
+    }
+} catch (PDOException $e) {
+    echo json_encode(["errors" => $e->getMessage()]);
 }
-
-$pdo = null; // optional cleanup
-?>

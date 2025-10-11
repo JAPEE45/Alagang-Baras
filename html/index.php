@@ -4,7 +4,6 @@ require_once '../config/db.php';
 
 $error = "";
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $username = trim($_POST['username'] ?? '');
   $password = $_POST['password'] ?? '';
@@ -17,12 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $stmt->fetch();
 
     if ($user && $password == $user['password_']) {
-      $_SESSION['user_id'] = $user['id'];
+      $_SESSION['user_id'] = $user['user_id'];
       $_SESSION['username'] = $user['username'];
 
       // Redirect to dashboard
-      header("Location: ./moa/dashboard.php");
-      exit;
+     if($user['role'] == 'MAO'){
+       header("Location: ./moa/dashboard.php?");
+        exit;
+     }elseif($user['role'] == 'Coordinator'){
+        header("Location: ./coordinator/dashboard.php");
+        exit;
+     }elseif($user['role'] == 'Vet'){
+        header("Location: ./veterinarian/dashboard.php");
+        exit;
+     }
     } else {
       $error = "Invalid username or password.";
     }

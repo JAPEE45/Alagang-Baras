@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alagang Baras - Livestock Management System</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../assets/styles/components/sidebar.css" />
+    <link
+      rel="stylesheet"
+      href="../../assets/styles/layouts/moa/livestock-profiling.css"
+    />
+  </head>
+  <body>
+    <div class="overlay" id="overlay"></div>
+
+    <button class="hamburger-btn" id="hamburgerBtn">
+      <i class="fas fa-bars"></i>
+    </button>
+
+     <div class="sidebar" id="sidebar">
+      <div class="logo">
+        <h4>Alagang Baras</h4>
+        <p>Livestock Management System</p>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-item">
+          <a href="./dashboard.php" class="nav-link active">
+            <i class="fas fa-tachometer-alt"></i>
+            Dashboard
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="./owner-list.php" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Owner Management
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="./livestock-health-monitoring.php" class="nav-link">
+            <i class="fas fa-tachometer-alt"></i>
+            Health Monitoring
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="./livestock-profiling-list.php" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Livestock Profiling
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a href="./reports.php" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Reports
+          </a>
+        </div>
+
+        <!-- <div class="nav-item">
+          <a href="./qr.php" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            QR Code
+          </a>
+        </div> -->
+        <div class="nav-item">
+          <a href="../index.php" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            Log out
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Content Area -->
+      <main class="content">
+        <h2 class="page-title fade-in">
+          <i class="fas fa-clipboard-list me-3"></i>Livestock Owner Registration
+        </h2>
+
+        <form id="livestockForm" class="livestock-form fade-in">
+          <div class="row">
+            <h2 class="mb-3">Personal Information</h2>
+            <div class="col-md-3 form-row">
+              <label for="fullName" class="form-label">Surname:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="surname"
+                name="surname"
+              />
+            </div>
+            <div class="col-md-4 form-row">
+              <label for="firstName" class="form-label">First Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                name="firstName"
+              />
+            </div>
+            <div class="col-md-3 form-row">
+              <label for="middleName" class="form-label">Middle Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="middleName"
+                name="middleName"
+              />
+            </div>
+            <div class="col-md-2 form-row">
+              <label for="extName" class="form-label">Ext Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="extName"
+                name="extName"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 form-row">
+              <label for="sex" class="form-label">Sex:</label>
+              <select class="form-control" name="sex" id="sex">
+                <option hidden disabled selected>-- Select --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="col-md-10 form-row">
+              <label for="address" class="form-label">Address:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="address"
+                name="address"
+                placeholder=""
+              />
+              <label for="address" class="text-muted" style="font-size: 0.7rem"
+                >House/Lot/BuildingNo./Purok, St./Sitio/Subdv., Barangay,
+                Municipality/City, Province, Region</label
+              >
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="mobileNum" class="form-label">Mobile Number:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="mobileNum"
+                name="mobileNum"
+              />
+            </div>
+
+            <div class="col-md-6 form-row">
+              <label for="landlineNum" class="form-label"
+                >Landline Number:</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="landlineNum"
+                name="landlineNum"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="birthday" class="form-label">Date of Birth:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="birthday"
+                name="birthday"
+              />
+            </div>
+
+            <div class="col-md-6 form-row">
+              <label for="birthPlace" class="form-label">Place of Birth:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="birthPlace"
+                name="birthPlace"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="email" class="form-label"
+                >Highest Formal Education:</label
+              >
+              <select
+                class="form-control"
+                name="highestFormalEducation"
+                id="highestFormalEducation"
+              >
+                <option value="" disabled selected hidden>
+                  -- Please Select --
+                </option>
+                <option value="Pre-school">Pre-school</option>
+                <option value="Elementary">Elementary</option>
+                <option value="High School (non K-12)">
+                  High School (non K-12)
+                </option>
+                <option value="Junior High School (K-12)">
+                  Junior High School (K-12)
+                </option>
+                <option value="Senior High School (K-12)">
+                  Senior High School (K-12)
+                </option>
+                <option value="College">College</option>
+                <option value="Vocational">Vocational</option>
+                <option value="Post Graduate">Post Graduate</option>
+                <option value="None">None</option>
+              </select>
+            </div>
+            <div class="col-md-6 form-row">
+              <label for="isPwd" class="form-label"
+                >Person With Disability:</label
+              >
+              <select class="form-control" name="isPwd" id="isPwd">
+                <option value="" disabled selected hidden>
+                  -- Please Select --
+                </option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="religion" class="form-label">Religion:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="religion"
+                name="religion"
+              />
+            </div>
+            <div class="col-md-6 form-row">
+              <label for="civilStatus" class="form-label">Civil Status:</label>
+              <select name="civilStatus" id="civilStatus" class="form-control">
+                <option value="" disabled selected hidden>
+                  -- Please Select --
+                </option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Separated">Separated</option>
+                <option value="Widowed">Widowed</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3 form-row">
+              <label for="spouse" class="form-label">Spouse if married:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="spouse"
+                name="spouse"
+              />
+            </div>
+            <div class="col-md-3 form-row">
+              <label for="isBeneficiary4ps" class="form-label">4ps Beneficiary?</label>
+              <select name="isBeneficiary4ps" id="isBeneficiary4ps" class="form-control">
+                <option value="" disabled selected hidden>-- Please Select --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <div class="col-md-6 form-row">
+              <label for="isIndigenous" class="form-label">Member of an Indigenous Group?</label>
+              <div class="inputs-condition-cont d-flex align-items-center gap-3">
+                <div class="d-flex flex-column">
+                  <div>
+                    <label for="isIndigenousYes">Yes</label>
+                    <input type="radio" name="isIndigenous" id="isIndigenousYes">
+                  </div>
+                  <div>
+                    <label for="isIndigenousNo">No</label>
+                    <input type="radio" name="isIndigenous" id="isIndigenousNo">
+                  </div>
+                </div>
+                <div class="input-condition d-flex flex-column" style="width: 80%;">
+                  <label for="indigenousGroup">If yes:</label>
+                  <input type="text" class="condition-input" id="indigenousGroup">
+                </div>
+              </div>
+              <!-- <select name="isIndigenous" id="isIndigenous" class="form-control">
+                <option value="" disabled selected hidden>-- Please Select --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-row">
+              <label for="motherMaiden" class="form-label">Mother's Maiden Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="motherMaiden"
+                name="motherMaiden"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-row">
+              <label for="isIndigenous" class="form-label">With <strong>Government ID</strong>?</label>
+              <div class="inputs-condition-cont d-flex align-items-center gap-3">
+                <div class="d-flex flex-column">
+                  <div>
+                    <label for="hasGovernmentIdYes">Yes</label>
+                    <input type="radio" name="hasGovernmentId" id="hasGovernmentIdYes">
+                  </div>
+                  <div>
+                    <label for="isIndigenousNo">No</label>
+                    <input type="radio" name="hasGovernmentId" id="hasGovernmentIdNo">
+                  </div>
+                </div>
+                <div class="input-condition d-flex flex-column" style="width: 40%;">
+                  <label for="governmentIdType">If yes, ID type:</label>
+                  <input type="text" class="condition-input" id="governmentIdType">
+                </div>
+                <div class="input-condition d-flex flex-column" style="width: 40%;">
+                  <label for="governmentIdNum">ID Number:</label>
+                  <input type="text" class="condition-input" id="governmentIdNum">
+                </div>
+              </div>
+              <!-- <select name="isIndigenous" id="isIndigenous" class="form-control">
+                <option value="" disabled selected hidden>-- Please Select --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-row">
+              <label for="isIndigenous" class="form-label"><strong>HOUSEHOLD HEAD?</strong></label>
+              <div class="inputs-condition-cont d-flex align-items-center gap-3">
+                <div class="d-flex flex-column">
+                  <div>
+                    <label for="isHouseholdHeadYes">Yes</label>
+                    <input type="radio" name="isHouseholdHead" id="isHouseholdHeadYes">
+                  </div>
+                  <div>
+                    <label for="isHouseholdHeadNo">No</label>
+                    <input type="radio" name="isHouseholdHead" id="isHouseholdHeadNo">
+                  </div>
+                </div>
+                <div class="input-condition d-flex flex-column" style="width: 40%;">
+                  <label for="governmentIdType">If no, name of household head:</label>
+                  <input type="text" class="condition-input" id="governmentIdType">
+                </div>
+                <div class="input-condition d-flex flex-column" style="width: 40%;">
+                  <label for="governmentIdNum">Relationship:</label>
+                  <input type="text" class="condition-input" id="governmentIdNum">
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-4 form-row">
+                  <label for="noOfHouseholdMembers" class="form-label" style="font-size: 1rem;">No. of Living Household Members:</label>
+                  <input class="form-control" type="number" id="noOfHouseholdMembers">
+                </div>
+                <div class="col-md-4 form-row">
+                  <label for="noOfHouseholdMembers" class="form-label" style="font-size: 1rem;">No. of Male:</label>
+                  <input class="form-control" type="number" id="noOfHouseholdMembers">
+                </div>
+                <div class="col-md-4 form-row">
+                  <label for="noOfHouseholdMembers" class="form-label" style="font-size: 1rem;">No. of Female:</label>
+                  <input class="form-control" type="number" id="noOfHouseholdMembers">
+                </div>
+              </div>
+              <!-- <select name="isIndigenous" id="isIndigenous" class="form-control">
+                <option value="" disabled selected hidden>-- Please Select --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 form-row">
+              <label for="isIndigenous" class="form-label">Member of any <strong>Farmers Association/Cooperative?</strong></label>
+              <div class="inputs-condition-cont d-flex align-items-center gap-3">
+                <div class="d-flex flex-column">
+                  <div>
+                    <label for="isMemberOfFarmersAssociationYes">Yes</label>
+                    <input type="radio" name="isMemberOfFarmersAssociation" id="isMemberOfFarmersAssociationYes">
+                  </div>
+                  <div>
+                    <label for="isMemberOfFarmersAssociationNo">No</label>
+                    <input type="radio" name="isMemberOfFarmersAssociation" id="isMemberOfFarmersAssociationNo">
+                  </div>
+                </div>
+                <div class="input-condition d-flex flex-column" style="width: 80%;">
+                  <label for="farmerAssociation">If yes, specify:</label>
+                  <input type="text" class="condition-input" id="farmerAssociation">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-row">
+              <label for="isIndigenous" class="form-label">Person to notify in case of emergency</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6 form-row">
+              <label for="isIndigenous" class="form-label">Contact Number:</label>
+              <input type="text" class="form-control">
+            </div>
+          </div>
+
+          <div class="row">
+            <h2 class="mb-3">Farm Profile</h2>
+            <div class="col-md-12 form-row">
+              <label for="mainLivelihood" class="form-label">MAIN LIVELIHOOD</label>
+              <select class="form-control" name="mainLivelihood" id="mainLivelihood">
+                <option value="" disabled selected hidden>-- Please Select --</option>
+                <option value="Farmer">Farmer</option>
+                <option value="Farmworker/Laborer">Farmworker/Laborer</option>
+                <option value="Fisherfolk">Fisherfolk</option>
+                <option value="Agri Youth">Agri Youth</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row" id="forFarmers" style="display: none;">
+            <h5 class="text-center"><em>For Farmers</em></h5>
+            <div class="col-md-12 form-row">
+              <label for="typeOfFarmingActivity" class="form-label" style="font-size: 1rem;">Type of farming activity:</label>
+              <select class="form-control" name="typeOfFarmingActivity" id="typeOfFarmingActivity">
+                <option value="" disabled selected hidden>-- Please Select --</option>
+                <option value="Rice">Rice</option>
+                <option value="Corn">Corn</option>
+                <option value="Other Crops">Other Crops</option>
+                <option value="Livestock">Livestock</option>
+                <option value="Poultry">Poultry</option>
+              </select>
+              <div class="specify-cont" style="display: none;" id="specifyTypeFarmCont">
+                <label class="form-label mt-2" for="specifyTypeFarm">Please Specify</label>
+                <input type="text" class="condition-input" id="specifyTypeFarm">
+              </div>
+            </div>
+          </div>
+
+          <div class="row" id="forFarmWorkers" style="display: none;">
+            <h5 class="text-center"><em>For Farm Workers</em></h5>
+            <div class="col-md-12 form-row">
+              <label for="kindOfWork" class="form-label" style="font-size: 1rem;">Kind of Work:</label>
+              <select class="form-control" name="kindOfWork" id="kindOfWork">
+                <option value="" disabled selected hidden>-- Please Select --</option>
+                <option value="Land Preparation">Land Preparation</option>
+                <option value="Planting/Transplanting">Planting/Transplanting</option>
+                <option value="Cultivation">Cultivation</option>
+                <option value="Harvesting">Harvesting</option>
+                <option value="Others">Others</option>
+              </select>
+              <div class="specify-cont" style="display: none;" id="specifyKindOfWorkCont">
+                <label class="form-label mt-2" for="specifyTypeFarm">Please Specify</label>
+                <input type="text" class="condition-input" id="specifyKindOfWork">
+              </div>
+            </div>
+          </div>
+
+          <div class="row" id="forFisherfolk" style="display: none;">
+            <h5 class="text-center"><em>For Fisherfolk</em></h5>
+            <div class="col-md-12 form-row">
+              <label for="typeOfFishingActivity" class="form-label" style="font-size: 1rem;">Type of Fishing Activity:</label>
+              <select class="form-control" name="typeOfFishingActivity" id="typeOfFishingActivity">
+                <option value="" disabled selected hidden>-- Please Select --</option>
+                <option value="Fish Capture">Fish Capture</option>
+                <option value="Aquaculture">Aquaculture</option>
+                <option value="Gleaning">Gleaning</option>
+                <option value="Fish Processing">Fish Processing</option>
+                <option value="Fish Vending">Fish Vending</option>
+                <option value="Others">Others</option>
+              </select>
+              <div class="specify-cont" style="display: none;" id="specifyFishingActivity">
+                <label class="form-label mt-2" for="specifyTypeFarm">Please Specify</label>
+                <input type="text" class="condition-input" id="specifyFishingActivity">
+              </div>
+            </div>
+          </div>
+
+          <div class="row" id="forAgriYouth" style="display: none;">
+            <h5 class="text-center"><em>For Agri Youth</em></h5>
+            <div class="col-md-12 form-row">
+              <label for="typeOfInvolment" class="form-label" style="font-size: 1rem;">Type of Involvement:</label>
+              <select class="form-control" name="typeOfInvolment" id="typeOfInvolment">
+                <option value="" disabled selected hidden>-- Please Select --</option>
+                <option value="part of farming household">part of farming household</option>
+                <option value="attending/attended formal agri-fishery related course">attending/attended formal agri-fishery related course</option>
+                <option value="participated in any agricultural activity/program">participated in any agricultural activity/program</option>
+                <option value="Others">Others</option>
+              </select>
+              <div class="specify-cont" style="display: none;" id="specifyTypeOfInvolmentCont">
+                <label class="form-label mt-2" for="specifyTypeOfInvolment">Please Specify</label>
+                <input type="text" class="condition-input" id="specifyTypeOfInvolment">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <h5>Gross Annual Income Last Year</h5>
+            <div class="col-md-6 form-row">
+              <label for="farmingIncome" class="form-label">Farming:</label>
+              <input type="text" class="form-control" id="farmingIncome">
+            </div>
+            <div class="col-md-6 form-row">
+              <label for="nonFarmingIncome" class="form-label">Non-Farming:</label>
+              <input type="text" class="form-control" id="nonFarmingIncome">
+            </div>
+          </div>
+
+          <div id="message-container" class="message-container"></div>
+          <div class="btn-container">
+            <button class="btn btn-custom btn-save" id="submitBtn">Save</button>
+            <button type="reset" class="btn btn-custom btn-reset" id="resetBtn">
+              Reset
+            </button>
+            <button
+              type="button"
+              class="btn btn-custom btn-cancel"
+              onclick="cancelForm()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+const params = new URLSearchParams(location.search);
+const id = params.get("uid");
+
+// 🟩 Auto-fill if editing (has uid)
+if (id) {
+  fetch(`../../helper/getOwner.php?uid=${id}`)
+    .then((res) => res.json())
+    .then((j) => {
+      console.log("Fetched owner:", j);
+      for (const key in j) {
+        const el = document.getElementById(key);
+        if (el && el.type !== "radio" && el.type !== "checkbox") {
+          el.value = j[key] ?? "";
+        }
+      }
+
+      // 🟦 Radio button handling
+      if (j.isIndigenous === "Yes") document.getElementById("isIndigenousYes").checked = true;
+      else if (j.isIndigenous === "No") document.getElementById("isIndigenousNo").checked = true;
+
+      if (j.hasGovernmentId === "Yes") document.getElementById("hasGovernmentIdYes").checked = true;
+      else if (j.hasGovernmentId === "No") document.getElementById("hasGovernmentIdNo").checked = true;
+
+      if (j.isHouseholdHead === "Yes") document.getElementById("isHouseholdHeadYes").checked = true;
+      else if (j.isHouseholdHead === "No") document.getElementById("isHouseholdHeadNo").checked = true;
+
+      if (j.isMemberOfFarmersAssociation === "Yes") document.getElementById("isMemberOfFarmersAssociationYes").checked = true;
+      else if (j.isMemberOfFarmersAssociation === "No") document.getElementById("isMemberOfFarmersAssociationNo").checked = true;
+
+      document.getElementById("submitBtn").textContent = "Update Owner";
+    })
+    .catch((err) => console.error("Error fetching:", err));
+} else {
+  document.getElementById("submitBtn").textContent = "Save Owner";
+}
+
+
+      const mainLivelihood = document.getElementById("mainLivelihood");
+      const typeOfFarmingActivity = document.getElementById("typeOfFarmingActivity");
+      const kindOfWork = document.getElementById("kindOfWork");
+      const typeOfFishingActivity = document.getElementById("typeOfFishingActivity");
+      const typeOfInvolment = document.getElementById("typeOfInvolment");
+
+      mainLivelihood.addEventListener("change", function () {
+        const forFarmers = document.getElementById("forFarmers");
+        const forFarmWorkers = document.getElementById("forFarmWorkers");
+        const forFisherfolk = document.getElementById("forFisherfolk");
+        const forAgriYouth = document.getElementById("forAgriYouth");
+
+        forFarmers.style.display = mainLivelihood.value === "Farmer" ? "block" : "none";
+        forFarmWorkers.style.display = mainLivelihood.value === "Farmworker/Laborer" ? "block" : "none";
+        forFisherfolk.style.display = mainLivelihood.value === "Fisherfolk" ? "block" : "none";
+        forAgriYouth.style.display = mainLivelihood.value === "Agri Youth" ? "block" : "none";
+        console.log(mainLivelihood.value);
+      });
+
+      typeOfFarmingActivity.addEventListener("change", function () {
+        const specifyTypeFarmCont = document.getElementById("specifyTypeFarmCont");
+        specifyTypeFarmCont.style.display = typeOfFarmingActivity.value === "Other Crops" || typeOfFarmingActivity.value === "Livestock" || typeOfFarmingActivity.value === "Poultry" ? "block" : "none";
+      });
+
+      kindOfWork.addEventListener("change", function () {
+        const specifyKindOfWorkCont = document.getElementById("specifyKindOfWorkCont");
+        specifyKindOfWorkCont.style.display = kindOfWork.value === "Others" ? "block" : "none";
+      });
+
+      typeOfFishingActivity.addEventListener("change", function () {
+        const specifyFishingActivity = document.getElementById("specifyFishingActivity");
+        specifyFishingActivity.style.display = typeOfFishingActivity.value === "Others" ? "block" : "none";
+      });
+
+      typeOfInvolment.addEventListener("change", function () {
+        const specifyTypeOfInvolmentCont = document.getElementById("specifyTypeOfInvolmentCont");
+        specifyTypeOfInvolmentCont.style.display = typeOfInvolment.value === "Others" ? "block" : "none";
+      });
+    </script>
+    <script src="../../assets/scripts/moa-owner-reg.js"></script>
+    <script src="../../assets/scripts/sidebar.js"></script>
+  </body>
+</html>

@@ -1,13 +1,12 @@
 <?php
 session_start();
-require_once '../../config/db.php'; // Adjust path if needed
+require_once '../../config/db.php'; 
 
 $ownerSuccess = '';
 $ownerError = '';
 
-// Handle Owner Form Submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Get POST data
+
   $name = $_POST['name'];
   $species = $_POST['species'];
   $breed = $_POST['breed'];
@@ -15,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $sex = $_POST['sex'];
   $owner = $_POST['owner'];
   echo "<h1>this is the name ".$name>"</h1>";
-  // Basic validation
+
   if (empty($name) || empty($species) || empty($breed) || empty($sex)) {
     $ownerError = "Please fill in all required fields.";
   } else {
