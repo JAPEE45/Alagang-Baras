@@ -1,15 +1,13 @@
-<!-- <?php 
-
+<?php 
 include_once '../../helper/db.php';
 
 $smtp = $pdo->prepare("SELECT * FROM owner ORDER BY id DESC");
 if($smtp->execute()){
    $result = $smtp->fetchAll(PDO::FETCH_ASSOC);
-
+} else {
+   $result = [];
 }
-
-
-?> -->
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -114,7 +112,6 @@ if($smtp->execute()){
             <table class="table mb-0" id="healthRecordsTable">
               <thead>
                 <tr>
-                  <th>Owner ID</th>
                   <th>Full Name</th>
                   <th>Mobile Number</th>
                   <th>Livelihood</th>
@@ -123,26 +120,20 @@ if($smtp->execute()){
               </thead>
               <tbody>
                <?php foreach($result as $r){ ?>
-    <?php 
-      
-        echo "
-              <tr>
-                <td>".$r["id"]."</td>
-                <td><span class=''>".$r["firstName"]." ".$r["middleName"]." ".$r["surname"]."</span></td>
-                <td>".$r["mobileNum"]."</td>
-                <td>Farmer</td>
-                <td>
-                  <a class='btn btn-sm btn-outline-primary me-1' href='./owner-registration.php?uid=".$r['id']."'>
-                      <i class='fas fa-edit'></i>
-                  </a>
-                  <button class='btn btn-sm btn-outline-danger' onclick='deleteRecord(this)'>
-                      <i class='fas fa-trash'></i>
-                  </button>
-                </td>";
-        echo "</tr>";
-    ?>
-<?php } ?>
-
+                <tr data-id="<?php echo htmlspecialchars($r['id']); ?>">
+                  <td><span class=''><?php echo htmlspecialchars($r["firstName"]." ".$r["middleName"]." ".$r["surname"]); ?></span></td>
+                  <td><?php echo htmlspecialchars($r["mobileNum"]); ?></td>
+                  <td><?php echo htmlspecialchars($r["mainLivelihood"] ?? 'N/A'); ?></td>
+                  <td>
+                    <a class='btn btn-sm btn-outline-primary me-1' href='./owner-registration.php?uid=<?php echo urlencode($r['id']); ?>'>
+                        <i class='fas fa-edit'></i>
+                    </a>
+                    <button class='btn btn-sm btn-outline-danger' onclick='deleteRecord(this)'>
+                        <i class='fas fa-trash'></i>
+                    </button>
+                  </td>
+                </tr>
+                <?php } ?>
               </tbody>
             </table>
           </div>
@@ -153,23 +144,32 @@ if($smtp->execute()){
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-  
-
 async function deleteRecord(button) {
-  if (confirm("Are you sure you want to delete this health record?")) {
-    const row = button.closest("tr");
-    row.style.animation = "fadeOut 0.3s ease-out";
-    setTimeout(() => {
-      row.remove();
-      showNotification("Health record deleted successfully!", "danger");
-    }, 300);
-    // alert(row.children[0].innerHTML)
-    const res = await fetch(`../../helper/deleteOwner.php?ownerId=${row.children[0].innerHTML}`)
+  if (!confirm("Are you sure you want to delete this owner?")) {
+    return;
+  }
+  
+  const row = button.closest("tr");
+  const ownerId = row.getAttribute('data-id');
+  
+  try {
+    const res = await fetch(`../../helper/deleteOwner.php?ownerId=${ownerId}`);
     const r = await res.json();
-    console.log(r)
+    
+    if (r.status === 'success') {
+      row.style.animation = "fadeOut 0.3s ease-out";
+      setTimeout(() => {
+        row.remove();
+      }, 300);
+      alert('Owner deleted successfully!');
+    } else {
+      alert('Error: ' + r.message);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Failed to delete owner');
   }
 }
-
     </script>
     <script src="../../assets/scripts/sidebar.js"></script>
   </body>

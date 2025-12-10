@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2025 at 06:42 AM
+-- Generation Time: Nov 23, 2025 at 12:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -56,16 +56,19 @@ CREATE TABLE `coordinators` (
   `user_id` int(11) NOT NULL,
   `position_role` varchar(100) DEFAULT NULL,
   `barangay_assigned` varchar(100) NOT NULL,
-  `fullname` varchar(20) NOT NULL
+  `fullname` varchar(20) NOT NULL,
+  `contact_number` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `coordinators`
 --
 
-INSERT INTO `coordinators` (`coordinator_id`, `user_id`, `position_role`, `barangay_assigned`, `fullname`) VALUES
-(1, 2, 'sas', 'silangan', 'Juan Dela Cruz'),
-(2, 2, 'sas', 'silangan', 'Juan Dela Cruz');
+INSERT INTO `coordinators` (`coordinator_id`, `user_id`, `position_role`, `barangay_assigned`, `fullname`, `contact_number`) VALUES
+(1, 2, 'sas', 'silangan', 'Juan Dela Cruz', NULL),
+(2, 2, 'sas', 'silangan', 'Juan Dela Cruz', NULL),
+(3, 7, NULL, 'Ginitligan', 'sdjk', NULL),
+(4, 8, NULL, 'Ginitligan', 'jason', '0919');
 
 -- --------------------------------------------------------
 
@@ -206,7 +209,10 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `username`, `password_`, `role`, `status`, `created_at`) VALUES
 (1, 'japee', 'japee', 'MAO', '', '2025-09-12 03:26:03'),
 (2, 'coordinator', 'coordinator', 'Coordinator', 'Active', '2025-10-09 14:41:53'),
-(3, 'vet123', 'vet4545', 'Vet', 'Active', '2025-10-10 08:51:33');
+(3, 'vet123', 'vet4545', 'Vet', 'Active', '2025-10-10 08:51:33'),
+(7, 'sdjk123', '$2y$10$NsXgqLvmCQTjicuaFtCf6.cEyzR0NwCvnqwkgrBeZyW2142buIhwe', 'Coordinator', 'Active', '2025-10-22 10:59:45'),
+(8, 'jason487', '09jkj', 'Coordinator', 'Active', '2025-10-22 11:01:59'),
+(9, 'jesselcamolo628', 'Vet1416', 'Vet', 'Active', '2025-10-22 11:25:06');
 
 -- --------------------------------------------------------
 
@@ -227,7 +233,8 @@ CREATE TABLE `veterinarians` (
 --
 
 INSERT INTO `veterinarians` (`vet_id`, `user_id`, `prc_number`, `specialization`, `fullname`) VALUES
-(1, 3, '12345', 'i dont know', 'Janna Cabiles');
+(1, 3, '12345', 'i dont know', 'Janna Cabiles'),
+(2, 9, '1234', 'Loving me haha', 'Jessel Camolo');
 
 -- --------------------------------------------------------
 
@@ -320,7 +327,7 @@ ALTER TABLE `animals`
 -- AUTO_INCREMENT for table `coordinators`
 --
 ALTER TABLE `coordinators`
-  MODIFY `coordinator_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `coordinator_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `healthmonitoring`
@@ -350,13 +357,13 @@ ALTER TABLE `owner`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `veterinarians`
 --
 ALTER TABLE `veterinarians`
-  MODIFY `vet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `vet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `vet_barangay_assignments`

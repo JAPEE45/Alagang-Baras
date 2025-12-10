@@ -1,3 +1,107 @@
+// Get owner ID from URL for editing
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('uid');
+
+// Load owner data if editing
+if (id) {
+  loadOwnerData(id);
+}
+
+async function loadOwnerData(ownerId) {
+  try {
+    const response = await fetch(`../../helper/getOwner.php?id=${ownerId}`);
+    const result = await response.json();
+    
+    if (result.status === 'success' && result.data) {
+      const owner = result.data;
+      
+      // Fill in all form fields
+      document.getElementById("surname").value = owner.surname || '';
+      document.getElementById("firstName").value = owner.firstName || '';
+      document.getElementById("middleName").value = owner.middleName || '';
+      document.getElementById("extName").value = owner.extName || '';
+      document.getElementById("sex").value = owner.sex || '';
+      document.getElementById("address").value = owner.address || '';
+      document.getElementById("mobileNum").value = owner.mobileNum || '';
+      document.getElementById("landlineNum").value = owner.landlineNum || '';
+      document.getElementById("birthday").value = owner.birthday || '';
+      document.getElementById("birthPlace").value = owner.birthPlace || '';
+      document.getElementById("highestFormalEducation").value = owner.highestFormalEducation || '';
+      document.getElementById("isPwd").value = owner.isPwd || '';
+      document.getElementById("religion").value = owner.religion || '';
+      document.getElementById("civilStatus").value = owner.civilStatus || '';
+      document.getElementById("spouse").value = owner.spouse || '';
+      document.getElementById("isBeneficiary4ps").value = owner.isBeneficiary4ps || '';
+      
+      // Handle radio buttons for isIndigenous
+      if (owner.isIndigenous === 'Yes') {
+        document.getElementById("isIndigenousYes").checked = true;
+      } else if (owner.isIndigenous === 'No') {
+        document.getElementById("isIndigenousNo").checked = true;
+      }
+      document.getElementById("indigenousGroup").value = owner.indigenousGroup || '';
+      
+      document.getElementById("motherMaiden").value = owner.motherMaiden || '';
+      
+      // Handle radio buttons for hasGovernmentId
+      if (owner.hasGovernmentId === 'Yes') {
+        document.getElementById("hasGovernmentIdYes").checked = true;
+      } else if (owner.hasGovernmentId === 'No') {
+        document.getElementById("hasGovernmentIdNo").checked = true;
+      }
+      document.getElementById("governmentIdType").value = owner.governmentIdType || '';
+      document.getElementById("governmentIdNum").value = owner.governmentIdNum || '';
+      
+      // Handle radio buttons for isHouseholdHead
+      if (owner.isHouseholdHead === 'Yes') {
+        document.getElementById("isHouseholdHeadYes").checked = true;
+      } else if (owner.isHouseholdHead === 'No') {
+        document.getElementById("isHouseholdHeadNo").checked = true;
+      }
+      
+      // Handle radio buttons for isMemberOfFarmersAssociation
+      if (owner.isMemberOfFarmersAssociation === 'Yes') {
+        document.getElementById("isMemberOfFarmersAssociationYes").checked = true;
+      } else if (owner.isMemberOfFarmersAssociation === 'No') {
+        document.getElementById("isMemberOfFarmersAssociationNo").checked = true;
+      }
+      document.getElementById("farmerAssociation").value = owner.farmerAssociation || '';
+      
+      document.getElementById("mainLivelihood").value = owner.mainLivelihood || '';
+      
+      // Trigger change event to show conditional fields
+      document.getElementById("mainLivelihood").dispatchEvent(new Event('change'));
+      
+      if (document.getElementById("typeOfFarmingActivity")) {
+        document.getElementById("typeOfFarmingActivity").value = owner.typeOfFarmingActivity || '';
+      }
+      if (document.getElementById("specifyTypeFarm")) {
+        document.getElementById("specifyTypeFarm").value = owner.specifyTypeFarm || '';
+      }
+      if (document.getElementById("kindOfWork")) {
+        document.getElementById("kindOfWork").value = owner.kindOfWork || '';
+      }
+      if (document.getElementById("specifyKindOfWork")) {
+        document.getElementById("specifyKindOfWork").value = owner.specifyKindOfWork || '';
+      }
+      if (document.getElementById("typeOfFishingActivity")) {
+        document.getElementById("typeOfFishingActivity").value = owner.typeOfFishingActivity || '';
+      }
+      if (document.getElementById("typeOfInvolment")) {
+        document.getElementById("typeOfInvolment").value = owner.typeOfInvolment || '';
+      }
+      if (document.getElementById("specifyTypeOfInvolment")) {
+        document.getElementById("specifyTypeOfInvolment").value = owner.specifyTypeOfInvolment || '';
+      }
+      
+      document.getElementById("farmingIncome").value = owner.farmingIncome || '';
+      document.getElementById("nonFarmingIncome").value = owner.nonFarmingIncome || '';
+    }
+  } catch (error) {
+    console.error('Error loading owner data:', error);
+    alert('Failed to load owner data');
+  }
+}
 
 document.getElementById("submitBtn").addEventListener("click", (e) => {
   e.preventDefault();

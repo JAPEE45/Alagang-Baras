@@ -1,3 +1,16 @@
+<?php
+require_once '../../config/db.php';
+
+// Fetch all health records with livestock and owner info
+$stmt = $pdo->query("
+  SELECT h.*, l.owner_name, l.species, l.breed, l.sex, o.firstName, o.surname
+  FROM healthmonitoring h
+  JOIN livestock l ON h.livestock_id = l.id
+  LEFT JOIN owner o ON l.owner_id = o.id
+  ORDER BY h.createdAt DESC
+");
+$healthRecords = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -125,26 +138,35 @@
                   <th>Owner Name</th>
                   <th>Species</th>
                   <th>Breed</th>
+                  <th>Diagnosis</th>
+                  <th>Treatment</th>
+                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>01/01/25</td>
-                  <td>
-                    <span class="status-badge">Hannah Denielle Teodoro</span>
-                  </td>
-                  <td>Christian Jireh Briol</td>
-                  <td>Anti Rabies</td>
-                  <td>
-                    <button
-                      class="btn btn-sm btn-outline-primary me-1"
-                      onclick="editRecord(this)"
-                    >
-                      <i class="fas fa-edit"></i>
-                    </button>
-                  </td>
-                </tr>
+                <?php if (count($healthRecords) > 0): ?>
+                  <?php foreach ($healthRecords as $record): ?>
+                    <tr data-id="<?php echo htmlspecialchars($record['id']); ?>">
+                      <td><?php echo htmlspecialchars(date('m/d/Y', strtotime($record['createdAt']))); ?></td>
+                      <td><?php echo htmlspecialchars($record['owner_name'] ?? ($record['firstName'] . ' ' . $record['surname'])); ?></td>
+                      <td><?php echo htmlspecialchars($record['species']); ?></td>
+                      <td><?php echo htmlspecialchars($record['breed']); ?></td>
+                      <td><?php echo htmlspecialchars($record['diagnosis'] ?: '-'); ?></td>
+                      <td><?php echo htmlspecialchars($record['treatment'] ?: '-'); ?></td>
+                      <td><span class="badge bg-<?php echo $record['livestock_status'] === 'Healthy' ? 'success' : 'warning'; ?>"><?php echo htmlspecialchars($record['livestock_status']); ?></span></td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-info me-1" onclick="viewDetails(<?php echo $record['id']; ?>)">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <tr>
+                    <td colspan="8" class="text-center">No health records found</td>
+                  </tr>
+                <?php endif; ?>
               </tbody>
             </table>
           </div>

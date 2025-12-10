@@ -1,3 +1,16 @@
+<?php
+require_once '../../config/db.php';
+
+// Fetch all health records with livestock and owner info
+$stmt = $pdo->query("
+  SELECT h.*, l.owner_name, l.species, l.breed, l.sex, o.firstName, o.surname
+  FROM healthmonitoring h
+  JOIN livestock l ON h.livestock_id = l.id
+  LEFT JOIN owner o ON l.owner_id = o.id
+  ORDER BY h.createdAt DESC
+");
+$healthRecords = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -139,102 +152,41 @@
               <thead>
                 <tr>
                   <th>Date</th>
+                  <th>Owner</th>
+                  <th>Species</th>
+                  <th>Breed</th>
                   <th>Diagnosis</th>
                   <th>Treatment</th>
-                  <th>Vet Name</th>
+                  <th>Vaccine</th>
+                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>01/01/25</td>
-                  <td>
-                    <span class="status-badge status-deworming">Deworming</span>
-                  </td>
-                  <td>Albendazole</td>
-                  <td>Dr. Reyes</td>
-                  <td>
-                    <button
-                      class="btn btn-sm btn-outline-primary me-1"
-                      onclick="editRecord(this)"
-                    >
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button
-                      class="btn btn-sm btn-outline-danger"
-                      onclick="deleteRecord(this)"
-                    >
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>01/01/25</td>
-                  <td>
-                    <span class="status-badge status-deworming">Deworming</span>
-                  </td>
-                  <td>Albendazole</td>
-                  <td>Dr. Reyes</td>
-                  <td>
-                    <button
-                      class="btn btn-sm btn-outline-primary me-1"
-                      onclick="editRecord(this)"
-                    >
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button
-                      class="btn btn-sm btn-outline-danger"
-                      onclick="deleteRecord(this)"
-                    >
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>01/01/25</td>
-                  <td>
-                    <span class="status-badge status-deworming">Deworming</span>
-                  </td>
-                  <td>Albendazole</td>
-                  <td>Dr. Reyes</td>
-                  <td>
-                    <button
-                      class="btn btn-sm btn-outline-primary me-1"
-                      onclick="editRecord(this)"
-                    >
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button
-                      class="btn btn-sm btn-outline-danger"
-                      onclick="deleteRecord(this)"
-                    >
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>01/01/25</td>
-                  <td>
-                    <span class="status-badge status-deworming">Deworming</span>
-                  </td>
-                  <td>Albendazole</td>
-                  <td>Dr. Reyes</td>
-                  <td>
-                    <button
-                      class="btn btn-sm btn-outline-primary me-1"
-                      onclick="editRecord(this)"
-                    >
-                      <i class="fas fa-edit"></i>
-                    </button>
-                    <button
-                      class="btn btn-sm btn-outline-danger"
-                      onclick="deleteRecord(this)"
-                    >
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                <tr>
+                <?php if (count($healthRecords) > 0): ?>
+                  <?php foreach ($healthRecords as $record): ?>
+                    <tr data-id="<?php echo htmlspecialchars($record['id']); ?>">
+                      <td><?php echo htmlspecialchars(date('m/d/Y', strtotime($record['createdAt']))); ?></td>
+                      <td><?php echo htmlspecialchars($record['owner_name'] ?? ($record['firstName'] . ' ' . $record['surname'])); ?></td>
+                      <td><?php echo htmlspecialchars($record['species']); ?></td>
+                      <td><?php echo htmlspecialchars($record['breed']); ?></td>
+                      <td><?php echo htmlspecialchars($record['diagnosis'] ?: '-'); ?></td>
+                      <td><?php echo htmlspecialchars($record['treatment'] ?: '-'); ?></td>
+                      <td><?php echo htmlspecialchars($record['vaccine_given'] ?: '-'); ?></td>
+                      <td><span class="badge bg-<?php echo $record['livestock_status'] === 'Healthy' ? 'success' : 'warning'; ?>"><?php echo htmlspecialchars($record['livestock_status']); ?></span></td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteHealthRecord(<?php echo $record['id']; ?>)">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php else: ?>
+                  <tr>
+                    <td colspan="9" class="text-center">No health records found</td>
+                  </tr>
+                <?php endif; ?>
+              </tbody>
                   <td>01/01/25</td>
                   <td>
                     <span class="status-badge status-deworming">Deworming</span>
@@ -556,5 +508,32 @@
 
     <script src="../../assets/scripts/sidebar.js"></script>
     <script src="../../assets/scripts/vet-livestock-health-monitoring.js"></script>
+    <script>
+      async function deleteHealthRecord(id) {
+        if (!confirm("Are you sure you want to delete this health record?")) {
+          return;
+        }
+
+        try {
+          const response = await fetch("../../helper/deleteHealthRecord.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: id })
+          });
+
+          const result = await response.json();
+
+          if (result.status === "success") {
+            alert("Health record deleted successfully!");
+            location.reload();
+          } else {
+            alert("Error: " + result.message);
+          }
+        } catch (error) {
+          console.error("Error deleting health record:", error);
+          alert("Failed to delete health record. Please try again.");
+        }
+      }
+    </script>
   </body>
 </html>

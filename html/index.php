@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user && $password == $user['password_']) {
       $_SESSION['user_id'] = $user['user_id'];
       $_SESSION['username'] = $user['username'];
+      $_SESSION['role'] = $user['role'];
 
       // Redirect to dashboard
      if($user['role'] == 'MAO'){

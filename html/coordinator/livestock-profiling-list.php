@@ -1,15 +1,17 @@
-<!-- <?php 
+<?php
+include_once '../../config/db.php';
 
-include_once '../../helper/db.php';
-
-$smtp = $pdo->prepare("SELECT * FROM animals ORDER BY id DESC");
-if($smtp->execute()){
-   $result = $smtp->fetchAll(PDO::FETCH_ASSOC);
-
-}
-
-
-?> -->
+// Get all livestock with owner information
+$stmt = $pdo->prepare("
+  SELECT l.*, o.firstName, o.surname, o.middleName,
+  TIMESTAMPDIFF(YEAR, l.dob, CURDATE()) as age_years
+  FROM livestock l
+  LEFT JOIN owner o ON l.owner_id = o.id
+  ORDER BY l.id DESC
+");
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -46,7 +48,7 @@ if($smtp->execute()){
 
       <nav class="nav-menu">
         <div class="nav-item">
-          <a href="./dashboard.php" class="nav-link active">
+          <a href="./dashboard.php" class="nav-link ">
             <i class="fas fa-tachometer-alt"></i>
             Dashboard
           </a>
@@ -67,7 +69,7 @@ if($smtp->execute()){
         </div>
 
         <div class="nav-item">
-          <a href="./livestock-profiling-list.php" class="nav-link">
+          <a href="./livestock-profiling-list.php" class="nav-link active">
             <i class="fas fa-sign-out-alt"></i>
             Livestock Profiling
           </a>
@@ -137,12 +139,36 @@ if($smtp->execute()){
             </tr>
           </thead>
           <tbody id="livestockTableBody">
-            <tr>
-              <td colspan="7" class="text-center text-muted py-5">
-                No livestock data available. Click "Add Livestock" to get
-                started.
-              </td>
-            </tr>
+            <?php if (count($result) > 0): ?>
+              <?php foreach ($result as $livestock): ?>
+                <tr data-id="<?php echo htmlspecialchars($livestock['id']); ?>">
+                  <td><?php echo htmlspecialchars($livestock['owner_name'] ?? ($livestock['firstName'] . ' ' . $livestock['surname'])); ?></td>
+                  <td><?php echo htmlspecialchars($livestock['species']); ?></td>
+                  <td><?php echo htmlspecialchars($livestock['breed']); ?></td>
+                  <td><?php echo htmlspecialchars($livestock['sex']); ?></td>
+                  <td>
+                    <?php if ($livestock['qr_code']): ?>
+                      <a href="../../<?php echo htmlspecialchars($livestock['qr_code']); ?>" target="_blank" class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-qrcode"></i> View
+                      </a>
+                    <?php else: ?>
+                      <span class="text-muted">No QR</span>
+                    <?php endif; ?>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteLivestock(<?php echo $livestock['id']; ?>)">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <tr>
+                <td colspan="6" class="text-center text-muted py-5">
+                  No livestock data available. Click "Add Livestock" to get started.
+                </td>
+              </tr>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>
@@ -272,10 +298,21 @@ if($smtp->execute()){
     });
 
     const result = await res.json();
-    console.log(result)
+    console.log(result);
+    
+    if (result.status === "success") {
+      alert("Livestock added successfully!");
+      // Close modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('addLivestockModal'));
+      if (modal) modal.hide();
+      // Reload page to show new livestock
+      location.reload();
+    } else {
+      alert("Error: " + result.message);
+    }
   } catch (err) {
     console.error("Error:", err);
-  
+    alert("Failed to add livestock. Please try again.");
   }
 });
      

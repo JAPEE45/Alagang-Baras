@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alagang Baras - Veterinary Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --sidebar-bg: #2d7a4f;
+            --sidebar-width: 256px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            color: white;
+            padding: 2rem 1rem;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .sidebar-header p {
+            font-size: 1rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .profile-section {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            overflow: hidden;
+        }
+
+        .profile-img i {
+            font-size: 60px;
+            color: #999;
+        }
+
+        .profile-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-role {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            display: block;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .dashboard-title {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-card.purple {
+            background: linear-gradient(135deg, #e8d5f0 0%, #dac5e8 100%);
+        }
+
+        .stat-card.yellow {
+            background: linear-gradient(135deg, #fff4d6 0%, #ffe4b5 100%);
+        }
+
+        .stat-card.green {
+            background: linear-gradient(135deg, #d4f4dd 0%, #c1e9cc 100%);
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card.purple .stat-number {
+            color: #8b5cb5;
+        }
+
+        .stat-card.yellow .stat-number {
+            color: #f0a500;
+        }
+
+        .stat-card.green .stat-number {
+            color: #2d9f5f;
+        }
+
+        .stat-label {
+            font-size: 1.25rem;
+            color: #333;
+            font-weight: 400;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-toggle {
+                display: block !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-title {
+                font-size: 2rem;
+            }
+
+            .stat-number {
+                font-size: 3rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 999;
+            background: var(--sidebar-bg);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.25rem;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>Alagang Baras</h1>
+            <p>Veterinarian</p>
+        </div>
+
+        <div class="profile-section">
+            <div class="profile-img">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-name">Janna Cabiles</div>
+            <div class="profile-role">Veterinarian</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="#" class="active">Dashboard</a></li>
+            <li><a href="#">Health Monitoring</a></li>
+            <li><a href="#">Log out</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <h1 class="dashboard-title">Dashboard</h1>
+
+        <div class="stats-container">
+            <div class="stat-card purple">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Animals Assigned</div>
+            </div>
+            <div class="stat-card yellow">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Healthy Animals</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Sick</div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart-card">
+                <h2 class="chart-title">Animal Health Distribution</h2>
+                <div class="chart-wrapper">
+                    <canvas id="donutChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2 class="chart-title">Animal Health by Barangay</h2>
+                <div class="chart-wrapper">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Donut Chart
+        const donutCtx = document.getElementById('donutChart').getContext('2d');
+        const donutChart = new Chart(donutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Healthy', 'Sick'],
+                datasets: [{
+                    data: [8, 2],
+                    backgroundColor: ['#5fc58f', '#f08080'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            padding: 20,
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Bar Chart
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['CBS', 'Poblacion', 'San Jose', 'Riverside'],
+                datasets: [{
+                    label: 'Healthy',
+                    data: [0.4, 0.7, 1.5, 2.5, 0.7],
+                    backgroundColor: '#5fc58f',
+                    borderRadius: 6
+                }, {
+                    label: 'Sick',
+                    data: [0, 0.4, 0, 0, 0],
+                    backgroundColor: '#f08080',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 3,
+                        ticks: {
+                            stepSize: 1,
+                            font: {
+                                size: 12
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Number of Animals',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Barangay',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            padding: 20,
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('show');
+            overlay.classList.toggle('show');
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

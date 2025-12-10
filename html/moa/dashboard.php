@@ -1,3 +1,22 @@
+<?php
+require_once '../../config/db.php';
+
+// Get total livestock count
+$livestockStmt = $pdo->query("SELECT COUNT(*) as count FROM livestock");
+$totalLivestock = $livestockStmt->fetch()['count'];
+
+// Get total owners count
+$ownerStmt = $pdo->query("SELECT COUNT(*) as count FROM owner");
+$totalOwners = $ownerStmt->fetch()['count'];
+
+// Get health records count (for animals needing attention)
+$healthStmt = $pdo->query("SELECT COUNT(*) as count FROM healthmonitoring WHERE livestock_status != 'Healthy'");
+$needsAttention = $healthStmt->fetch()['count'];
+
+// Get livestock by species
+$speciesStmt = $pdo->query("SELECT species, COUNT(*) as count FROM livestock GROUP BY species");
+$speciesData = $speciesStmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,28 +59,22 @@
           </a>
         </div>
 
-        <!-- <div class="nav-item has-submenu">
+        <div class="nav-item has-submenu">
           <a href="#" class="nav-link submenu-toggle">
             <i class="fas fa-heartbeat"></i>
-            Health Monitoring
+            User Management
             <i class="fas fa-chevron-down submenu-icon"></i>
           </a>
           <div class="submenu">
-            <a href="./new-health-record.php" class="submenu-link"
-              >New Health Record</a
+            <a href="./coordinator_management.php" class="submenu-link"
+              >Coordinator</a
             >
-            <a href="./livestock-health-monitoring.php" class="submenu-link"
-              >Livestock Health Monitoring</a
+            <a href="./vet_management.php" class="submenu-link"
+              >Veterinarian</a
             >
           </div>
-        </div> -->
-
-        <div class="nav-item">
-          <a href="./owner-list.php" class="nav-link">
-            <i class="fas fa-sign-out-alt"></i>
-            User Management
-          </a>
         </div>
+        
         <div class="nav-item">
           <a href="./livestock-profiling-list.php" class="nav-link">
             <i class="fas fa-sign-out-alt"></i>
@@ -95,20 +108,20 @@
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class="stats-card purple">
-            <div class="stats-number">310</div>
+            <div class="stats-number"><?php echo $totalLivestock; ?></div>
             <div class="stats-label">Total Livestock</div>
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="stats-card orange">
-            <div class="stats-number">198</div>
+            <div class="stats-number"><?php echo $totalOwners; ?></div>
             <div class="stats-label">Total Registered Owners</div>
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="stats-card green">
-            <div class="stats-number">34</div>
-            <div class="stats-label">Animals Needing Vaccination</div>
+            <div class="stats-number"><?php echo $needsAttention; ?></div>
+            <div class="stats-label">Animals Needing Attention</div>
           </div>
         </div>
       </div>
@@ -216,15 +229,20 @@
             }
         });
 
-        // Pie Chart
+        // Pie Chart - Livestock Distribution
         const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const speciesData = <?php echo json_encode($speciesData); ?>;
+        const speciesLabels = speciesData.map(item => item.species || 'Unknown');
+        const speciesCounts = speciesData.map(item => parseInt(item.count));
+        const totalCount = speciesCounts.reduce((a, b) => a + b, 0);
+        
         const pieChart = new Chart(pieCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Cattle', 'Goats', 'Pigs'],
+                labels: speciesLabels,
                 datasets: [{
-                    data: [55, 30, 15],
-                    backgroundColor: ['#FF6B6B', '#4ECDC4', '#FFE066'],
+                    data: speciesCounts,
+                    backgroundColor: ['#FF6B6B', '#4ECDC4', '#FFE066', '#95E1D3', '#F38181', '#AA96DA'],
                     borderWidth: 2,
                     borderColor: '#ffffff'
                 }]
@@ -234,7 +252,17 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed || 0;
+                                const percentage = totalCount > 0 ? ((value / totalCount) * 100).toFixed(1) : 0;
+                                return label + ': ' + value + ' (' + percentage + '%)';
+                            }
+                        }
                     }
                 },
                 cutout: '60%'

@@ -49,6 +49,11 @@ body {
   color: #4caf50;
 }
 
+.stats-card.red {
+  background: #ffe5e5;
+  color: #dc3545;
+}
+
 .stats-number {
   font-size: 2rem;
   font-weight: 700;

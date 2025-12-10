@@ -1,3 +1,79 @@
+// Load health records on page load
+document.addEventListener('DOMContentLoaded', function() {
+  loadHealthRecords();
+});
+
+async function loadHealthRecords() {
+  try {
+    const response = await fetch("../../helper/getHealthRecords.php");
+    const result = await response.json();
+
+    if (result.status === "success") {
+      const tbody = document.getElementById("healthRecordsBody");
+      tbody.innerHTML = "";
+
+      if (result.data && result.data.length > 0) {
+        result.data.forEach(record => {
+          const ownerName = record.owner_name || `${record.firstName || ''} ${record.surname || ''}`.trim() || 'N/A';
+          const formattedDate = new Date(record.createdAt).toLocaleDateString();
+          
+          const row = `
+            <tr data-id="${record.id}">
+              <td>${formattedDate}</td>
+              <td>${ownerName}</td>
+              <td>${record.species || 'N/A'}</td>
+              <td>${record.breed || 'N/A'}</td>
+              <td>${record.diagnosis || '-'}</td>
+              <td>${record.treatment || '-'}</td>
+              <td>${record.vaccine_given || '-'}</td>
+              <td><span class="badge bg-${record.livestock_status === 'Healthy' ? 'success' : 'warning'}">${record.livestock_status || 'N/A'}</span></td>
+              <td>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteHealthRecord(${record.id})">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          `;
+          tbody.insertAdjacentHTML("beforeend", row);
+        });
+      } else {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center">No health records found</td></tr>';
+      }
+    } else {
+      console.error("Error loading health records:", result.message);
+    }
+  } catch (error) {
+    console.error("Error fetching health records:", error);
+  }
+}
+
+async function deleteHealthRecord(id) {
+  if (!confirm("Are you sure you want to delete this health record?")) {
+    return;
+  }
+
+  try {
+    const response = await fetch("../../helper/deleteHealthRecord.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id })
+    });
+
+    const result = await response.json();
+
+    if (result.status === "success") {
+      alert("Health record deleted successfully!");
+      loadHealthRecords(); // Reload the table
+    } else {
+      alert("Error: " + result.message);
+    }
+  } catch (error) {
+    console.error("Error deleting health record:", error);
+    alert("Failed to delete health record. Please try again.");
+  }
+}
+
+// Keep existing modal functions for backwards compatibility
 document.getElementById("recordDate").valueAsDate = new Date();
 
 function addNewRecord() {
@@ -29,9 +105,9 @@ function addNewRecord() {
                     <td>${animalType}</td>
                     <td>${vaccineGiven}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline-primary me-1" onclick="editRecord(this)">
+                        <a href="./new-health-record.php" class="btn btn-sm btn-outline-primary me-1">
                             <i class="fas fa-edit"></i>
-                        </button>
+                        </a>
                         <button class="btn btn-sm btn-outline-danger" onclick="deleteRecord(this)">
                             <i class="fas fa-trash"></i>
                         </button>
@@ -62,34 +138,6 @@ function addNewRecord() {
   showNotification("Health record added successfully!", "success");
 }
 
-function editRecord(button) {
-  const row = button.closest("tr");
-  const cells = row.querySelectorAll("td");
-
-  const date = cells[0].textContent;
-  const ownerName = cells[1].textContent;
-  const animalType = cells[2].textContent;
-  const vaccineGiven = cells[3].textContent;
-
-  const dateObj = new Date(date);
-  document.getElementById("recordDate").value = dateObj
-    .toISOString()
-    .split("T")[0];
-  document.getElementById("ownerName").value = ownerName;
-  document.getElementById("animalType").value = animalType;
-  document.getElementById("vaccineGiven").value = vaccineGiven;
-
-  document.getElementById("addRecordModalLabel").innerHTML =
-    '<i class="fas fa-edit me-2"></i>Edit Health Record';
-  document.querySelector("#addRecordModal .btn-primary").innerHTML =
-    "Update Record";
-  document
-    .querySelector("#addRecordModal .btn-primary")
-    .setAttribute("onclick", `updateRecord('${row.rowIndex}')`);
-
-  const modal = new bootstrap.Modal(document.getElementById("addRecordModal"));
-  modal.show();
-}
 
 function updateRecord(rowIndex) {
   const form = document.getElementById("addRecordForm");
