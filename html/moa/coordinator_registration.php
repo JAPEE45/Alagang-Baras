@@ -208,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="sidebar" id="sidebar">
     <div class="logo">
       <h4>Alagang Baras</h4>
-      <p>Livestock Management System</p>
+      <p>MAO PAGE</p>
     </div>
 
     <nav class="nav-menu">

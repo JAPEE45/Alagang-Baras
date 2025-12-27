@@ -275,7 +275,7 @@
     <div class="sidebar">
         <div class="sidebar-header">
             <h2>Alagang Baras</h2>
-            <p>Livestock Management System</p>
+            <p>COORDINATOR PAGE</p>
         </div>
         <ul class="nav-menu">
             <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>

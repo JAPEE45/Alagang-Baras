@@ -39,7 +39,7 @@ if($smtp->execute()){
 <div class="sidebar" id="sidebar">
       <div class="logo">
         <h4>Alagang Baras</h4>
-        <p>Livestock Management System</p>
+        <p>COORDINATOR PAGE</p>
       </div>
 
       <nav class="nav-menu">

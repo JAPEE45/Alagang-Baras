@@ -54,7 +54,7 @@ if (!$vetName) {
   <div class="sidebar" id="sidebar">
     <div class="logo">
       <h4>Alagang Baras</h4>
-      <p>Livestock Management System</p>
+      <p>VETERINARIAN PAGE</p>
     </div>
 
     <div class="user-profile">

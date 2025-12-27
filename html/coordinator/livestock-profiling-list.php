@@ -43,7 +43,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
      <div class="sidebar" id="sidebar">
       <div class="logo">
         <h4>Alagang Baras</h4>
-        <p>Livestock Management System</p>
+        <p>COORDINATOR PAGE</p>
       </div>
 
       <nav class="nav-menu">
@@ -126,6 +126,225 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </div>
 
       <!-- Table -->
+       <!-- Accordion -->
+      <div class="accordion" id="ownersAccordion">
+          <!-- Owner 1 -->
+          <div class="accordion-item mb-3 shadow-sm">
+              <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#owner1">
+                      <div class="d-flex align-items-center">
+                          <div class="owner-avatar me-3">J</div>
+                          <div>
+                              <h5 class="mb-0">Juan Cruz Dela</h5>
+                              <small class="text-muted">2 livestock</small>
+                          </div>
+                      </div>
+                  </button>
+              </h2>
+              <div id="owner1" class="accordion-collapse collapse" data-bs-parent="#ownersAccordion">
+                  <div class="accordion-body bg-light">
+                      <div class="table-responsive">
+                          <table class="table table-hover bg-white">
+                              <thead>
+                                  <tr>
+                                      <th>Species</th>
+                                      <th>Breed</th>
+                                      <th>Sex</th>
+                                      <th>QR Code</th>
+                                      <th>Actions</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>Swine</td>
+                                      <td>s</td>
+                                      <td>Female</td>
+                                      <td>
+                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR001')">
+                                              View QR
+                                          </button>
+                                      </td>
+                                      <td>
+                                          <button class="btn btn-sm btn-outline-primary me-1">
+                                              <i class="bi bi-pencil"></i>
+                                          </button>
+                                          <button class="btn btn-sm btn-outline-danger">
+                                              <i class="bi bi-trash"></i>
+                                          </button>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td>Swine</td>
+                                      <td>Duroc</td>
+                                      <td>Male</td>
+                                      <td>
+                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR002')">
+                                              View QR
+                                          </button>
+                                      </td>
+                                      <td>
+                        <button class="action-btn btn-edit" 
+                        data-bs-toggle="modal"
+          data-bs-target="#addLivestockModal"
+          onclick="editLivestock(${index})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn btn-delete" onclick="deleteLivestock(${item.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Owner 2 -->
+          <div class="accordion-item mb-3 shadow-sm">
+              <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#owner2">
+                      <div class="d-flex align-items-center">
+                          <div class="owner-avatar me-3">M</div>
+                          <div>
+                              <h5 class="mb-0">Maria Santos</h5>
+                              <small class="text-muted">3 livestock</small>
+                          </div>
+                      </div>
+                  </button>
+              </h2>
+              <div id="owner2" class="accordion-collapse collapse" data-bs-parent="#ownersAccordion">
+                  <div class="accordion-body bg-light">
+                      <div class="table-responsive">
+                          <table class="table table-hover bg-white">
+                              <thead>
+                                  <tr>
+                                      <th>Species</th>
+                                      <th>Breed</th>
+                                      <th>Sex</th>
+                                      <th>QR Code</th>
+                                      <th>Actions</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>Cattle</td>
+                                      <td>Brahman</td>
+                                      <td>Female</td>
+                                      <td>
+                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR003')">
+                                              View QR
+                                          </button>
+                                      </td>
+                                      <td>
+                                          <button class="btn btn-sm btn-outline-primary me-1">
+                                              <i class="bi bi-pencil"></i>
+                                          </button>
+                                          <button class="btn btn-sm btn-outline-danger">
+                                              <i class="bi bi-trash"></i>
+                                          </button>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td>Cattle</td>
+                                      <td>Angus</td>
+                                      <td>Male</td>
+                                      <td>
+                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR004')">
+                                              View QR
+                                          </button>
+                                      </td>
+                                      <td>
+                                          <button class="btn btn-sm btn-outline-primary me-1">
+                                              <i class="bi bi-pencil"></i>
+                                          </button>
+                                          <button class="btn btn-sm btn-outline-danger">
+                                              <i class="bi bi-trash"></i>
+                                          </button>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td>Goat</td>
+                                      <td>Boer</td>
+                                      <td>Female</td>
+                                      <td>
+                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR005')">
+                                              View QR
+                                          </button>
+                                      </td>
+                                      <td>
+                                          <button class="btn btn-sm btn-outline-primary me-1">
+                                              <i class="bi bi-pencil"></i>
+                                          </button>
+                                          <button class="btn btn-sm btn-outline-danger">
+                                              <i class="bi bi-trash"></i>
+                                          </button>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Owner 3 -->
+          <div class="accordion-item mb-3 shadow-sm">
+              <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                          data-bs-target="#owner3">
+                      <div class="d-flex align-items-center">
+                          <div class="owner-avatar me-3">P</div>
+                          <div>
+                              <h5 class="mb-0">Pedro Reyes</h5>
+                              <small class="text-muted">1 livestock</small>
+                          </div>
+                      </div>
+                  </button>
+              </h2>
+              <div id="owner3" class="accordion-collapse collapse" data-bs-parent="#ownersAccordion">
+                  <div class="accordion-body bg-light">
+                      <div class="table-responsive">
+                          <table class="table table-hover bg-white">
+                              <thead>
+                                  <tr>
+                                      <th>Species</th>
+                                      <th>Breed</th>
+                                      <th>Sex</th>
+                                      <th>QR Code</th>
+                                      <th>Actions</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>Chicken</td>
+                                      <td>Rhode Island Red</td>
+                                      <td>Female</td>
+                                      <td>
+                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR006')">
+                                              View QR
+                                          </button>
+                                      </td>
+                                      <td>
+                                          <button class="btn btn-sm btn-outline-primary me-1">
+                                              <i class="bi bi-pencil"></i>
+                                          </button>
+                                          <button class="btn btn-sm btn-outline-danger">
+                                              <i class="bi bi-trash"></i>
+                                          </button>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
       <div class="table-container">
         <table class="table table-hover">
           <thead>
@@ -272,7 +491,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
@@ -548,6 +766,30 @@ fetch("../../helper/getOwnerNameId.php")
               item.sex.toLowerCase().includes(searchTerm)
           );
           renderTabledata(filtered);
+          
+            const accordionItems = document.querySelectorAll('.accordion-item');
+
+            accordionItems.forEach(item => {
+                const ownerName = item.querySelector('.accordion-button h5').textContent.toLowerCase();
+                const tableRows = item.querySelectorAll('tbody tr');
+                let hasMatch = ownerName.includes(searchTerm);
+
+                tableRows.forEach(row => {
+                    const species = row.cells[0].textContent.toLowerCase();
+                    const breed = row.cells[1].textContent.toLowerCase();
+                    
+                    if (species.includes(searchTerm) || breed.includes(searchTerm)) {
+                        hasMatch = true;
+                        row.style.display = '';
+                    } else if (searchTerm !== '') {
+                        row.style.display = 'none';
+                    } else {
+                        row.style.display = '';
+                    }
+                });
+
+                item.style.display = hasMatch ? '' : 'none';
+            });
         });
 
       // Edit livestock (placeholder)
@@ -555,6 +797,7 @@ fetch("../../helper/getOwnerNameId.php")
 
       // Initialize
     
+      
     </script>
     <script src="../../assets/scripts/sidebar.js"></script>
   </body>

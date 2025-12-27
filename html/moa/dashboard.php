@@ -48,7 +48,7 @@ $speciesData = $speciesStmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="sidebar" id="sidebar">
       <div class="logo">
         <h4>Alagang Baras</h4>
-        <p>Livestock Management System</p>
+        <p>MAO PAGE</p>
       </div>
 
       <nav class="nav-menu">
@@ -133,18 +133,6 @@ $speciesData = $speciesStmt->fetchAll(PDO::FETCH_ASSOC);
           <div class="chart-container">
             <h5 class="chart-title">Livestock by Location</h5>
             <canvas id="barChart" width="400" height="300"></canvas>
-            <div class="mt-3 text-center">
-              <small class="text-muted">
-                <span class="me-3"
-                  ><i class="fas fa-square" style="color: #4a90e2"></i>
-                  Paniquihan - 312</span
-                >
-                <span
-                  ><i class="fas fa-square" style="color: #7ed321"></i> Cabcab -
-                  205</span
-                >
-              </small>
-            </div>
           </div>
         </div>
 
@@ -184,52 +172,54 @@ $speciesData = $speciesStmt->fetchAll(PDO::FETCH_ASSOC);
 
     <script src="../../assets/scripts/sidebar.js"></script>
     <script>
-      // Bar Chart
         const barCtx = document.getElementById('barChart').getContext('2d');
         const barChart = new Chart(barCtx, {
             type: 'bar',
             data: {
-                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                datasets: [{
-                    label: 'Paniquihan',
-                    data: [180, 150, 200, 312],
-                    backgroundColor: '#4A90E2',
-                    borderRadius: 8,
-                    maxBarThickness: 60
-                }, {
-                    label: 'Cabcab',
-                    data: [120, 180, 160, 205],
-                    backgroundColor: '#7ED321',
-                    borderRadius: 8,
-                    maxBarThickness: 60
-                }]
+                labels: [
+                    'January', 'February', 'March', 'April', 'May', 'June', 
+                    'July', 'August', 'September', 'October', 'November', 'December'
+                ],
+                datasets: [
+                    {
+                        label: 'Total Livestock',
+                        data: [120, 125, 130, 128, 140, 145, 150, 148, 155, 160, 158, 165], // Dummy Data
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)', // Blue
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Diseased Livestock',
+                        data: [5, 8, 4, 6, 12, 15, 10, 8, 5, 7, 9, 6], // Dummy Data
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)', // Red
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
-                aspectRatio: 2,
                 plugins: {
                     legend: {
-                        display: false
+                        position: 'top',
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.1)'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
+                        title: {
+                            display: true,
+                            text: 'Number of Animals'
                         }
                     }
                 }
             }
         });
 
-        // Pie Chart - Livestock Distribution
         const pieCtx = document.getElementById('pieChart').getContext('2d');
         const speciesData = <?php echo json_encode($speciesData); ?>;
         const speciesLabels = speciesData.map(item => item.species || 'Unknown');
