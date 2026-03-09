@@ -3,441 +3,728 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alagang Baras - Veterinary Dashboard</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.umd.min.js"></script>
+    <title>RSBSA Enrollment Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
-            --sidebar-bg: #2d7a4f;
-            --sidebar-width: 256px;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
             background-color: #f0f0f0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
         }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: var(--sidebar-width);
-            background-color: var(--sidebar-bg);
-            color: white;
-            padding: 2rem 1rem;
-            overflow-y: auto;
-            z-index: 1000;
+        .a4-container {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 20px auto;
+            padding: 10mm;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
         }
-
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .sidebar-header h1 {
-            font-size: 1.75rem;
-            margin-bottom: 0.25rem;
-            font-weight: 600;
-        }
-
-        .sidebar-header p {
-            font-size: 1rem;
+        h1, h2, h3, h4, h5, h6 {
             margin: 0;
-            opacity: 0.9;
+            font-weight: bold;
         }
-
-        .profile-section {
+        .form-header {
             text-align: center;
-            padding: 1.5rem 0;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            margin-bottom: 2rem;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
         }
-
-        .profile-img {
-            width: 120px;
+        .logo-box {
+            height: 60px;
+            width: 60px;
+            object-fit: contain;
+        }
+        .ref-box {
+            border: 2px solid black;
+            padding: 5px;
+            text-align: left;
+            margin-top: 10px;
+        }
+        .pic-box {
+            border: 2px solid black;
+            width: 100%;
             height: 120px;
-            border-radius: 50%;
-            background-color: #e0e0e0;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1rem;
+            text-align: center;
+            flex-direction: column;
+            background: #f9f9f9;
             overflow: hidden;
         }
-
-        .profile-img i {
-            font-size: 60px;
-            color: #999;
+        .pic-box input[type="file"] {
+            font-size: 9px;
+            width: 90%;
         }
-
-        .profile-name {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .profile-role {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .nav-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-menu li {
-            margin-bottom: 0.5rem;
-        }
-
-        .nav-menu a {
+        .section-header {
+            background-color: #333;
             color: white;
-            text-decoration: none;
-            padding: 0.75rem 1rem;
-            display: block;
-            border-radius: 0.5rem;
-            transition: background-color 0.3s;
-            font-size: 1.1rem;
+            padding: 3px 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            margin-top: 10px;
         }
-
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            background-color: rgba(255,255,255,0.1);
-        }
-
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 2rem;
-            min-height: 100vh;
-        }
-
-        .dashboard-title {
-            font-size: 3rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-            color: #333;
-        }
-
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .stat-card {
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .stat-card.purple {
-            background: linear-gradient(135deg, #e8d5f0 0%, #dac5e8 100%);
-        }
-
-        .stat-card.yellow {
-            background: linear-gradient(135deg, #fff4d6 0%, #ffe4b5 100%);
-        }
-
-        .stat-card.green {
-            background: linear-gradient(135deg, #d4f4dd 0%, #c1e9cc 100%);
-        }
-
-        .stat-number {
-            font-size: 4rem;
-            font-weight: 300;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-card.purple .stat-number {
-            color: #8b5cb5;
-        }
-
-        .stat-card.yellow .stat-number {
-            color: #f0a500;
-        }
-
-        .stat-card.green .stat-number {
-            color: #2d9f5f;
-        }
-
-        .stat-label {
-            font-size: 1.25rem;
-            color: #333;
-            font-weight: 400;
-        }
-
-        .charts-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-        }
-
-        .chart-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .chart-title {
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 2rem;
-            color: #333;
-        }
-
-        .chart-wrapper {
-            position: relative;
-            height: 300px;
-        }
-
-        @media (max-width: 992px) {
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s;
-            }
-
-            .sidebar.show {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .charts-container {
-                grid-template-columns: 1fr;
-            }
-
-            .menu-toggle {
-                display: block !important;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .dashboard-title {
-                font-size: 2rem;
-            }
-
-            .stat-number {
-                font-size: 3rem;
-            }
-
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .menu-toggle {
-            display: none;
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            z-index: 999;
-            background: var(--sidebar-bg);
-            color: white;
+        /* Custom Input Styling to look like paper lines */
+        .form-control-line {
             border: none;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-size: 1.25rem;
+            border-bottom: 1px solid black;
+            border-radius: 0;
+            padding: 0 5px;
+            height: 20px;
+            font-size: 11px;
+            background: transparent;
+        }
+        .form-control-line:focus {
+            box-shadow: none;
+            border-bottom: 2px solid #000;
+        }
+        .form-label {
+            margin-bottom: 0;
+            font-weight: bold;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+        .form-check-input {
+            border: 1px solid black;
+        }
+        .form-check-label {
+            font-size: 10px;
+            margin-left: 2px;
+        }
+        .compact-row {
+            margin-bottom: 5px;
+        }
+        table.custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+        table.custom-table th, table.custom-table td {
+            border: 1px solid black;
+            padding: 3px;
+            vertical-align: middle;
+        }
+        table.custom-table th {
+            text-align: center;
+            background-color: #e9ecef;
+        }
+        .footer-sign {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .signature-line {
+            border-top: 1px solid black;
+            width: 80%;
+            margin: 30px auto 5px auto;
+        }
+        .privacy-box {
+            border: 1px solid black;
+            padding: 5px;
+            font-size: 9px;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        /* Page Break for Print */
+        @media print {
+            body { background: none; }
+            .a4-container { width: 100%; margin: 0; box-shadow: none; page-break-after: always; }
+            .no-print { display: none; }
         }
 
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 999;
+        /* --- HEADER STYLES --- */
+        .header-text h5, .header-text h3, .header-text h6 {
+            margin: 0;
+            font-weight: bold;
+            line-height: 1.2;
+            color: #000;
+        }
+        .logo-img {
+            width: 80px;
+            height: auto;
+        }
+        .pic-box {
+            border: 2px solid #000;
+            width: 100%;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: #f8f9fa;
         }
 
-        .overlay.show {
+        /* --- INPUT STYLES (Paper Line Look) --- */
+        .form-label {
+            margin-bottom: 1px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 10px;
+            color: #000;
+        }
+        .form-line {
+            border: none;
+            border-bottom: 1px solid #000;
+            border-radius: 0;
+            padding: 0 2px;
+            height: 20px;
+            font-size: 11px;
+            width: 100%;
+            background: transparent;
+        }
+        .form-line:focus {
+            outline: none;
+            border-bottom: 2px solid #000;
+        }
+
+        /* --- REFERENCE NUMBER BOX (The tricky part) --- */
+        .ref-box-container {
+            border: 2px solid #000;
+            padding: 2px;
+        }
+        .ref-header {
+            font-size: 10px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        .ref-inputs {
+            display: flex;
+            gap: 5px;
+        }
+        .ref-input-group {
+            flex: 1;
+            text-align: center;
+        }
+        .ref-input-group input {
+            text-align: center;
+        }
+        .ref-input-group span {
+            font-size: 9px;
+            color: #555;
             display: block;
+        }
+
+        /* --- SECTION HEADER --- */
+        .section-header {
+            background-color: #000;
+            color: #fff;
+            padding: 3px 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* --- UTILS --- */
+        .checkbox-group label {
+            font-weight: normal;
+            margin-right: 10px;
+        }
+        .compact-row {
+            margin-bottom: 8px; /* Tight vertical spacing */
         }
     </style>
 </head>
 <body>
-    <button class="menu-toggle" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-    </button>
 
-    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
-
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h1>Alagang Baras</h1>
-            <p>Veterinarian</p>
-        </div>
-
-        <div class="profile-section">
-            <div class="profile-img">
-                <i class="fas fa-user"></i>
-            </div>
-            <div class="profile-name">Janna Cabiles</div>
-            <div class="profile-role">Veterinarian</div>
-        </div>
-
-        <ul class="nav-menu">
-            <li><a href="#" class="active">Dashboard</a></li>
-            <li><a href="#">Health Monitoring</a></li>
-            <li><a href="#">Log out</a></li>
-        </ul>
-    </aside>
-
-    <main class="main-content">
-        <h1 class="dashboard-title">Dashboard</h1>
-
-        <div class="stats-container">
-            <div class="stat-card purple">
-                <div class="stat-number">10</div>
-                <div class="stat-label">Animals Assigned</div>
-            </div>
-            <div class="stat-card yellow">
-                <div class="stat-number">8</div>
-                <div class="stat-label">Healthy Animals</div>
-            </div>
-            <div class="stat-card green">
-                <div class="stat-number">2</div>
-                <div class="stat-label">Sick</div>
-            </div>
-        </div>
-
-        <div class="charts-container">
-            <div class="chart-card">
-                <h2 class="chart-title">Animal Health Distribution</h2>
-                <div class="chart-wrapper">
-                    <canvas id="donutChart"></canvas>
-                </div>
+<div class="container-fluid">
+    <div class="a4-container">
+        <div class="row align-items-center mb-3">
+            <div class="col-2 text-start">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Department_of_Agriculture_%28DA%29.svg/1200px-Department_of_Agriculture_%28DA%29.svg.png" class="logo-img" alt="DA Logo">
             </div>
 
-            <div class="chart-card">
-                <h2 class="chart-title">Animal Health by Barangay</h2>
-                <div class="chart-wrapper">
-                    <canvas id="barChart"></canvas>
+            <div class="col-8 text-center header-text">
+                <h6>REVISED VERSION: 03-2021</h6>
+                <h5>DEPARTMENT OF AGRICULTURE</h5>
+                <h5>REGISTRY SYSTEM FOR BASIC SECTORS IN AGRICULTURE (RSBSA)</h5>
+                <h2 class="mt-2">ENROLLMENT FORM</h2>
+            </div>
+
+            <div class="col-2">
+                <div class="pic-box">
+                    <div style="font-size: 10px; margin-bottom: 5px;">2x2 PICTURE</div>
+                    <input type="file" style="font-size: 9px; width: 90%;" accept="image/*">
                 </div>
             </div>
         </div>
-    </main>
 
-    <script>
-        // Donut Chart
-        const donutCtx = document.getElementById('donutChart').getContext('2d');
-        const donutChart = new Chart(donutCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Healthy', 'Sick'],
-                datasets: [{
-                    data: [8, 2],
-                    backgroundColor: ['#5fc58f', '#f08080'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '70%',
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            usePointStyle: true,
-                            pointStyle: 'circle',
-                            padding: 20,
-                            font: {
-                                size: 14
-                            }
-                        }
-                    }
-                }
-            }
-        });
+        <div class="row align-items-end mb-3">
+            <div class="col-3">
+                <label class="form-label d-block">ENROLLMENT TYPE:</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="new"> <label for="new">New</label>
+                    <input type="checkbox" id="update"> <label for="update">Updating</label>
+                </div>
+            </div>
 
-        // Bar Chart
-        const barCtx = document.getElementById('barChart').getContext('2d');
-        const barChart = new Chart(barCtx, {
-            type: 'bar',
-            data: {
-                labels: ['CBS', 'Poblacion', 'San Jose', 'Riverside'],
-                datasets: [{
-                    label: 'Healthy',
-                    data: [0.4, 0.7, 1.5, 2.5, 0.7],
-                    backgroundColor: '#5fc58f',
-                    borderRadius: 6
-                }, {
-                    label: 'Sick',
-                    data: [0, 0.4, 0, 0, 0],
-                    backgroundColor: '#f08080',
-                    borderRadius: 6
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 3,
-                        ticks: {
-                            stepSize: 1,
-                            font: {
-                                size: 12
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Number of Animals',
-                            font: {
-                                size: 12
-                            }
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Barangay',
-                            font: {
-                                size: 12
-                            }
-                        },
-                        ticks: {
-                            font: {
-                                size: 12
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            usePointStyle: true,
-                            pointStyle: 'circle',
-                            padding: 20,
-                            font: {
-                                size: 14
-                            }
-                        }
-                    }
-                }
-            }
-        });
+            <div class="col-3 text-center">
+                <label class="form-label">DATE ADMINISTERED:</label>
+                <input type="date" class="form-line text-center">
+            </div>
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            sidebar.classList.toggle('show');
-            overlay.classList.toggle('show');
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+            <div class="col-6">
+                <div class="ref-box-container">
+                    <div class="ref-header">REFERENCE NUMBER:</div>
+                    <div class="ref-inputs">
+                        <div class="ref-input-group">
+                            <input type="text" class="form-line">
+                            <span>Region</span>
+                        </div>
+                        <div class="ref-input-group">
+                            <input type="text" class="form-line">
+                            <span>Province</span>
+                        </div>
+                        <div class="ref-input-group">
+                            <input type="text" class="form-line">
+                            <span>City/Mun</span>
+                        </div>
+                        <div class="ref-input-group">
+                            <input type="text" class="form-line">
+                            <span>Barangay</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">PART I: PERSONAL INFORMATION</div>
+        
+        <div class="row compact-row">
+            <div class="col-3">
+                <label class="form-label">SURNAME</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+            <div class="col-4">
+                <label class="form-label">FIRST NAME</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+            <div class="col-3">
+                <label class="form-label">MIDDLE NAME</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+            <div class="col-2">
+                <label class="form-label">EXTENSION</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+        </div>
+
+        <div class="row compact-row">
+            <div class="col-2">
+                <label class="form-label">SEX:</label>
+                <div class="form-check form-check-inline ms-2">
+                    <input class="form-check-input" type="radio" name="sex" value="male"> <label>M</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="sex" value="female"> <label>F</label>
+                </div>
+            </div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-12"><label class="form-label">ADDRESS</label></div>
+                    <div class="col-3">
+                        <input type="text" class="form-control-line w-100" placeholder="House/Lot/Bldg No.">
+                    </div>
+                    <div class="col-3">
+                        <input type="text" class="form-control-line w-100" placeholder="Street/Sitio/Subdv.">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control-line w-100" placeholder="Barangay">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control-line w-100" placeholder="Municipality">
+                    </div>
+                    <div class="col-2">
+                        <input type="text" class="form-control-line w-100" placeholder="Province">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row compact-row">
+            <div class="col-3">
+                <label class="form-label">MOBILE NO:</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+            <div class="col-3">
+                <label class="form-label">LANDLINE NO:</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+            <div class="col-6">
+                 <label class="form-label">HIGHEST FORMAL EDUCATION:</label><br>
+                 <div class="d-flex justify-content-between flex-wrap">
+                     <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"><label>Pre-school</label></div>
+                     <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"><label>Elementary</label></div>
+                     <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"><label>HS (non K-12)</label></div>
+                     <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"><label>JHS (K-12)</label></div>
+                     <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"><label>SHS (K-12)</label></div>
+                     <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"><label>College</label></div>
+                     <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"><label>Vocational</label></div>
+                     <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"><label>Post-grad</label></div>
+                     <div class="form-check form-check-inline"><input class="form-check-input" type="checkbox"><label>None</label></div>
+                 </div>
+            </div>
+        </div>
+
+        <div class="row compact-row">
+            <div class="col-3">
+                <label class="form-label">DATE OF BIRTH:</label>
+                <input type="date" class="form-control-line w-100">
+            </div>
+            <div class="col-4">
+                <label class="form-label">PLACE OF BIRTH (Mun/Prov):</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+            <div class="col-2">
+                <label class="form-label">RELIGION:</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+            <div class="col-3">
+                 <label class="form-label">CIVIL STATUS:</label><br>
+                 <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="civ" value="s"><label>Single</label></div>
+                 <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="civ" value="m"><label>Married</label></div>
+                 <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="civ" value="w"><label>Widowed</label></div>
+                 <div class="form-check form-check-inline"><input class="form-check-input" type="radio" name="civ" value="sep"><label>Separated</label></div>
+            </div>
+        </div>
+
+        <div class="row compact-row">
+            <div class="col-4">
+                <label class="form-label">PWD?</label>
+                <input type="radio" name="pwd" value="y"> Yes <input type="radio" name="pwd" value="n"> No
+                <br>
+                <label class="form-label">4Ps Beneficiary?</label>
+                <input type="radio" name="4ps" value="y"> Yes <input type="radio" name="4ps" value="n"> No
+            </div>
+            <div class="col-4">
+                 <label class="form-label">Member of Indigenous Group?</label>
+                 <input type="radio" name="ip" value="y"> Yes <input type="radio" name="ip" value="n"> No
+                 <br>
+                 <label class="form-label">If yes, specify:</label>
+                 <input type="text" class="form-control-line">
+            </div>
+            <div class="col-4">
+                <label class="form-label">NAME OF SPOUSE:</label>
+                <input type="text" class="form-control-line w-100">
+                <label class="form-label">MOTHER'S MAIDEN NAME:</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+        </div>
+
+        <div class="row compact-row">
+             <div class="col-4">
+                 <label class="form-label">With Government ID?</label>
+                 <input type="radio" name="gid" value="y"> Yes <input type="radio" name="gid" value="n"> No
+                 <br>
+                 <input type="text" class="form-control-line w-100" placeholder="ID Type & Number">
+             </div>
+             <div class="col-4">
+                 <label class="form-label">Household Head?</label>
+                 <input type="radio" name="head" value="y"> Yes <input type="radio" name="head" value="n"> No
+                 <br>
+                 <input type="text" class="form-control-line w-100" placeholder="If no, name of head">
+             </div>
+             <div class="col-4">
+                 <label class="form-label">Member of Farmers Assoc/Coop?</label>
+                 <input type="radio" name="assoc" value="y"> Yes <input type="radio" name="assoc" value="n"> No
+                 <br>
+                 <input type="text" class="form-control-line w-100" placeholder="If yes, specify">
+             </div>
+        </div>
+
+        <div class="row compact-row border-top pt-2 mt-2">
+            <div class="col-6">
+                <label class="form-label">PERSON TO NOTIFY IN CASE OF EMERGENCY:</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+            <div class="col-6">
+                <label class="form-label">CONTACT NUMBER:</label>
+                <input type="text" class="form-control-line w-100">
+            </div>
+        </div>
+
+        <div class="section-header">PART II: FARM PROFILE</div>
+        
+        <div class="row">
+            <div class="col-3 border-end">
+                <label class="form-label d-block mb-2">MAIN LIVELIHOOD</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox"><label>FARMER</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox"><label>FARMWORKER/LABORER</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox"><label>FISHERFOLK</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox"><label>AGRI YOUTH</label></div>
+            </div>
+            <div class="col-6 border-end">
+                <div class="row">
+                    <div class="col-6">
+                         <label class="form-label">Type of Farming Activity:</label>
+                         <div class="form-check"><input class="form-check-input" type="checkbox"><label>Rice</label></div>
+                         <div class="form-check"><input class="form-check-input" type="checkbox"><label>Corn</label></div>
+                         <div class="form-check"><input class="form-check-input" type="checkbox"><label>Other Crops: <input type="text" class="form-control-line" style="width:50px"></label></div>
+                         <div class="form-check"><input class="form-check-input" type="checkbox"><label>Livestock: <input type="text" class="form-control-line" style="width:50px"></label></div>
+                         <div class="form-check"><input class="form-check-input" type="checkbox"><label>Poultry: <input type="text" class="form-control-line" style="width:50px"></label></div>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label">Type of Fishing Activity:</label>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"><label>Fish Capture</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"><label>Aquaculture</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"><label>Gleaning</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"><label>Fish Processing</label></div>
+                        <div class="form-check"><input class="form-check-input" type="checkbox"><label>Fish Vending</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <label class="form-label">Gross Annual Income Last Year:</label>
+                <div class="mt-2">
+                    <label>Farming:</label>
+                    <input type="text" class="form-control-line w-100">
+                </div>
+                <div class="mt-2">
+                    <label>Non-Farming:</label>
+                    <input type="text" class="form-control-line w-100">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <small class="text-muted">For Farmworkers: Kind of Work (Land Prep, Planting, Cultivation, Harvesting, Others)</small><br>
+                <small class="text-muted">For Agri Youth: Type of involvement (Farming household, Formal course, Non-formal course, Program participation)</small>
+            </div>
+        </div>
+
+        <div class="text-end mt-4">
+            <small>RSBSA ENROLLMENT FORM | Page 1 of 2</small>
+        </div>
+    </div>
+
+    <div class="a4-container">
+        <div class="row">
+            <div class="col-6">
+                <label class="form-label">No. of Farm Parcels:</label>
+                <input type="text" class="form-control-line" style="width: 50px;">
+            </div>
+            <div class="col-6 text-end">
+                <small>Reference Number: ________________________</small>
+            </div>
+        </div>
+
+        <div class="section-header">PART III: FARM LAND DESCRIPTION</div>
+
+        <div class="border p-2 mb-2">
+            <div class="row compact-row">
+                <div class="col-1 fw-bold">1</div>
+                <div class="col-11">
+                    <div class="row">
+                        <div class="col-4"><label>Location (Brgy/City/Mun):</label> <input type="text" class="form-control-line w-100"></div>
+                        <div class="col-3"><label>Total Area (ha):</label> <input type="text" class="form-control-line w-100"></div>
+                        <div class="col-3">
+                             <label>Ownership:</label>
+                             <select class="form-select form-select-sm" style="font-size: 10px; padding: 0;">
+                                 <option>Registered Owner</option>
+                                 <option>Tenant</option>
+                                 <option>Lessee</option>
+                                 <option>Others</option>
+                             </select>
+                        </div>
+                        <div class="col-2">
+                             <label>Ancestral Domain?</label><br>
+                             <input type="radio" name="ad1" value="y"> Y <input type="radio" name="ad1" value="n"> N
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-4"><label>Ownership Doc No:</label> <input type="text" class="form-control-line w-100"></div>
+                        <div class="col-4"><label>Agrarian Reform Beneficiary?</label> <input type="radio" name="arb1" value="y"> Y <input type="radio" name="arb1" value="n"> N</div>
+                        <div class="col-4"><label>Land Owner Name (if Tenant/Lessee):</label> <input type="text" class="form-control-line w-100"></div>
+                    </div>
+                </div>
+            </div>
+            <table class="custom-table mt-2">
+                <thead>
+                    <tr>
+                        <th width="30%">CROP/COMMODITY</th>
+                        <th width="15%">SIZE (ha) / NO. HEADS</th>
+                        <th width="15%">FARM TYPE (See Legend)</th>
+                        <th width="10%">ORGANIC?</th>
+                        <th width="30%">REMARKS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                        <td class="text-center"><input type="checkbox"></td>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                    </tr>
+                    <tr>
+                         <td><input type="text" class="form-control-line w-100"></td>
+                         <td><input type="text" class="form-control-line w-100"></td>
+                         <td><input type="text" class="form-control-line w-100"></td>
+                         <td class="text-center"><input type="checkbox"></td>
+                         <td><input type="text" class="form-control-line w-100"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="border p-2 mb-2">
+            <div class="row compact-row">
+                <div class="col-1 fw-bold">2</div>
+                <div class="col-11">
+                    <div class="row">
+                        <div class="col-4"><label>Location (Brgy/City/Mun):</label> <input type="text" class="form-control-line w-100"></div>
+                        <div class="col-3"><label>Total Area (ha):</label> <input type="text" class="form-control-line w-100"></div>
+                        <div class="col-3">
+                             <label>Ownership:</label>
+                             <select class="form-select form-select-sm" style="font-size: 10px; padding: 0;">
+                                 <option>Registered Owner</option>
+                                 <option>Tenant</option>
+                                 <option>Lessee</option>
+                                 <option>Others</option>
+                             </select>
+                        </div>
+                        <div class="col-2">
+                             <label>Ancestral Domain?</label><br>
+                             <input type="radio" name="ad2" value="y"> Y <input type="radio" name="ad2" value="n"> N
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-4"><label>Ownership Doc No:</label> <input type="text" class="form-control-line w-100"></div>
+                        <div class="col-4"><label>Agrarian Reform Beneficiary?</label> <input type="radio" name="arb2" value="y"> Y <input type="radio" name="arb2" value="n"> N</div>
+                         <div class="col-4"><label>Land Owner Name (if Tenant/Lessee):</label> <input type="text" class="form-control-line w-100"></div>
+                    </div>
+                </div>
+            </div>
+            <table class="custom-table mt-2">
+                <thead>
+                    <tr>
+                        <th width="30%">CROP/COMMODITY</th>
+                        <th width="15%">SIZE (ha) / NO. HEADS</th>
+                        <th width="15%">FARM TYPE</th>
+                        <th width="10%">ORGANIC?</th>
+                        <th width="30%">REMARKS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                        <td class="text-center"><input type="checkbox"></td>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="border p-2 mb-2">
+             <div class="row compact-row">
+                <div class="col-1 fw-bold">3</div>
+                <div class="col-11">
+                    <div class="row">
+                        <div class="col-4"><label>Location (Brgy/City/Mun):</label> <input type="text" class="form-control-line w-100"></div>
+                        <div class="col-3"><label>Total Area (ha):</label> <input type="text" class="form-control-line w-100"></div>
+                        <div class="col-3">
+                             <label>Ownership:</label>
+                             <select class="form-select form-select-sm" style="font-size: 10px; padding: 0;">
+                                 <option>Registered Owner</option>
+                                 <option>Tenant</option>
+                                 <option>Lessee</option>
+                                 <option>Others</option>
+                             </select>
+                        </div>
+                        <div class="col-2">
+                             <label>Ancestral Domain?</label><br>
+                             <input type="radio" name="ad3" value="y"> Y <input type="radio" name="ad3" value="n"> N
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="custom-table mt-2">
+                <thead>
+                    <tr>
+                        <th width="30%">CROP/COMMODITY</th>
+                        <th width="15%">SIZE (ha) / NO. HEADS</th>
+                        <th width="15%">FARM TYPE</th>
+                        <th width="10%">ORGANIC?</th>
+                        <th width="30%">REMARKS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                        <td class="text-center"><input type="checkbox"></td>
+                        <td><input type="text" class="form-control-line w-100"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row" style="font-size: 9px;">
+            <div class="col-8">
+                <strong>OWNERSHIP DOCUMENT LEGEND:</strong><br>
+                1. Cert of Land Transfer | 2. Emancipation Patent | 3. Individual CLOA | 4. Collective CLOA | 5. Co-ownership CLOA | 6. Agri sales patent | 7. Homestead patent | 8. Free Patent | 9. Title | 10. CADT | 11. CALT | 12. Tax Dec | 13. Others
+            </div>
+            <div class="col-4">
+                <strong>FARM TYPE LEGEND:</strong><br>
+                1. Irrigated | 2. Rainfed Upland | 3. Rainfed Lowland
+            </div>
+        </div>
+
+        <div class="mt-4 text-justify" style="font-size: 10px;">
+            I hereby declare that all information indicated above are true and correct, and that they may be used by Department of Agriculture for the purposes of registration to the RSBSA and other legitimate interests of the Department.
+        </div>
+
+        <div class="row mt-4 text-center align-items-end">
+            <div class="col-4">
+                <div class="signature-line"></div>
+                DATE
+            </div>
+            <div class="col-4">
+                <div class="signature-line"></div>
+                APPLICANT'S NAME & SIGNATURE
+            </div>
+            <div class="col-4">
+                <div class="signature-line" style="height: 50px; width: 60px; border: 1px solid black; margin: 0 auto;"></div>
+                THUMBMARK
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12"><small>VERIFIED TRUE AND CORRECT BY:</small></div>
+            <div class="col-4 text-center">
+                 <div class="signature-line"></div>
+                 BARANGAY CHAIRMAN
+            </div>
+            <div class="col-4 text-center">
+                 <div class="signature-line"></div>
+                 CITY/MUNICIPAL AGRI OFFICE
+            </div>
+            <div class="col-4 text-center">
+                 <div class="signature-line"></div>
+                 CAFC/MAFC CHAIRMAN
+            </div>
+        </div>
+
+        <div class="privacy-box">
+            <strong>DATA PRIVACY POLICY:</strong> The collection of personal information is for documentation, planning, reporting and processing purposes in availing agricultural related interventions. Processed data shall only be shared to partner agencies for planning, reporting and other use in accordance to the mandate of the agency.
+        </div>
+        
+        <div class="text-center mt-2 fw-bold text-danger">THIS FORM IS NOT FOR SALE</div>
+        <div class="text-end">
+            <small>RSBSA ENROLLMENT FORM | Page 2 of 2</small>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

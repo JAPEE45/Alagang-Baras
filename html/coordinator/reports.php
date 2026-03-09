@@ -24,14 +24,25 @@
     </button>
 
     <div class="sidebar" id="sidebar">
+      <div class="logo-container">
       <div class="logo">
+        <img src="../../assets/images/64c57e19-d2a4-42cf-9a5b-4b35dd14f9f7.png" alt="">
+      </div>
+      <div class="logo secondary">
+        <img src="../../assets/images/9302dfc3-307b-42b1-a9d2-8c31dc0cb9c6.png" alt="">
+      </div>
+      <div class="logo tertiary">
+        <img src="../../assets/images/c567f4c0-7403-4ca0-8556-5bac257c9190.png" alt="">
+      </div>
+    </div>
+      <div class="logo-text">
         <h4>Alagang Baras</h4>
         <p>COORDINATOR PAGE</p>
       </div>
 
       <nav class="nav-menu">
         <div class="nav-item">
-          <a href="./dashboard.php" class="nav-link active">
+          <a href="./dashboard.php" class="nav-link">
             <i class="fas fa-tachometer-alt"></i>
             Dashboard
           </a>
@@ -59,7 +70,7 @@
         </div>
 
         <div class="nav-item">
-          <a href="./reports.php" class="nav-link">
+          <a href="./reports.php" class="nav-link active">
             <i class="fas fa-sign-out-alt"></i>
             Reports
           </a>
