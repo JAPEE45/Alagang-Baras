@@ -130,12 +130,12 @@ $healthRecords = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 placeholder="Search..."
               />
             </div>
-            <div class="col-md-4 mb-3">
+            <!-- <div class="col-md-4 mb-3">
               <label for="species" class="form-label">Vaccine Given:</label>
               <select class="form-control" id="species">
                 <option value="" disabled selected>Select Vaccine</option>
               </select>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -389,6 +389,37 @@ $healthRecords = $stmt->fetchAll(PDO::FETCH_ASSOC);
         showNotification("Health record updated successfully!", "success");
       }
 
+      function viewDetails(id) {
+  fetch(`../../helper/getHealthRecords.php?id=${id}`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.status === 'error') {
+        alert(response.message);
+        return;
+      }
+
+      const data = response.data[0];
+      if (!data) {
+        alert('No record found.');
+        return;
+      }
+
+      document.getElementById('recordDate').value = data.createdAt;
+      document.getElementById('ownerName').value = data.owner_name ?? (data.firstName + ' ' + data.surname);
+      document.getElementById('animalType').value = data.species + ' - ' + data.breed;
+      document.getElementById('vaccineGiven').value = data.vaccine_given ?? '-';
+      document.getElementById('diagnosis').value = data.diagnosis ?? '-';
+      document.getElementById('treatment').value = data.treatment ?? '-';
+
+      const modal = new bootstrap.Modal(document.getElementById('addRecordModal'));
+      modal.show();
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Failed to load health record.');
+    });
+}
+
       function showNotification(message, type) {
         const alertDiv = document.createElement("div");
         alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
@@ -406,11 +437,14 @@ $healthRecords = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }, 3000);
       }
 
-      document
-        .getElementById("addRecordModal")
-        .addEventListener("hidden.bs.modal", function () {
-          resetModal();
-        });
+      document.getElementById("addRecordModal").addEventListener("hidden.bs.modal", function () {
+  document.getElementById('recordDate').value = '';
+  document.getElementById('ownerName').value = '';
+  document.getElementById('animalType').value = '';
+  document.getElementById('vaccineGiven').value = '';
+  document.getElementById('diagnosis').value = '';
+  document.getElementById('treatment').value = '';
+});
 
       const style = document.createElement("style");
       style.textContent = `

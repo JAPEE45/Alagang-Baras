@@ -1,12 +1,12 @@
 // Sample data
 const livestockData = [
-  {
-    barangay: "Cabcab",
-    totalLivestock: 312,
-    farmers: 54,
-    vaccinated: 290,
-    pending: 22,
-  },
+  // {
+  //   barangay: "Cabcab",
+  //   totalLivestock: 312,
+  //   farmers: 54,
+  //   vaccinated: 290,
+  //   pending: 22,
+  // },
   {
     barangay: "Paniquihan",
     totalLivestock: 205,
@@ -14,41 +14,41 @@ const livestockData = [
     vaccinated: 180,
     pending: 25,
   },
-  {
-    barangay: "Malvar",
-    totalLivestock: 445,
-    farmers: 78,
-    vaccinated: 420,
-    pending: 25,
-  },
-  {
-    barangay: "San Vicente",
-    totalLivestock: 189,
-    farmers: 32,
-    vaccinated: 165,
-    pending: 24,
-  },
-  {
-    barangay: "Poblacion",
-    totalLivestock: 267,
-    farmers: 45,
-    vaccinated: 240,
-    pending: 27,
-  },
-  {
-    barangay: "Santo Niño",
-    totalLivestock: 334,
-    farmers: 58,
-    vaccinated: 310,
-    pending: 24,
-  },
-  {
-    barangay: "Biñan",
-    totalLivestock: 198,
-    farmers: 41,
-    vaccinated: 175,
-    pending: 23,
-  },
+  // {
+  //   barangay: "Malvar",
+  //   totalLivestock: 445,
+  //   farmers: 78,
+  //   vaccinated: 420,
+  //   pending: 25,
+  // },
+  // {
+  //   barangay: "San Vicente",
+  //   totalLivestock: 189,
+  //   farmers: 32,
+  //   vaccinated: 165,
+  //   pending: 24,
+  // },
+  // {
+  //   barangay: "Poblacion",
+  //   totalLivestock: 267,
+  //   farmers: 45,
+  //   vaccinated: 240,
+  //   pending: 27,
+  // },
+  // {
+  //   barangay: "Santo Niño",
+  //   totalLivestock: 334,
+  //   farmers: 58,
+  //   vaccinated: 310,
+  //   pending: 24,
+  // },
+  // {
+  //   barangay: "Biñan",
+  //   totalLivestock: 198,
+  //   farmers: 41,
+  //   vaccinated: 175,
+  //   pending: 23,
+  // },
 ];
 
 let filteredData = [...livestockData];

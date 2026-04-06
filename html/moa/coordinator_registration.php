@@ -311,7 +311,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="contactNum" class="form-label">Barangay:</label>
             <select name="barangay" id="barangay" class="form-control">
               <option disabled selected hidden>-- Select Barangay --</option>
-              <option value="Abihao">Abihao</option>
+              <!-- <option value="Abihao">Abihao</option>
               <option value="Agban">Agban</option>
               <option value="Bagong Sirang">Bagong Sirang</option>
               <option value="Benticayan">Benticayan</option>
@@ -327,9 +327,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <option value="Moning">Moning</option>
               <option value="Nagbarorong">Nagbarorong</option>
               <option value="Osmeña">Osmeña</option>
-              <option value="P. Teston">P. Teston</option>
+              <option value="P. Teston">P. Teston</option> -->
               <option value="Paniquihan">Paniquihan</option>
-              <option value="Eastern Poblacion">Eastern Poblacion</option>
+              <!-- <option value="Eastern Poblacion">Eastern Poblacion</option>
               <option value="Puraran">Puraran</option>
               <option value="Putsan">Putsan</option>
               <option value="Quezon">Quezon</option>
@@ -339,7 +339,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <option value="San Miguel">San Miguel</option>
               <option value="Santa Maria">Santa Maria</option>
               <option value="Tilod">Tilod</option>
-              <option value="Western Poblacion">Western Poblacion</option>
+              <option value="Western Poblacion">Western Poblacion</option> -->
             </select>
 
             <script>

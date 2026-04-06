@@ -64,28 +64,22 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
           </a>
         </div>
 
-        <!-- <div class="nav-item has-submenu">
+        <div class="nav-item has-submenu">
           <a href="#" class="nav-link submenu-toggle">
             <i class="fas fa-heartbeat"></i>
-            Health Monitoring
+            User Management
             <i class="fas fa-chevron-down submenu-icon"></i>
           </a>
           <div class="submenu">
-            <a href="./new-health-record.php" class="submenu-link"
-              >New Health Record</a
+            <a href="./coordinator_management.php" class="submenu-link"
+              >Coordinator</a
             >
-            <a href="./livestock-health-monitoring.php" class="submenu-link"
-              >Livestock Health Monitoring</a
+            <a href="./vet_management.php" class="submenu-link"
+              >Veterinarian</a
             >
           </div>
-        </div> -->
-
-        <div class="nav-item">
-          <a href="./owner-list.php" class="nav-link">
-            <i class="fas fa-sign-out-alt"></i>
-            User Management
-          </a>
         </div>
+        
         <div class="nav-item">
           <a href="./livestock-profiling-list.php" class="nav-link active">
             <i class="fas fa-sign-out-alt"></i>
@@ -351,197 +345,69 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
       });
     </script>
     <script>
-      let livestockData = [];
-      let currentQRData = "";
+  let currentQRData = "";
 
-      // Calculate age from date of birth
-      function calculateAge(dob) {
-        const birthDate = new Date(dob);
-        const today = new Date();
-        let years = today.getFullYear() - birthDate.getFullYear();
-        let months = today.getMonth() - birthDate.getMonth();
+  // Calculate age from date of birth
+  function calculateAge(dob) {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let years = today.getFullYear() - birthDate.getFullYear();
+    let months = today.getMonth() - birthDate.getMonth();
+    if (months < 0) { years--; months += 12; }
+    if (years > 0) return `${years} year${years > 1 ? "s" : ""}`;
+    return `${months} month${months > 1 ? "s" : ""}`;
+  }
 
-        if (months < 0) {
-          years--;
-          months += 12;
-        }
+  // Show alert message
+  function showAlert(message, type = "success") {
+    const alertContainer = document.getElementById("alertContainer");
+    const alert = document.createElement("div");
+    alert.className = `alert alert-${type} alert-dismissible fade show`;
+    alert.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+    alertContainer.appendChild(alert);
+    setTimeout(() => alert.remove(), 5000);
+  }
 
-        if (years > 0) {
-          return `${years} year${years > 1 ? "s" : ""}`;
-        } else {
-          return `${months} month${months > 1 ? "s" : ""}`;
-        }
+  // Delete livestock
+  async function deleteLivestock(id) {
+    if (!confirm("Are you sure you want to delete this livestock?")) return;
+    try {
+      const response = await fetch("../../helper/deleteLiveStock.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: id })
+      });
+      const result = await response.json();
+      if (result.status === "success") {
+        alert("Livestock deleted successfully!");
+        location.reload();
+      } else {
+        alert("Error: " + result.message);
       }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to delete livestock");
+    }
+  }
 
-      // Generate QR Code
-      function generateQRCode(data) {
-        const qrData = JSON.stringify(data);
-        const qrDiv = document.createElement("div");
-        qrDiv.style.display = "none";
-        document.body.appendChild(qrDiv);
+  // Search functionality — filters actual DOM rows rendered by PHP
+  document.getElementById("searchInput").addEventListener("input", function (e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const rows = document.querySelectorAll("#livestockTableBody tr[data-id]");
+    rows.forEach(row => {
+      const text = row.innerText.toLowerCase();
+      row.style.display = text.includes(searchTerm) ? "" : "none";
+    });
+  });
 
-        const qr = new QRCode(qrDiv, {
-          text: qrData,
-          width: 200,
-          height: 200,
-          colorDark: "#115d33",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.H,
-        });
-
-        setTimeout(() => {
-          const img = qrDiv.querySelector("img");
-          const qrCodeURL = img.src;
-          document.body.removeChild(qrDiv);
-          data.qrCode = qrCodeURL;
-          renderTable();
-        }, 100);
-      }
-
-      // Show alert message
-      function showAlert(message, type = "success") {
-        const alertContainer = document.getElementById("alertContainer");
-        const alert = document.createElement("div");
-        alert.className = `alert alert-${type} alert-dismissible fade show`;
-        alert.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-        alertContainer.appendChild(alert);
-
-        setTimeout(() => {
-          alert.remove();
-        }, 5000);
-      }
-
-      // Render table
-      function renderTable(data = livestockData) {
-        const tbody = document.getElementById("livestockTableBody");
-
-        if (data.length === 0) {
-          tbody.innerHTML =
-            '<tr><td colspan="7" class="text-center text-muted py-5">No livestock data available.</td></tr>';
-          return;
-        }
-
-        tbody.innerHTML = data
-          .map(
-            (item, index) => `
-                <tr>
-                    <td>${item.ownerName}</td>
-                    <td>${item.species}</td>
-                    <td>${item.breed}</td>
-                    <td>${item.age}</td>
-                    <td>${item.sex}</td>
-                    <td class="qr-code-cell">
-                        ${
-                          item.qrCode
-                            ? `<img src="${item.qrCode}" class="qr-code-img" onclick="showQRModal(${index})" alt="QR Code">`
-                            : "Generating..."
-                        }
-                    </td>
-                    <td>
-                        <button class="action-btn btn-edit" 
-                        data-bs-toggle="modal"
-          data-bs-target="#addLivestockModal"
-          onclick="editLivestock(${index})">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </td>
-                </tr>
-            `
-          )
-          .join("");
-      }
-
-      // Show QR Modal
-      function showQRModal(index) {
-        const data = livestockData[index];
-        currentQRData = data.qrCode;
-        document.getElementById("qrModalImage").src = data.qrCode;
-        new bootstrap.Modal(document.getElementById("qrModal")).show();
-      }
-
-      // Download QR Code
-      function downloadQR() {
-        const link = document.createElement("a");
-        link.download = "livestock_qr_code.png";
-        link.href = currentQRData;
-        link.click();
-      }
-
-      // Add livestock
-      document
-        .getElementById("addLivestockForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          const newLivestock = {
-            id: Date.now(),
-            ownerName: document.getElementById("ownerName").value,
-            species: document.getElementById("species").value,
-            breed: document.getElementById("breed").value,
-            sex: document.getElementById("sex").value,
-            dob: document.getElementById("dob").value,
-            age: calculateAge(document.getElementById("dob").value),
-            qrCode: null,
-          };
-
-          livestockData.push(newLivestock);
-          generateQRCode(newLivestock);
-
-          this.reset();
-          showAlert("Livestock added successfully!");
-        });
-
-      // Delete livestock
-      async function deleteLivestock(id) {
-        if (!confirm("Are you sure you want to delete this livestock?")) {
-          return;
-        }
-        
-        try {
-          const response = await fetch("../../helper/deleteLiveStock.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: id })
-          });
-          
-          const result = await response.json();
-          
-          if (result.status === "success") {
-            alert("Livestock deleted successfully!");
-            location.reload(); // Reload page to show updated list
-          } else {
-            alert("Error: " + result.message);
-          }
-        } catch (error) {
-          console.error("Error:", error);
-          alert("Failed to delete livestock");
-        }
-      }
-
-      // Search functionality
-      document
-        .getElementById("searchInput")
-        .addEventListener("input", function (e) {
-          const searchTerm = e.target.value.toLowerCase();
-          const filtered = livestockData.filter(
-            (item) =>
-              item.ownerName.toLowerCase().includes(searchTerm) ||
-              item.species.toLowerCase().includes(searchTerm) ||
-              item.breed.toLowerCase().includes(searchTerm) ||
-              item.sex.toLowerCase().includes(searchTerm)
-          );
-          renderTable(filtered);
-        });
-
-      // Edit livestock (placeholder)
-      function editLivestock(index) {}
-
-      // Initialize
-      renderTable();
-    </script>
+  // Download QR Code
+  function downloadQR() {
+    const link = document.createElement("a");
+    link.download = "livestock_qr_code.png";
+    link.href = currentQRData;
+    link.click();
+  }
+</script>
     <script src="../../assets/scripts/sidebar.js"></script>
   </body>
 </html>

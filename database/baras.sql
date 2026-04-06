@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2025 at 12:08 PM
+-- Generation Time: Apr 06, 2026 at 05:40 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -79,12 +79,20 @@ INSERT INTO `coordinators` (`coordinator_id`, `user_id`, `position_role`, `baran
 CREATE TABLE `healthmonitoring` (
   `id` int(11) NOT NULL,
   `livestock_id` int(11) NOT NULL,
-  `diagnosis` varchar(500) NOT NULL,
-  `treatment` varchar(500) NOT NULL,
-  `vaccine_given` int(100) NOT NULL,
+  `diagnosis` varchar(500) DEFAULT NULL,
+  `treatment` varchar(500) DEFAULT NULL,
+  `vaccine_given` varchar(255) NOT NULL DEFAULT '',
   `createdAt` date NOT NULL DEFAULT current_timestamp(),
   `livestock_status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `healthmonitoring`
+--
+
+INSERT INTO `healthmonitoring` (`id`, `livestock_id`, `diagnosis`, `treatment`, `vaccine_given`, `createdAt`, `livestock_status`) VALUES
+(1, 4, 'wala lang', 'better', 'hepatitis', '2025-11-23', 'Under Observation'),
+(2, 4, 'l', 'k', 'leptospirosis', '2025-12-09', 'Healthy');
 
 -- --------------------------------------------------------
 
@@ -333,7 +341,7 @@ ALTER TABLE `coordinators`
 -- AUTO_INCREMENT for table `healthmonitoring`
 --
 ALTER TABLE `healthmonitoring`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `livestock`

@@ -1,136 +1,83 @@
-// Sample data
-const livestockData = [
-  {
-    id: "LV-1002",
-    ownerName: "Hannah Denielle Teodoro",
-    species: "Goat",
-    healthStatus: "Healthy",
-    lastCheckup: "10-09-2025"
+const BASE_PATH = "/alagang-baras"; // adjust to your project folder
+
+let reportData = [];
+
+// ─── Load Data ───────────────────────────────────────────
+async function loadReports() {
+  try {
+    const res  = await fetch(`${BASE_PATH}/helper/getReports.php`);
+    const json = await res.json();
+
+    if (json.status === "success") {
+      reportData = json.data;
+      renderTable(reportData);
+    } else {
+      console.error("Report error:", json.message);
+    }
+  } catch (err) {
+    console.error("Fetch error:", err);
   }
-];
-
-let filteredData = [...livestockData];
-
-// Initialize the application
-function init() {
-  renderTable(filteredData);
 }
 
-// Render table with data
+// ─── Render Table ─────────────────────────────────────────
 function renderTable(data) {
-  const tableBody = document.getElementById("tableBody");
-  tableBody.innerHTML = "";
+  const tbody = document.getElementById("tableBody");
 
-  if (data.length === 0) {
-    tableBody.innerHTML =
-      '<tr><td colspan="5" class="no-data">No data available</td></tr>';
+  if (!data.length) {
+    tbody.innerHTML = `<tr>
+      <td colspan="8" class="text-center text-muted py-4">No records found.</td>
+    </tr>`;
     return;
   }
 
-  data.forEach((item) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-                    <td>${item.id}</td>
-                    <td>${item.ownerName}</td>
-                    <td>${item.species}</td>
-                    <td>${item.healthStatus}</td>
-                    <td>${item.lastCheckup}</td>
-                `;
-    tableBody.appendChild(row);
-  });
+  tbody.innerHTML = data.map(row => `
+    <tr>
+      <td>${row.owner_name ?? "-"}</td>
+      <td>${row.species    ?? "-"}</td>
+      <td>${row.breed      ?? "-"}</td>
+      <td>${row.sex        ?? "-"}</td>
+      <td>${row.diagnosis  ?? "-"}</td>
+      <td>${row.treatment  ?? "-"}</td>
+      <td>
+        <span class="badge bg-${row.livestock_status === "Healthy" ? "success" : "warning"}">
+          ${row.livestock_status ?? "-"}
+        </span>
+      </td>
+      <td>${row.last_checkup ? new Date(row.last_checkup).toLocaleDateString("en-US") : "-"}</td>
+    </tr>
+  `).join("");
 }
 
-// Filter functionality
-function applyFilters() {
-  const barangayFilter = document.getElementById("barangayFilter").value;
-  const reportTypeFilter = document.getElementById("reportTypeFilter").value;
-
-  filteredData = livestockData.filter((item) => {
-    const matchesBarangay = !barangayFilter || item.id === barangayFilter;
-    // For now, report type filter doesn't change data structure, just kept for UI consistency
-    return matchesBarangay;
-  });
-
-  renderTable(filteredData);
-}
-
-// Export to PDF function
-function exportToPDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-
-  // Add title
-  doc.setFontSize(16);
-  doc.text("Livestock Report", 14, 22);
-
-  // Add current date
-  doc.setFontSize(10);
-  doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 35);
-
-  // Create table data
+// ─── Export to Excel ──────────────────────────────────────
+function exportToExcel() {
   const headers = [
-    ["Barangay", "Total Livestock", "Farmers", "Vaccinated", "Pending"],
+    "Owner", "Species", "Breed", "Sex",
+    "Diagnosis", "Treatment", "Health Status", "Last Check-up"
   ];
-  const data = filteredData.map((item) => [
-    item.barangay,
-    item.totalLivestock.toString(),
-    item.farmers.toString(),
-    item.vaccinated.toString(),
-    item.pending.toString(),
+
+  const rows = reportData.map(row => [
+    row.owner_name   ?? "-",
+    row.species      ?? "-",
+    row.breed        ?? "-",
+    row.sex          ?? "-",
+    row.diagnosis    ?? "-",
+    row.treatment    ?? "-",
+    row.livestock_status ?? "-",
+    row.last_checkup
+      ? new Date(row.last_checkup).toLocaleDateString("en-US")
+      : "-"
   ]);
 
-  // Add table
-  doc.autoTable({
-    head: headers,
-    body: data,
-    startY: 45,
-    theme: "grid",
-    styles: {
-      fontSize: 10,
-      cellPadding: 5,
-    },
-    headStyles: {
-      fillColor: [40, 167, 69],
-      textColor: 255,
-    },
-  });
-
-  doc.save("livestock_report.pdf");
+  const worksheet  = XLSX.utils.aoa_to_sheet([headers, ...rows]);
+  const workbook   = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Livestock Report");
+  XLSX.writeFile(workbook, "livestock_report.xlsx");
 }
 
-// Export to Excel function
-function exportToExcel() {
-  const ws = XLSX.utils.json_to_sheet(
-    filteredData.map((item) => ({
-      "id": item.id,
-      "Owner Name": item.ownerName,
-      "Farmers": item.species,
-      "Vaccinated": item.healthStatus,
-      "Pending": item.lastCheckup,
-    }))
-  );
-
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Livestock Report");
-
-  // Add some styling
-  const range = XLSX.utils.decode_range(ws["!ref"]);
-  for (let C = range.s.c; C <= range.e.c; ++C) {
-    const address = XLSX.utils.encode_col(C) + "1";
-    if (!ws[address]) continue;
-    ws[address].s = {
-      font: { bold: true },
-      fill: { fgColor: { rgb: "28A745" } },
-    };
-  }
-
-  XLSX.writeFile(wb, "livestock_report.xlsx");
-}
-
-// Print function
+// ─── Print ────────────────────────────────────────────────
 function printReport() {
   window.print();
 }
 
-// Initialize when page loads
-document.addEventListener("DOMContentLoaded", init);
+// ─── Init ─────────────────────────────────────────────────
+loadReports();

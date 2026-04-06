@@ -99,19 +99,22 @@
       <div class="container">
         <div class="table-container">
           <table id="dataTable">
-            <thead>
-              <tr>
-                <th>Livestock ID</th>
-                <th>Owner</th>
-                <th>Species</th>
-                <th>Health Status</th>
-                <th>Last Check-up</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-              <!-- Data will be populated here -->
-            </tbody>
-          </table>
+  <thead>
+    <tr>
+      <th>Owner</th>
+      <th>Species</th>
+      <th>Breed</th>
+      <th>Sex</th>
+      <th>Diagnosis</th>
+      <th>Treatment</th>
+      <th>Health Status</th>
+      <th>Last Check-up</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody">
+    <!-- populated by JS -->
+  </tbody>
+</table>
         </div>
 
         <div class="export-buttons">

@@ -1,11 +1,25 @@
 <?php
-include_once "db.php";
+include_once "./db.php";
 
 header('Content-Type: application/json');
 
 try {
   $livestock_id = $_GET['livestock_id'] ?? null;
   $owner_id = $_GET['owner_id'] ?? null;
+
+  if (isset($_GET['id'])) {
+  $stmt = $pdo->prepare("
+    SELECT h.*, l.owner_name, l.species, l.breed, l.sex, o.firstName, o.surname
+    FROM healthmonitoring h
+    JOIN livestock l ON h.livestock_id = l.id
+    LEFT JOIN owner o ON l.owner_id = o.id
+    WHERE h.id = ?
+  ");
+  $stmt->execute([$_GET['id']]);
+  $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  echo json_encode(['status' => 'success', 'data' => $records]);
+  exit;
+}
   
   if ($livestock_id) {
     // Get records for specific livestock

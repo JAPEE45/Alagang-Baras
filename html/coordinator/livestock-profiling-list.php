@@ -138,270 +138,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- Table -->
        <!-- Accordion -->
-      <div class="accordion" id="ownersAccordion">
-          <!-- Owner 1 -->
-          <div class="accordion-item mb-3 shadow-sm">
-              <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
-                          data-bs-target="#owner1">
-                      <div class="d-flex align-items-center">
-                          <div class="owner-avatar me-3">J</div>
-                          <div>
-                              <h5 class="mb-0">Juan Cruz Dela</h5>
-                              <small class="text-muted">2 livestock</small>
-                          </div>
-                      </div>
-                  </button>
-              </h2>
-              <div id="owner1" class="accordion-collapse collapse" data-bs-parent="#ownersAccordion">
-                  <div class="accordion-body bg-light">
-                      <div class="table-responsive">
-                          <table class="table table-hover bg-white">
-                              <thead>
-                                  <tr>
-                                      <th>Species</th>
-                                      <th>Breed</th>
-                                      <th>Sex</th>
-                                      <th>QR Code</th>
-                                      <th>Actions</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                      <td>Swine</td>
-                                      <td>s</td>
-                                      <td>Female</td>
-                                      <td>
-                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR001')">
-                                              View QR
-                                          </button>
-                                      </td>
-                                      <td>
-                                          <button class="btn btn-sm btn-outline-primary me-1">
-                                              <i class="bi bi-pencil"></i>
-                                          </button>
-                                          <button class="btn btn-sm btn-outline-danger">
-                                              <i class="bi bi-trash"></i>
-                                          </button>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>Swine</td>
-                                      <td>Duroc</td>
-                                      <td>Male</td>
-                                      <td>
-                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR002')">
-                                              View QR
-                                          </button>
-                                      </td>
-                                      <td>
-                        <button class="action-btn btn-edit" 
-                        data-bs-toggle="modal"
-          data-bs-target="#addLivestockModal"
-          onclick="editLivestock(${index})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn btn-delete" onclick="deleteLivestock(${item.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- Owner 2 -->
-          <div class="accordion-item mb-3 shadow-sm">
-              <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
-                          data-bs-target="#owner2">
-                      <div class="d-flex align-items-center">
-                          <div class="owner-avatar me-3">M</div>
-                          <div>
-                              <h5 class="mb-0">Maria Santos</h5>
-                              <small class="text-muted">3 livestock</small>
-                          </div>
-                      </div>
-                  </button>
-              </h2>
-              <div id="owner2" class="accordion-collapse collapse" data-bs-parent="#ownersAccordion">
-                  <div class="accordion-body bg-light">
-                      <div class="table-responsive">
-                          <table class="table table-hover bg-white">
-                              <thead>
-                                  <tr>
-                                      <th>Species</th>
-                                      <th>Breed</th>
-                                      <th>Sex</th>
-                                      <th>QR Code</th>
-                                      <th>Actions</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                      <td>Cattle</td>
-                                      <td>Brahman</td>
-                                      <td>Female</td>
-                                      <td>
-                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR003')">
-                                              View QR
-                                          </button>
-                                      </td>
-                                      <td>
-                                          <button class="btn btn-sm btn-outline-primary me-1">
-                                              <i class="bi bi-pencil"></i>
-                                          </button>
-                                          <button class="btn btn-sm btn-outline-danger">
-                                              <i class="bi bi-trash"></i>
-                                          </button>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>Cattle</td>
-                                      <td>Angus</td>
-                                      <td>Male</td>
-                                      <td>
-                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR004')">
-                                              View QR
-                                          </button>
-                                      </td>
-                                      <td>
-                                          <button class="btn btn-sm btn-outline-primary me-1">
-                                              <i class="bi bi-pencil"></i>
-                                          </button>
-                                          <button class="btn btn-sm btn-outline-danger">
-                                              <i class="bi bi-trash"></i>
-                                          </button>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>Goat</td>
-                                      <td>Boer</td>
-                                      <td>Female</td>
-                                      <td>
-                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR005')">
-                                              View QR
-                                          </button>
-                                      </td>
-                                      <td>
-                                          <button class="btn btn-sm btn-outline-primary me-1">
-                                              <i class="bi bi-pencil"></i>
-                                          </button>
-                                          <button class="btn btn-sm btn-outline-danger">
-                                              <i class="bi bi-trash"></i>
-                                          </button>
-                                      </td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <!-- Owner 3 -->
-          <div class="accordion-item mb-3 shadow-sm">
-              <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
-                          data-bs-target="#owner3">
-                      <div class="d-flex align-items-center">
-                          <div class="owner-avatar me-3">P</div>
-                          <div>
-                              <h5 class="mb-0">Pedro Reyes</h5>
-                              <small class="text-muted">1 livestock</small>
-                          </div>
-                      </div>
-                  </button>
-              </h2>
-              <div id="owner3" class="accordion-collapse collapse" data-bs-parent="#ownersAccordion">
-                  <div class="accordion-body bg-light">
-                      <div class="table-responsive">
-                          <table class="table table-hover bg-white">
-                              <thead>
-                                  <tr>
-                                      <th>Species</th>
-                                      <th>Breed</th>
-                                      <th>Sex</th>
-                                      <th>QR Code</th>
-                                      <th>Actions</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                      <td>Chicken</td>
-                                      <td>Rhode Island Red</td>
-                                      <td>Female</td>
-                                      <td>
-                                          <button class="btn btn-sm btn-dark" onclick="showQRModal('QR006')">
-                                              View QR
-                                          </button>
-                                      </td>
-                                      <td>
-                                          <button class="btn btn-sm btn-outline-primary me-1">
-                                              <i class="bi bi-pencil"></i>
-                                          </button>
-                                          <button class="btn btn-sm btn-outline-danger">
-                                              <i class="bi bi-trash"></i>
-                                          </button>
-                                      </td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="table-container">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>OWNER NAME</th>
-              <th>SPECIES</th>
-              <th>BREED</th>
-              <th>SEX</th>
-              <th>QR CODE</th>
-              <th>ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody id="livestockTableBody">
-            <?php if (count($result) > 0): ?>
-              <?php foreach ($result as $livestock): ?>
-                <tr data-id="<?php echo htmlspecialchars($livestock['id']); ?>">
-                  <td><?php echo htmlspecialchars($livestock['owner_name'] ?? ($livestock['firstName'] . ' ' . $livestock['surname'])); ?></td>
-                  <td><?php echo htmlspecialchars($livestock['species']); ?></td>
-                  <td><?php echo htmlspecialchars($livestock['breed']); ?></td>
-                  <td><?php echo htmlspecialchars($livestock['sex']); ?></td>
-                  <td>
-                    <?php if ($livestock['qr_code']): ?>
-                      <a href="../../<?php echo htmlspecialchars($livestock['qr_code']); ?>" target="_blank" class="btn btn-sm btn-outline-info">
-                        <i class="fas fa-qrcode"></i> View
-                      </a>
-                    <?php else: ?>
-                      <span class="text-muted">No QR</span>
-                    <?php endif; ?>
-                  </td>
-                  <td>
-                    <button class="btn btn-sm btn-outline-danger" onclick="deleteLivestock(<?php echo $livestock['id']; ?>)">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              <?php endforeach; ?>
-            <?php else: ?>
-              <tr>
-                <td colspan="6" class="text-center text-muted py-5">
-                  No livestock data available. Click "Add Livestock" to get started.
-                </td>
-              </tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
-      </div>
+      <!-- Remove the static accordion and table-container, replace with: -->
+      <div class="accordion" id="ownersAccordion"></div>
     </div>
 
     <!-- Add Livestock Modal -->
@@ -476,8 +214,12 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
     </div>
-<p id="ownerId" style="display:none;"></p>
-<p id="ownerName" style="display:none;"></p>
+
+<input type="text" class="form-control" id="ownerNameInput"
+       placeholder="Search owner..." required hidden/>
+
+<!-- REMOVE the two hidden <p> tags and replace with a single hidden input: -->
+<input type="hidden" id="ownerIdHidden" value="" />
     <!-- QR Code Modal -->
     <div class="modal fade" id="qrModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
@@ -505,311 +247,257 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
+<script>
+  // ─── Constants ───────────────────────────────────────────
+  const BASE_PATH = "/alagang-baras"; // change to match your project folder name
 
-    <script>
-      document.getElementById("addLivestockForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+  // ─── State ───────────────────────────────────────────────
+  let allLivestockData = [];
 
-  const livestockData = {
-    owner_id: document.getElementById("ownerId").textContent,
-    owner_name:  document.getElementById("ownerName").textContent,
-    species: document.getElementById("species").value.trim(),
-    breed: document.getElementById("breed").value.trim(),
-    sex: document.getElementById("sex").value,
-    dob: document.getElementById("dob").value
-  };
+  // ─── Owner Search Dropdown ───────────────────────────────
+  const ownerInput   = document.getElementById("ownerNameInput");
+  const ownerIdEl    = document.getElementById("ownerIdHidden");
+  const dropdown     = document.getElementById("ownerDropdown");
 
-  try {
-    const res = await fetch("../../helper/addLiveStock.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(livestockData)
+  Object.assign(dropdown.style, {
+    position: "absolute", background: "white",
+    border: "1px solid #ccc", width: "100%",
+    maxHeight: "180px", overflowY: "auto",
+    zIndex: "1000", display: "none"
+  });
+
+  let owners = [];
+  fetch(`${BASE_PATH}/helper/getOwnerNameId.php`)
+    .then(r => r.json())
+    .then(r => owners = r.data)
+    .catch(e => console.error("Owner fetch error:", e));
+
+  ownerInput.addEventListener("input", function () {
+    const query = this.value.toLowerCase().trim();
+    dropdown.innerHTML = "";
+    if (!query) { dropdown.style.display = "none"; return; }
+
+    const filtered = owners.filter(o => o.ownerName.toLowerCase().includes(query));
+    if (!filtered.length) { dropdown.style.display = "none"; return; }
+
+    filtered.forEach(o => {
+      const item = document.createElement("div");
+      item.textContent = o.ownerName;
+      item.className = "p-2";
+      item.style.cursor = "pointer";
+      item.addEventListener("mouseenter", () => item.style.background = "#f1f1f1");
+      item.addEventListener("mouseleave", () => item.style.background = "white");
+      item.addEventListener("click", () => {
+        ownerInput.value   = o.ownerName;
+        ownerIdEl.value    = o.id;
+        dropdown.style.display = "none";
+      });
+      dropdown.appendChild(item);
     });
+    dropdown.style.display = "block";
+  });
 
-    const result = await res.json();
-    console.log(result);
-    
-    if (result.status === "success") {
-      alert("Livestock added successfully!");
-      // Close modal
-      const modal = bootstrap.Modal.getInstance(document.getElementById('addLivestockModal'));
-      if (modal) modal.hide();
-      // Reload page to show new livestock
-      location.reload();
-    } else {
-      alert("Error: " + result.message);
+  document.addEventListener("click", e => {
+    if (!e.target.closest("#ownerNameInput")) dropdown.style.display = "none";
+  });
+
+  // ─── Form Submit ─────────────────────────────────────────
+  document.getElementById("addLivestockForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const ownerId = ownerIdEl.value;
+    if (!ownerId) { alert("Please select a valid owner from the dropdown."); return; }
+
+    const payload = {
+      owner_id:   ownerId,
+      owner_name: ownerInput.value.trim(),
+      species:    document.getElementById("species").value.trim(),
+      breed:      document.getElementById("breed").value.trim(),
+      sex:        document.getElementById("sex").value,
+      dob:        document.getElementById("dob").value
+    };
+
+    try {
+      const res    = await fetch(`${BASE_PATH}/helper/addLiveStock.php`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const result = await res.json();
+
+      if (result.status === "success") {
+        alert("Livestock added successfully!");
+        bootstrap.Modal.getInstance(document.getElementById("addLivestockModal"))?.hide();
+        await loadLivestock();
+      } else {
+        alert("Error: " + result.message);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to add livestock. Please try again.");
     }
-  } catch (err) {
-    console.error("Error:", err);
-    alert("Failed to add livestock. Please try again.");
+  });
+
+  // ─── Load & Render Livestock ──────────────────────────────
+  async function loadLivestock() {
+    try {
+      const res  = await fetch(`${BASE_PATH}/helper/getLiveStock.php`);
+      const json = await res.json();
+      if (json.status === "success") {
+        allLivestockData = json.data;
+        renderTable(allLivestockData);
+      }
+    } catch (err) {
+      console.error("Load livestock error:", err);
+    }
   }
-});
-     
 
-      const ownerInput = document.getElementById("ownerName");
-      const dropdown = document.getElementById("ownerDropdown");
+  function renderTable(data) {
+  const accordion = document.getElementById("ownersAccordion");
 
-      // Apply dropdown base style from JS
-      dropdown.style.position = "absolute";
-      dropdown.style.background = "white";
-      dropdown.style.border = "1px solid #ccc";
-      dropdown.style.width = "100%";
-      dropdown.style.maxHeight = "180px";
-      dropdown.style.overflowY = "auto";
-      dropdown.style.zIndex = "1000";
-      dropdown.style.display = "none";
-let owners = []
-fetch("../../helper/getOwnerNameId.php")
-  .then(e=>e.json())
-  .then(e=> owners = e.data)
-  .catch(e=>console.log(e))
-      ownerInput.addEventListener("input", function () {
+  if (!data.length) {
+    accordion.innerHTML = `<div class="text-center text-muted py-5">
+      No livestock data available. Click "Add Livestock" to get started.
+    </div>`;
+    return;
+  }
 
-        const query = this.value.toLowerCase().trim();
-        dropdown.innerHTML = "";
+  // Group livestock by owner
+  const grouped = {};
+  data.forEach(item => {
+    const key = item.owner_id;
+    if (!grouped[key]) {
+      grouped[key] = {
+        owner_id:   item.owner_id,
+        owner_name: item.owner_name ?? `${item.firstName} ${item.middleName ?? ""} ${item.surname}`.trim(),
+        livestock:  []
+      };
+    }
+    grouped[key].livestock.push(item);
+  });
 
-        if (!query) {
-          dropdown.style.display = "none";
-          return;
-        }
+  accordion.innerHTML = Object.values(grouped).map(owner => {
+    const initial = owner.owner_name.charAt(0).toUpperCase();
+    const collapseId = `owner_${owner.owner_id}`;
 
-        const filtered = owners.filter(o =>
-          o.ownerName.toLowerCase().includes(query)
-        );
+    const rows = owner.livestock.map((item, index) => {
+      // find real index in allLivestockData for edit
+      const realIndex = allLivestockData.findIndex(d => d.id === item.id);
 
-        if (filtered.length === 0) {
-          dropdown.style.display = "none";
-          return;
-        }
+      const qrCell = item.qr_code
+        ? `<img src="${BASE_PATH}/${item.qr_code}"
+               style="width:45px;height:45px;cursor:pointer;"
+               onclick="showQRModal('${item.qr_code}')"
+               alt="QR Code">`
+        : `<span class="text-muted">No QR</span>`;
 
-        filtered.forEach(o => {
-          const item = document.createElement("div");
-          item.textContent = o.ownerName;
-          item.classList.add("p-2"); // Bootstrap padding
-          item.style.cursor = "pointer";
-          item.addEventListener("mouseenter", () => item.style.background = "#f1f1f1");
-          item.addEventListener("mouseleave", () => item.style.background = "white");
-          item.addEventListener("click", () => {
-            ownerInput.value = o.ownerName;
-            dropdown.style.display = "none";
-            document.getElementById("ownerId").textContent = o.id
-            document.getElementById("ownerName").textContent = o.ownerName
-           alert(o.ownerName)
-          });
-          dropdown.appendChild(item);
-        });
+      return `
+        <tr data-id="${item.id}">
+          <td>${item.species}</td>
+          <td>${item.breed}</td>
+          <td>${item.sex}</td>
+          <td>${qrCell}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary me-1"
+              onclick="editLivestock(${realIndex})"
+              data-bs-toggle="modal"
+              data-bs-target="#addLivestockModal">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger"
+              onclick="deleteLivestock(${item.id})">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>`;
+    }).join("");
 
-        dropdown.style.display = "block";
-      });
+    return `
+      <div class="accordion-item mb-3 shadow-sm">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#${collapseId}">
+            <div class="d-flex align-items-center">
+              <div class="owner-avatar me-3">${initial}</div>
+              <div>
+                <h5 class="mb-0">${owner.owner_name}</h5>
+                <small class="text-muted">${owner.livestock.length} livestock</small>
+              </div>
+            </div>
+          </button>
+        </h2>
+        <div id="${collapseId}" class="accordion-collapse collapse">
+          <div class="accordion-body bg-light">
+            <div class="table-responsive">
+              <table class="table table-hover bg-white">
+                <thead>
+                  <tr>
+                    <th>Species</th>
+                    <th>Breed</th>
+                    <th>Sex</th>
+                    <th>QR Code</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>${rows}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }).join("");
+}
 
-      document.addEventListener("click", (e) => {
-        if (!e.target.closest("#ownerName")) {
-          dropdown.style.display = "none";
-        }
-      });
-    </script>
-    <script>
-      let livestockData = [];
-      let currentQRData = "";
+  // ─── QR Modal ────────────────────────────────────────────
+  let currentQRSrc = "";
+  function showQRModal(qrPath) {
+    currentQRSrc = `${BASE_PATH}/${qrPath}`;
+    document.getElementById("qrModalImage").src = currentQRSrc;
+    new bootstrap.Modal(document.getElementById("qrModal")).show();
+  }
 
-      function calculateAge(dob) {
-        const birthDate = new Date(dob);
-        const today = new Date();
-        let years = today.getFullYear() - birthDate.getFullYear();
-        let months = today.getMonth() - birthDate.getMonth();
+  function downloadQR() {
+    const link = document.createElement("a");
+    link.download = "livestock_qr_code.png";
+    link.href = currentQRSrc;
+    link.click();
+  }
 
-        if (months < 0) {
-          years--;
-          months += 12;
-        }
+  // ─── Delete ───────────────────────────────────────────────
+  async function deleteLivestock(id) {
+    if (!confirm("Are you sure you want to delete this livestock?")) return;
+    try {
+      await fetch(`${BASE_PATH}/helper/deleteLiveStock.php?id=${id}`);
+      await loadLivestock();
+    } catch (err) {
+      console.error("Delete error:", err);
+    }
+  }
 
-        if (years > 0) {
-          return `${years} year${years > 1 ? "s" : ""}`;
-        } else {
-          return `${months} month${months > 1 ? "s" : ""}`;
-        }
-      }
-      function generateQRCode(data) {
-        const qrData = JSON.stringify(data);
-        const qrDiv = document.createElement("div");
-        qrDiv.style.display = "none";
-        document.body.appendChild(qrDiv);
+  // ─── Edit (placeholder) ───────────────────────────────────
+  function editLivestock(index) {
+    const item = allLivestockData[index];
+    if (!item) return;
+    // populate modal fields here if needed
+    console.log("Edit:", item);
+  }
 
-        const qr = new QRCode(qrDiv, {
-          text: qrData,
-          width: 200,
-          height: 200,
-          colorDark: "#115d33",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.H,
-        });
+  // ─── Search ───────────────────────────────────────────────
+  document.getElementById("searchInput").addEventListener("input", function () {
+    const term = this.value.toLowerCase();
+    const filtered = allLivestockData.filter(item =>
+      (item.owner_name ?? "").toLowerCase().includes(term) ||
+      item.species.toLowerCase().includes(term) ||
+      item.breed.toLowerCase().includes(term) ||
+      item.sex.toLowerCase().includes(term)
+    );
+    renderTable(filtered);
+  });
 
-        setTimeout(() => {
-          const img = qrDiv.querySelector("img");
-          const qrCodeURL = img.src;
-          document.body.removeChild(qrDiv);
-          data.qrCode = qrCodeURL;
-          renderTable();
-        }, 100);
-      }
-
-      // Show alert message
-      function showAlert(message, type = "success") {
-        const alertContainer = document.getElementById("alertContainer");
-        const alert = document.createElement("div");
-        alert.className = `alert alert-${type} alert-dismissible fade show`;
-        alert.innerHTML = `
-                ${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
-        alertContainer.appendChild(alert);
-
-        setTimeout(() => {
-          alert.remove();
-        }, 5000);
-      }
-       async function showLivelihood(){
-          const res = await fetch("../../helper/getLiveStock.php")
-          const j = await res.json();
-          console.log(j)
-          renderTabledata(j.data)
-      }
-      // Show QR Modal
-
-      // Render table
-      function renderTabledata(data) {
-        const tbody = document.getElementById("livestockTableBody");
-        if (data.length === 0) {
-          tbody.innerHTML =
-            '<tr><td colspan="7" class="text-center text-muted py-5">No livestock data available. Click "Add Livestock" to get started.</td></tr>';
-          return;
-        }
-
-        tbody.innerHTML = data
-          .map(
-            (item, index) => `
-                <tr>
-                    <td>${item.firstName} ${item.middleName} ${item.surname}</td>
-                    <td>${item.species}</td>
-                    <td>${item.breed}</td>
-                    <td>${item.sex}</td>
-                    <td class="qr-code-cell">
-                        ${
-                          item.qr_code
-                            ? `<img src="../../${item.qr_code}" class="qr-code-img" onclick="showQRModal('${item.qr_code}')" alt="QR Code">`
-                            : "Generating..."
-                        }
-                    </td>
-                    <td>
-                        <button class="action-btn btn-edit" 
-                        data-bs-toggle="modal"
-          data-bs-target="#addLivestockModal"
-          onclick="editLivestock(${index})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn btn-delete" onclick="deleteLivestock(${item.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `
-          )
-          .join("");
-      }
-
-      showLivelihood()
-      function showQRModal(index) {
-        document.getElementById("qrModalImage").src = `../../${index}`;
-        new bootstrap.Modal(document.getElementById("qrModal")).show();
-      }
-
-      // Download QR Code
-      function downloadQR() {
-        const link = document.createElement("a");
-        link.download = "livestock_qr_code.png";
-        link.href = currentQRData;
-        link.click();
-      }
-
-      // Add livestock
-      document
-        .getElementById("addLivestockForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          const newLivestock = {
-            id: Date.now(),
-            ownerName: document.getElementById("ownerName").value,
-            species: document.getElementById("species").value,
-            breed: document.getElementById("breed").value,
-            sex: document.getElementById("sex").value,
-            dob: document.getElementById("dob").value,
-            age: calculateAge(document.getElementById("dob").value),
-            qrCode: null,
-          };
-
-          livestockData.push(newLivestock);
-          generateQRCode(newLivestock);
-
-          this.reset();
-          showAlert("Livestock added successfully!");
-        });
-
-      // Delete livestock
-      async function deleteLivestock(id) {
-        if (confirm("Are you sure you want to delete this livestock?")) {
-          const res = await fetch(`../../helper/deleteLiveStock.php?id=${id}`)
-          showLivelihood();
-          showAlert("Livestock deleted successfully!", "warning");
-        }
-      }
-
-      // Search functionality
-      document
-        .getElementById("searchInput")
-        .addEventListener("input", function (e) {
-          const searchTerm = e.target.value.toLowerCase();
-          const filtered = livestockData.filter(
-            (item) =>
-              item.ownerName.toLowerCase().includes(searchTerm) ||
-              item.species.toLowerCase().includes(searchTerm) ||
-              item.breed.toLowerCase().includes(searchTerm) ||
-              item.sex.toLowerCase().includes(searchTerm)
-          );
-          renderTabledata(filtered);
-          
-            const accordionItems = document.querySelectorAll('.accordion-item');
-
-            accordionItems.forEach(item => {
-                const ownerName = item.querySelector('.accordion-button h5').textContent.toLowerCase();
-                const tableRows = item.querySelectorAll('tbody tr');
-                let hasMatch = ownerName.includes(searchTerm);
-
-                tableRows.forEach(row => {
-                    const species = row.cells[0].textContent.toLowerCase();
-                    const breed = row.cells[1].textContent.toLowerCase();
-                    
-                    if (species.includes(searchTerm) || breed.includes(searchTerm)) {
-                        hasMatch = true;
-                        row.style.display = '';
-                    } else if (searchTerm !== '') {
-                        row.style.display = 'none';
-                    } else {
-                        row.style.display = '';
-                    }
-                });
-
-                item.style.display = hasMatch ? '' : 'none';
-            });
-        });
-
-      // Edit livestock (placeholder)
-      function editLivestock(index) {}
-
-      // Initialize
-    
-      
-    </script>
+  // ─── Init ─────────────────────────────────────────────────
+  loadLivestock();
+</script>
     <script src="../../assets/scripts/sidebar.js"></script>
   </body>
 </html>
