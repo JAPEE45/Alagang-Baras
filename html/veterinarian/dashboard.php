@@ -150,12 +150,12 @@ $needsAttention = $attentionStmt->fetch()['count'];
         </div>
       </div>
 
-      <div class="chart-card">
+      <!-- <div class="chart-card">
         <h2 class="chart-title">Animal Health by Barangay</h2>
         <div class="chart-wrapper">
           <canvas id="barChart"></canvas>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- <div class="table-container">

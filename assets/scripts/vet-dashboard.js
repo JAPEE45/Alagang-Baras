@@ -82,74 +82,74 @@ const donutChart = new Chart(donutCtx, {
 });
 
 // Bar Chart
-const barCtx = document.getElementById("barChart").getContext("2d");
-const barChart = new Chart(barCtx, {
-  type: "bar",
-  data: {
-    labels: ["CBS", "Poblacion", "San Jose", "Riverside"],
-    datasets: [
-      {
-        label: "Healthy",
-        data: [0.4, 0.7, 1.5, 2.5, 0.7],
-        backgroundColor: "#5fc58f",
-        borderRadius: 6,
-      },
-      {
-        label: "Sick",
-        data: [0, 0.4, 0, 0, 0],
-        backgroundColor: "#f08080",
-        borderRadius: 6,
-      },
-    ],
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 3,
-        ticks: {
-          stepSize: 1,
-          font: {
-            size: 12,
-          },
-        },
-        title: {
-          display: true,
-          text: "Number of Animals",
-          font: {
-            size: 12,
-          },
-        },
-      },
-      x: {
-        title: {
-          display: true,
-          text: "Barangay",
-          font: {
-            size: 12,
-          },
-        },
-        ticks: {
-          font: {
-            size: 12,
-          },
-        },
-      },
-    },
-    plugins: {
-      legend: {
-        position: "bottom",
-        labels: {
-          usePointStyle: true,
-          pointStyle: "circle",
-          padding: 20,
-          font: {
-            size: 14,
-          },
-        },
-      },
-    },
-  },
-});
+// const barCtx = document.getElementById("barChart").getContext("2d");
+// const barChart = new Chart(barCtx, {
+//   type: "bar",
+//   data: {
+//     labels: ["CBS", "Poblacion", "San Jose", "Riverside"],
+//     datasets: [
+//       {
+//         label: "Healthy",
+//         data: [0.4, 0.7, 1.5, 2.5, 0.7],
+//         backgroundColor: "#5fc58f",
+//         borderRadius: 6,
+//       },
+//       {
+//         label: "Sick",
+//         data: [0, 0.4, 0, 0, 0],
+//         backgroundColor: "#f08080",
+//         borderRadius: 6,
+//       },
+//     ],
+//   },
+//   options: {
+//     responsive: true,
+//     maintainAspectRatio: false,
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//         max: 3,
+//         ticks: {
+//           stepSize: 1,
+//           font: {
+//             size: 12,
+//           },
+//         },
+//         title: {
+//           display: true,
+//           text: "Number of Animals",
+//           font: {
+//             size: 12,
+//           },
+//         },
+//       },
+//       x: {
+//         title: {
+//           display: true,
+//           text: "Barangay",
+//           font: {
+//             size: 12,
+//           },
+//         },
+//         ticks: {
+//           font: {
+//             size: 12,
+//           },
+//         },
+//       },
+//     },
+//     plugins: {
+//       legend: {
+//         position: "bottom",
+//         labels: {
+//           usePointStyle: true,
+//           pointStyle: "circle",
+//           padding: 20,
+//           font: {
+//             size: 14,
+//           },
+//         },
+//       },
+//     },
+//   },
+// });
